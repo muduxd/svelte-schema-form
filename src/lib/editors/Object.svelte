@@ -23,16 +23,16 @@
 	$: showLegend = params.collapsible || (params.containerParent !== 'array' && !!legendText);
 </script>
 
-<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length}">
+<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} flex flex-col gap-[5px]">
 	{#if showLegend }
 	<legend class="subset-label object-label">
 		{#if params.collapsible }
-		<span class="collapser {collapserOpenState}" on:click={toggle}></span>
+			<span class="collapser {collapserOpenState}" on:click={toggle}></span>
 		{/if}
 		{#if params.containerParent !== "array" || schema.title}
-		<span class="subset-label-title object-label-title">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
+			<span class="subset-label-title object-label-title">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
 			{#if schema.description}
-			<span class="subset-label-description object-label-description">{@html stringToHtml(schema.description)}</span>
+				<span class="subset-label-description object-label-description">{@html stringToHtml(schema.description)}</span>
 			{/if}
 		{/if}
 	</legend>

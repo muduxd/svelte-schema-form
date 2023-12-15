@@ -22,7 +22,7 @@ $:
 </script>
 
 {#if showWrapper}
-<fieldset name={params.path.join('.')} class="subset array depth-{params.path.length}">
+<fieldset name={params.path.join('.')} class="subset array depth-{params.path.length} flex flex-col gap-[5px]">
 	{#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
 		{#if params.collapsible }

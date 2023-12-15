@@ -115,6 +115,6 @@
 <form class='svelte-schema-form' {action} class:dirty>
 	<SchemaForm bind:schema {value} on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
 	<div class="button-container flex justify-center">
-		<button type={action ? "submit" : "button"} class="submit-button btn variant-filled-primary !text-white" on:click={submit} class:dirty={dirty}>{submitText}</button>
+		<button type={action ? "submit" : "button"} class="submit-button btn variant-filled-primary !text-white mt-5" on:click={submit} class:dirty={dirty}>{submitText}</button>
 	</div>
 </form>
