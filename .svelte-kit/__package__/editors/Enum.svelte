@@ -17,9 +17,9 @@ $:
 		class="select"
 		disabled={schema.readOnly || params.containerReadOnly}
 		on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}>
-		<option></option>
+		
 		{#each enumVals as enumVal, idx}
-		<option value={enumVal}>{(enumText || [])[idx]}</option>
+			<option value={enumVal}>{(enumText || [])[idx]}</option>
 		{/each}
 	</select>
 </svelte:component>

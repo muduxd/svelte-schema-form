@@ -247,7 +247,7 @@ const String = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   }
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} class="input"${add_attribute("type", type2, 0)}${add_attribute("value", value || "", 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
+      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} class="input px-4 py-2"${add_attribute("type", type2, 0)}${add_attribute("value", value || "", 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
 });
@@ -334,7 +334,7 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   enumText = schema.enumText || schema.enum;
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<select${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("value", value, 0)} class="select" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}><option value=""></option>${each(enumVals, (enumVal, idx) => {
+      return `<select${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("value", value, 0)} class="select" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>${each(enumVals, (enumVal, idx) => {
         return `<option${add_attribute("value", enumVal, 0)}>${escape((enumText || [])[idx])}</option>`;
       })}</select>`;
     }
@@ -420,7 +420,7 @@ const Number = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.value(value);
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} class="input" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
+      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} class="input px-4 py-2" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
 });
@@ -1039,10 +1039,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       },
       {}
-    )} <div class="button-container"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
-      "submit-button mx-auto btn variant-filled-primary !text-white",
-      dirty ? "dirty" : ""
-    ].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
+    )} <div class="button-container flex justify-center"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${["submit-button btn variant-filled-primary !text-white", dirty ? "dirty" : ""].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();
   return $$rendered;
