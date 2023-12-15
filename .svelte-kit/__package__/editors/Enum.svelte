@@ -13,12 +13,12 @@ $:
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
 	<select id={params.path.join('.')}
 		name={params.path.join('.')}
-		value={value}
-		class="select" 
+		value={value} 
 		disabled={schema.readOnly || params.containerReadOnly}
 		on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}>
+		<option></option>
 		{#each enumVals as enumVal, idx}
-			<option value={enumVal} selected={idx === 0}>{(enumText || [])[idx]}</option>
+		<option value={enumVal}>{(enumText || [])[idx]}</option>
 		{/each}
 	</select>
 </svelte:component>
