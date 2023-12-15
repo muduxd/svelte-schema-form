@@ -1,4 +1,4 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, d as add_classes, e as escape, f as each, g as getContext, a as subscribe, h as add_styles, i as createEventDispatcher, s as setContext, j as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, g as getContext, a as subscribe, f as add_classes, h as add_styles, i as createEventDispatcher, s as setContext, j as set_store_value } from "../../chunks/ssr.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
@@ -262,7 +262,10 @@ const FieldWrapper = create_ssr_component(($$result, $$props, $$bindings, slots)
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
     $$bindings.schema(schema);
   error = params.validationErrors[params.path.join(".")];
-  return `${params.containerParent !== "array" ? `<label${add_attribute("id", `label-${id}`, 0)}${add_attribute("for", id, 0)}${add_classes(((params.required ? "required" : "") + " " + (schema.readOnly || params.containerReadOnly ? "readonly" : "")).trim())}><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error && params.showErrors ? `<div class="error">${escape(error)}</div>` : ``}`;
+  return `${params.containerParent !== "array" ? `<label${add_attribute("id", `label-${id}`, 0)}${add_attribute("for", id, 0)} class="${[
+    "label",
+    (params.required ? "required" : "") + " " + (schema.readOnly || params.containerReadOnly ? "readonly" : "")
+  ].join(" ").trim()}"><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error && params.showErrors ? `<div class="error">${escape(error)}</div>` : ``}`;
 });
 const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let propNames;
@@ -756,7 +759,7 @@ const Radio = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
       return `<div role="radiogroup" class="group-container"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}>${each(enumVals, (enumVal, idx) => {
-        return `<input class="sr-only" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", enumVal, 0)}${add_attribute("name", id, 0)} ${enumVal === value ? "checked" : ""}> <label${add_attribute("for", `${id}-${idx}`, 0)}>${escape((enumText || [])[idx])} </label>`;
+        return `<input class="sr-only" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", enumVal, 0)}${add_attribute("name", id, 0)} ${enumVal === value ? "checked" : ""}> <label${add_attribute("for", `${id}-${idx}`, 0)} class="label">${escape((enumText || [])[idx])} </label>`;
       })}</div>`;
     }
   })}`;
@@ -1036,7 +1039,10 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       },
       {}
-    )} <div class="button-container"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${["submit-button", dirty ? "dirty" : ""].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
+    )} <div class="button-container"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
+      "submit-button mx-auto btn variant-filled-primary !text-white",
+      dirty ? "dirty" : ""
+    ].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();
   return $$rendered;

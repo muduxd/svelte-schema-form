@@ -27,7 +27,7 @@
 		value={enumVal}
 		name={id}
 		checked={enumVal === value}/>
-		<label for={`${id}-${idx}`}> {(enumText || [])[idx]} </label>
+		<label for={`${id}-${idx}`} class="label"> {(enumText || [])[idx]} </label>
 	{/each}
 	</div>
 </svelte:component>
