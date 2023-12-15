@@ -1,4 +1,4 @@
-<script>import { emptyValue, schemaLabel } from "../types/schema.ts";
+<script>import { emptyValue, schemaLabel } from "../types/schema";
 import SubSchemaForm from "../SubSchemaForm.svelte";
 import { stringToHtml } from "../utilities.js";
 import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate } from "../arrayOps";

@@ -1,4 +1,4 @@
-<script>import { schemaLabel } from "../types/schema.ts";
+<script>import { schemaLabel } from "../types/schema";
 import { stringToHtml } from "../utilities.js";
 export let params;
 export let schema;

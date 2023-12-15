@@ -1,4 +1,4 @@
-<script>import { editorForSchema } from "../types/schema.ts";
+<script>import { editorForSchema } from "../types/schema";
 export let params;
 export let schema;
 export let value;

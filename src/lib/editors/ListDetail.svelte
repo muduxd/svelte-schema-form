@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
-	import { emptyValue, schemaLabel } from "../types/schema.ts";
+	import { emptyValue, schemaLabel } from "../types/schema";
 	import SubSchemaForm from "../SubSchemaForm.svelte";
     import { stringToHtml } from "../utilities.js";
     import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate } from "../arrayOps";
