@@ -1,5 +1,5 @@
 import { SvelteComponent } from "svelte";
-import type { CommonComponentParameters } from "../types/CommonComponentParameters";
+import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 declare const __propDef: {
     props: {
         params: CommonComponentParameters;

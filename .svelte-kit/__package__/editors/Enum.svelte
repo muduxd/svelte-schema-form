@@ -19,7 +19,7 @@ $:
 		on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}>
 		
 		{#each enumVals as enumVal, idx}
-			<option value={enumVal}>{(enumText || [])[idx]}</option>
+			<option value={enumVal} selected={idx === 0}>{(enumText || [])[idx]}</option>
 		{/each}
 	</select>
 </svelte:component>

@@ -1,5 +1,4 @@
-<script>import { editorForSchema } from "../types/schema";
-export let params;
+<script>export let params;
 export let schema;
 export let value;
 let type = "text";

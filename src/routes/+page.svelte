@@ -7,7 +7,7 @@
 		type: "object",
 		properties: {
 			something: { type: "string", maxLength: 5, description: "description for something" },
-			amount: { type: "number" },
+			amount: { type: "number", value: 10 },
 			choose: { type: "string", enum: [ "a", "b", "c" ] },
 			checkThis: { type: "boolean" },
 			things: {
@@ -44,29 +44,13 @@
 		required: [ "amount" ],
 		pathPattern: "item_${amount}"
 	};
-	let storedSchema = undefined;
-	if (typeof window !== 'undefined') {
-		storedSchema = window.localStorage.getItem('schema');
-		if (storedSchema) schema = JSON.parse(storedSchema);
-	}
+
 	let jsonInvalid = false;
 
 	let value = { };
 	let valueJson = '';
 	let collapsible = false;
 
-	const schemaUpdate = (ev: any) => {
-		const newSchema = ev.currentTarget.value;
-		try {
-			schema = JSON.parse(newSchema);
-			jsonInvalid = false;
-			if (typeof window !== 'undefined') {
-				window.localStorage.setItem('schema', newSchema);
-			}
-		} catch {
-			jsonInvalid = true;
-		}
-	}
 
 	const submit = (e: CustomEvent) => {
 		valueJson = JSON.stringify(e.detail.value, undefined, 2).trim();
@@ -87,7 +71,7 @@
 			<input type="checkbox" id="collapsible" bind:checked={collapsible} />
 			<label for="collapsible">Collapsible</label>
 		</div>
-		<textarea id="schema" on:keyup={schemaUpdate}>{JSON.stringify(schema, undefined, 2)}</textarea>
+		<textarea id="schema">test {JSON.stringify(schema, undefined, 2)}</textarea>
 	</div>
 	<div class="form">
 		<SubmitForm {schema} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />

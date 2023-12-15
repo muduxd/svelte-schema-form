@@ -1,4 +1,4 @@
-<script>import { editorForSchema } from "../types/schema";
+<script>import { editorForSchema } from "../types/schema.ts";
 export let params;
 export let schema;
 export let value;
@@ -14,5 +14,6 @@ $: {
 	<input id={params.path.join('.')} name={params.path.join('.')} placeholder={params.path.join('.')} class="input px-4 py-2"
 		type={type} value={value || ''}
 		disabled={schema.readOnly || params.containerReadOnly}
-		on:input={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)} />
+		on:input={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)} 
+	/>
 </svelte:component>

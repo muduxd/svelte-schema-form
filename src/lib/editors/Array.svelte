@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CommonComponentParameters } from "../types/CommonComponentParameters";
+	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 	import { emptyValue, schemaLabel } from "../types/schema.js";
 	import SubSchemaForm from "../SubSchemaForm.svelte";
     import { stringToHtml } from "../utilities.js";

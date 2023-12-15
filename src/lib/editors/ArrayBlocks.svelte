@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CommonComponentParameters } from "../types/CommonComponentParameters";
+	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 	import { emptyValue } from "../types/schema";
 	import SubSchemaForm from "../SubSchemaForm.svelte";
 	import _, { max } from "lodash-es";

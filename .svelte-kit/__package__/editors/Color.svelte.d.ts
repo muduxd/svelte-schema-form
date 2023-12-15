@@ -11,9 +11,9 @@ declare const __propDef: {
     };
     slots: {};
 };
-export type StringProps = typeof __propDef.props;
-export type StringEvents = typeof __propDef.events;
-export type StringSlots = typeof __propDef.slots;
-export default class String extends SvelteComponent<StringProps, StringEvents, StringSlots> {
+export type ColorProps = typeof __propDef.props;
+export type ColorEvents = typeof __propDef.events;
+export type ColorSlots = typeof __propDef.slots;
+export default class Color extends SvelteComponent<ColorProps, ColorEvents, ColorSlots> {
 }
 export {};

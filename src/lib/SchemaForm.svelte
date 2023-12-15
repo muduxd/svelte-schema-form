@@ -14,6 +14,7 @@
 	import Array from './editors/Array.svelte';
 	import { incr, nullOptionalsAllowed } from './utilities.js';
 	import Boolean from './editors/Boolean.svelte';
+	import Color from './editors/Color.svelte';
 	import Number from './editors/Number.svelte';
 	import { errorMapper } from "./errorMapper";
 	import Upload from "./editors/Upload.svelte";
@@ -69,6 +70,7 @@
 			"date-time": String,
 			date: String,
 			number: Number,
+			color: Color,
 			integer: Number,
 			boolean: Boolean,
 			fieldWrapper: FieldWrapper,

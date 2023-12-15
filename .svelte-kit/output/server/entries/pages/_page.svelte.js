@@ -335,7 +335,7 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
       return `<select${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("value", value, 0)} class="select" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>${each(enumVals, (enumVal, idx) => {
-        return `<option${add_attribute("value", enumVal, 0)}>${escape((enumText || [])[idx])}</option>`;
+        return `<option${add_attribute("value", enumVal, 0)} ${idx === 0 ? "selected" : ""}>${escape((enumText || [])[idx])}</option>`;
       })}</select>`;
     }
   })}`;
@@ -405,6 +405,22 @@ const Boolean = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
       return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="checkbox" ${value || false ? "checked" : ""} class="checkbox" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
+    }
+  })}`;
+});
+const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { params } = $$props;
+  let { schema } = $$props;
+  let { value } = $$props;
+  if ($$props.params === void 0 && $$bindings.params && params !== void 0)
+    $$bindings.params(params);
+  if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
+    $$bindings.schema(schema);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
+  return `${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
+    default: () => {
+      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="color"${add_attribute("value", value || "", 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
 });
@@ -865,6 +881,7 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
           "date-time": String,
           date: String,
           number: Number,
+          color: Color,
           integer: Number,
           boolean: Boolean,
           fieldWrapper: FieldWrapper,
@@ -1060,7 +1077,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         maxLength: 5,
         description: "description for something"
       },
-      amount: { type: "number" },
+      amount: { type: "number", value: 10 },
       choose: { type: "string", enum: ["a", "b", "c"] },
       checkThis: { type: "boolean" },
       things: { type: "array", items: { type: "string" } },
@@ -1085,18 +1102,12 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     required: ["amount"],
     pathPattern: "item_${amount}"
   };
-  let storedSchema = void 0;
-  if (typeof window !== "undefined") {
-    storedSchema = window.localStorage.getItem("schema");
-    if (storedSchema)
-      schema = JSON.parse(storedSchema);
-  }
   let value = {};
   let valueJson = "";
   let collapsible = false;
   const componentContext = { currencySymbol: "£" };
   $$result.css.add(css);
-  return `<div class="container svelte-1p0h1dm"><div class="${["schema svelte-1p0h1dm", ""].join(" ").trim()}"><div class="control svelte-1p0h1dm"><input type="checkbox" id="collapsible" class="svelte-1p0h1dm"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1p0h1dm" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1p0h1dm">${escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1p0h1dm">${validate_component(SubmitForm, "SubmitForm").$$render(
+  return `<div class="container svelte-1p0h1dm"><div class="${["schema svelte-1p0h1dm", ""].join(" ").trim()}"><div class="control svelte-1p0h1dm"><input type="checkbox" id="collapsible" class="svelte-1p0h1dm"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1p0h1dm" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1p0h1dm">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1p0h1dm">${validate_component(SubmitForm, "SubmitForm").$$render(
     $$result,
     {
       schema,

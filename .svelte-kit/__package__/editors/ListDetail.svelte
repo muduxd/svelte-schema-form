@@ -1,8 +1,7 @@
-<script>import { emptyValue, schemaLabel } from "../types/schema";
+<script>import { emptyValue, schemaLabel } from "../types/schema.ts";
 import SubSchemaForm from "../SubSchemaForm.svelte";
 import { stringToHtml } from "../utilities.js";
 import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate } from "../arrayOps";
-import { values } from "lodash-es";
 import { tick } from "svelte";
 export let params;
 export let schema;
