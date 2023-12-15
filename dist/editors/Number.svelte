@@ -6,7 +6,7 @@ export let value;
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
 	<input id={params.path.join('.')} name={params.path.join('.')}
-		type="number" value={value || ''}
+		type="number" value={value || ''} class="input"
 		disabled={schema.readOnly || params.containerReadOnly}
 		on:input={ev => {
 			let val = parseFloat(ev.currentTarget.value);

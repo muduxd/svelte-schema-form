@@ -331,7 +331,7 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   enumText = schema.enumText || schema.enum;
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<select${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("value", value, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}><option value=""></option>${each(enumVals, (enumVal, idx) => {
+      return `<select${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("value", value, 0)} class="select" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}><option value=""></option>${each(enumVals, (enumVal, idx) => {
         return `<option${add_attribute("value", enumVal, 0)}>${escape((enumText || [])[idx])}</option>`;
       })}</select>`;
     }
@@ -417,7 +417,7 @@ const Number = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.value(value);
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
+      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} class="input" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
 });
@@ -510,7 +510,7 @@ const TextArea = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   $$result.css.add(css$1);
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<textarea${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""} class="svelte-vofknr">${escape(value || "", false)}</textarea>`;
+      return `<textarea${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} class="textarea svelte-vofknr" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>${escape(value || "", false)}</textarea>`;
     }
   })}`;
 });
