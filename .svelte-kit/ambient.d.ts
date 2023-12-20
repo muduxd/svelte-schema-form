@@ -68,6 +68,7 @@ declare module '$env/static/private' {
 	export const MSYSTEM_CHOST: string;
 	export const MSYSTEM_PREFIX: string;
 	export const NODE: string;
+	export const NODE_ENV: string;
 	export const NODE_EXE: string;
 	export const NPM_CLI_JS: string;
 	export const npm_command: string;
@@ -142,9 +143,6 @@ declare module '$env/static/private' {
 	export const VSCODE_INJECTION: string;
 	export const VSCODE_NONCE: string;
 	export const WINDIR: string;
-	export const WSLENV: string;
-	export const WT_PROFILE_ID: string;
-	export const WT_SESSION: string;
 	export const ZES_ENABLE_SYSMAN: string;
 	export const _: string;
 }
@@ -220,6 +218,7 @@ declare module '$env/dynamic/private' {
 		MSYSTEM_CHOST: string;
 		MSYSTEM_PREFIX: string;
 		NODE: string;
+		NODE_ENV: string;
 		NODE_EXE: string;
 		NPM_CLI_JS: string;
 		npm_command: string;
@@ -294,9 +293,6 @@ declare module '$env/dynamic/private' {
 		VSCODE_INJECTION: string;
 		VSCODE_NONCE: string;
 		WINDIR: string;
-		WSLENV: string;
-		WT_PROFILE_ID: string;
-		WT_SESSION: string;
 		ZES_ENABLE_SYSMAN: string;
 		_: string;
 		[key: `PUBLIC_${string}`]: undefined;

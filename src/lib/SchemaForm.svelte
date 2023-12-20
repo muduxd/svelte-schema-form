@@ -39,23 +39,6 @@
 
 	let validationErrors = {} as ValidationErrors;
 
-	const revalidate = (newValue?: any) => {
-		const validate = validator(nullOptionalsAllowed(schema), { includeErrors: true, allErrors: true, allowUnusedKeywords: true });
-		const validatorResult = validate(newValue || value);
-		validationErrors = Object.fromEntries(
-			(validate.errors || []).map(ve => errorMapper(schema, value, ve.keywordLocation, ve.instanceLocation))
-		);
-	}
-
-	onMount(() => {
-		revalidate();
-		if (Object.keys(validationErrors).length > 0) {
-			// set initial errors
-			dispatch('value', {
-				path: [], value, errors: validationErrors
-			});
-		}
-	});
 
 	let params: CommonComponentParameters;
 	$: params = {
@@ -124,7 +107,6 @@
 			}
 		}
 
-		revalidate(params.value);
 
 		const succeeded = dispatch('value', {
 			path, pathValue: val, value: params.value, errors: validationErrors, op
@@ -136,9 +118,7 @@
 		if (succeeded) {
 			value = params.value;
 			dirty = true;
-		} else {
-			revalidate(value);
-		}
+		} 
 		return val;
 	};
 </script>

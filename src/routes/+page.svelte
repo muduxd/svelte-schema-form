@@ -7,7 +7,8 @@
 		type: "object",
 		properties: {
 			something: { type: "string", maxLength: 5, description: "description for something" },
-			amount: { type: "number", value: 10 },
+			amount: { type: "number" },
+			test: { type: "color" },
 			choose: { type: "string", enum: [ "a", "b", "c" ] },
 			checkThis: { type: "boolean" },
 			things: {
