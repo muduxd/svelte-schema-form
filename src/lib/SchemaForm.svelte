@@ -112,13 +112,12 @@
 			path, pathValue: val, value: params.value, errors: validationErrors, op
 		}, { cancelable: true });
 
-		console.log(`dispatch value path: ${path.join('.')} val: ${JSON.stringify(val)},${op ? " op: " + op : ''} errors: ${JSON.stringify(validationErrors)}, succeeded: ${succeeded}`);
+		console.log(`dispatch value path: ${path.join('.')} val: ${JSON.stringify(val)},${op ? " op: " + op : ''} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
 
 		// update if value event not cancelled.
-		if (succeeded) {
-			value = params.value;
-			dirty = true;
-		} 
+		value = params.value;
+		dirty = true;
+
 		return val;
 	};
 </script>
