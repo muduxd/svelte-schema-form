@@ -9,15 +9,13 @@ import set from "lodash-es/set";
 import get from "lodash-es/get";
 import { validator } from "@exodus/schemasafe";
 import { FileNone } from "./types/CommonComponentParameters";
-import { errorMapper } from "./errorMapper";
-import { incr, nullOptionalsAllowed } from "./utilities.js";
-
-
 import Enum from "./editors/Enum.svelte";
 import Array from "./editors/Array.svelte";
+import { incr, nullOptionalsAllowed } from "./utilities.js";
 import Boolean from "./editors/Boolean.svelte";
 import Color from "./editors/Color.svelte";
 import Number from "./editors/Number.svelte";
+import { errorMapper } from "./errorMapper";
 import Upload from "./editors/Upload.svelte";
 import TextArea from "./editors/TextArea.svelte";
 import ArrayBlocks from "./editors/ArrayBlocks.svelte";
@@ -26,7 +24,6 @@ import Hidden from "./editors/Hidden.svelte";
 import ListDetail from "./editors/ListDetail.svelte";
 import Currency from "./editors/Currency.svelte";
 import Radio from "./editors/Radio.svelte";
-
 export let schema;
 export let value;
 export let uploadFiles = {};
@@ -37,8 +34,6 @@ export let components = {};
 export let componentContext = {};
 const dispatch = createEventDispatcher();
 let validationErrors = {};
-
-
 let params;
 $:
   params = {
@@ -103,13 +98,9 @@ const pathChanged = (path, val, op) => {
       set(params.value, path, val);
     }
   }
-
-  console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: ${succeeded}`);
-  if (succeeded) {
-    value = params.value;
-    dirty = true;
-  } 
-
+  console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
+  value = params.value;
+  dirty = true;
   return val;
 };
 </script>

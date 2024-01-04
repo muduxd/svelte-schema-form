@@ -2,7 +2,7 @@ import { c as create_ssr_component, v as validate_component, m as missing_compon
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
-import { validator } from "@exodus/schemasafe";
+import "@exodus/schemasafe";
 import "@exodus/schemasafe/src/pointer.js";
 import { w as writable } from "../../chunks/index.js";
 const upTo = (str, match, start) => {
@@ -32,77 +32,6 @@ function camelToWords(camel) {
 }
 function camelToTitle(camel) {
   return camelToWords(camel).replace(/[a-z]/i, (ltr) => ltr.toUpperCase());
-}
-function nullOptionalsAllowed(schema) {
-  if (schema === null || schema === void 0)
-    schema = {};
-  let newSchema = deepCopy(schema);
-  nullOptionalsAllowedApply(newSchema);
-  return newSchema;
-}
-function nullOptionalsAllowedApply(schema) {
-  let req = schema["required"] || [];
-  if (schema["$ref"])
-    return;
-  switch (schema["type"]) {
-    case "object":
-      const properties = schema["properties"] || {};
-      for (let prop in properties) {
-        if (req.indexOf(prop) < 0) {
-          nullOptionalsAllowedApply(properties[prop]);
-        }
-      }
-      break;
-    case "array":
-      const items = schema["items"] || {};
-      nullOptionalsAllowedApply(items);
-      if (items["oneOf"] && !items["oneOf"].some((subschema) => subschema["type"] == "null")) {
-        items["oneOf"].push({ type: "null" });
-      }
-      break;
-    default:
-      if (Array.isArray(schema["type"])) {
-        if (schema["type"].indexOf("null") < 0) {
-          schema["type"].push("null");
-        }
-      } else if (schema["type"] != "null") {
-        schema["type"] = [schema["type"], "null"];
-      }
-      break;
-  }
-  const defns = schema["definitions"];
-  if (defns) {
-    for (let defn in defns) {
-      nullOptionalsAllowedApply(defns[defn]);
-    }
-  }
-}
-function deepCopy(obj) {
-  var copy;
-  if (null == obj || "object" != typeof obj)
-    return obj;
-  if (obj instanceof Date) {
-    copy = /* @__PURE__ */ new Date();
-    copy.setTime(obj.getTime());
-    return copy;
-  }
-  if (obj instanceof Array) {
-    copy = [];
-    for (var i = 0, len = obj.length; i < len; i++) {
-      copy[i] = deepCopy(obj[i]);
-    }
-    return copy;
-  }
-  if (obj instanceof Object) {
-    copy = {};
-    const recObj = obj;
-    for (var attr in recObj) {
-      if (recObj.hasOwnProperty(attr))
-        copy[attr] = deepCopy(recObj[attr]);
-    }
-    return copy;
-  }
-  throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 let incrVal = 0;
 const incr = () => incrVal++;
@@ -172,28 +101,6 @@ function editorForSchema(schema) {
 }
 function schemaLabel(schema, path) {
   return schema.title || camelToTitle(path.slice(-1)?.[0] || "");
-}
-function jsonPointerToPath(pointer) {
-  if (pointer.startsWith("/")) {
-    pointer = pointer.substring(1);
-  } else if (pointer.startsWith("#/")) {
-    pointer = pointer.substring(2);
-  } else if (pointer.startsWith("http")) {
-    pointer = pointer.split("#/")?.[1] || "";
-  }
-  const pathEls = [];
-  pointer.split("/").forEach((el) => {
-    const int = parseInt(el);
-    if (isNaN(int)) {
-      pathEls.push(`.${el}`);
-    } else {
-      pathEls.push(`[${el}]`);
-    }
-  });
-  let path = pathEls.join("");
-  if (path.startsWith("."))
-    path = path.substring(1);
-  return path;
 }
 const SubSchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
@@ -420,7 +327,7 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.value(value);
   return `${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="color"${add_attribute("value", value || "", 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
+      return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="color"${add_attribute("value", value || "", 0)} class="input" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
 });
@@ -440,34 +347,6 @@ const Number = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-function errorMapper(schema, value, keywordLocation, instanceLocation) {
-  const location2 = jsonPointerToPath(instanceLocation);
-  const keyword = afterLast(keywordLocation, "/");
-  const keyValue = jsonPointerToPath(keywordLocation);
-  switch (keyword) {
-    case "required":
-      return [location2, "Please enter a value for this item"];
-    case "minimum":
-      return [location2, `Please enter a number at least ${keyValue}`];
-    case "maximum":
-      return [location2, `Please enter a number at most ${keyValue}`];
-    case "minLength":
-      return [location2, `Please enter text of at least ${keyValue} characters`];
-    case "maxLength":
-      return [location2, `Please enter text no longer than ${keyValue} characters`];
-    case "pattern":
-      return [location2, `Please enter properly formatted value`];
-    case "format":
-      const valMap = {
-        "date-time": "date and time",
-        time: "time",
-        date: "date",
-        email: "email address"
-      };
-      return [location2, `Please enter a properly formatted ${valMap[keyValue]}`];
-  }
-  return [location2, `Fails to satisfy schema at ${jsonPointerToPath(keywordLocation)}`];
-}
 const Upload = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let readOnly;
   let $pathProgress, $$unsubscribe_pathProgress;
@@ -789,17 +668,8 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let { collapsible = false } = $$props;
   let { components = {} } = $$props;
   let { componentContext = {} } = $$props;
-  const dispatch = createEventDispatcher();
+  createEventDispatcher();
   let validationErrors = {};
-  const revalidate = (newValue) => {
-    const validate = validator(nullOptionalsAllowed(schema), {
-      includeErrors: true,
-      allErrors: true,
-      allowUnusedKeywords: true
-    });
-    validate(newValue || value);
-    validationErrors = Object.fromEntries((validate.errors || []).map((ve) => errorMapper(schema, value, ve.keywordLocation, ve.instanceLocation)));
-  };
   let params;
   const pathChanged = (path, val, op) => {
     if (val instanceof FileList) {
@@ -825,25 +695,9 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         set(params.value, path, val);
       }
     }
-    revalidate(params.value);
-    const succeeded = dispatch(
-      "value",
-      {
-        path,
-        pathValue: val,
-        value: params.value,
-        errors: validationErrors,
-        op
-      },
-      { cancelable: true }
-    );
-    console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: ${succeeded}`);
-    if (succeeded) {
-      value = params.value;
-      dirty = true;
-    } else {
-      revalidate(value);
-    }
+    console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
+    value = params.value;
+    dirty = true;
     return val;
   };
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -1077,7 +931,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         maxLength: 5,
         description: "description for something"
       },
-      amount: { type: "number", value: 10 },
+      amount: { type: "number" },
+      test: { type: "color" },
       choose: { type: "string", enum: ["a", "b", "c"] },
       checkThis: { type: "boolean" },
       things: { type: "array", items: { type: "string" } },

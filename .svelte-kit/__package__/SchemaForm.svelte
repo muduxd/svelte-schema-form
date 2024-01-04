@@ -34,23 +34,6 @@ export let components = {};
 export let componentContext = {};
 const dispatch = createEventDispatcher();
 let validationErrors = {};
-const revalidate = (newValue) => {
-  const validate = validator(nullOptionalsAllowed(schema), { includeErrors: true, allErrors: true, allowUnusedKeywords: true });
-  const validatorResult = validate(newValue || value);
-  validationErrors = Object.fromEntries(
-    (validate.errors || []).map((ve) => errorMapper(schema, value, ve.keywordLocation, ve.instanceLocation))
-  );
-};
-onMount(() => {
-  revalidate();
-  if (Object.keys(validationErrors).length > 0) {
-    dispatch("value", {
-      path: [],
-      value,
-      errors: validationErrors
-    });
-  }
-});
 let params;
 $:
   params = {
@@ -115,21 +98,9 @@ const pathChanged = (path, val, op) => {
       set(params.value, path, val);
     }
   }
-  revalidate(params.value);
-  const succeeded = dispatch("value", {
-    path,
-    pathValue: val,
-    value: params.value,
-    errors: validationErrors,
-    op
-  }, { cancelable: true });
-  console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: ${succeeded}`);
-  if (succeeded) {
-    value = params.value;
-    dirty = true;
-  } else {
-    revalidate(value);
-  }
+  console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
+  value = params.value;
+  dirty = true;
   return val;
 };
 </script>

@@ -11,8 +11,6 @@ declare const __propDef: {
         componentContext?: Record<string, unknown> | undefined;
     };
     events: {
-        value: CustomEvent<any>;
-    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {};

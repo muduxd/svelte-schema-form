@@ -108,9 +108,6 @@
 		}
 
 
-		const succeeded = dispatch('value', {
-			path, pathValue: val, value: params.value, errors: validationErrors, op
-		}, { cancelable: true });
 
 		console.log(`dispatch value path: ${path.join('.')} val: ${JSON.stringify(val)},${op ? " op: " + op : ''} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
 
