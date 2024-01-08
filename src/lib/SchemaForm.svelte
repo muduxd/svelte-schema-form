@@ -108,9 +108,6 @@
 		}
 
 
-
-		console.log(`dispatch value path: ${path.join('.')} val: ${JSON.stringify(val)},${op ? " op: " + op : ''} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
-
 		// update if value event not cancelled.
 		value = params.value;
 		dirty = true;

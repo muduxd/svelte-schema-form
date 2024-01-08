@@ -695,7 +695,6 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         set(params.value, path, val);
       }
     }
-    console.log(`dispatch value path: ${path.join(".")} val: ${JSON.stringify(val)},${op ? " op: " + op : ""} errors: ${JSON.stringify(validationErrors)}, succeeded: true`);
     value = params.value;
     dirty = true;
     return val;
@@ -821,7 +820,6 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const destinationUrl = uploadBaseUrl + (uploadBaseUrl.endsWith("/") ? "" : "/") + itemName + "/" + path + "/" + file.name;
-          console.log(`Uploading to ${destinationUrl}`);
           const itemPromise = new Promise((resolve, reject) => {
             try {
               const xhr = new XMLHttpRequest();

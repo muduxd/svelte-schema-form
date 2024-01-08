@@ -61,7 +61,6 @@ const onSortKey = (fieldName) => (ev) => {
 const onKey = async (ev) => {
   if (mode === "list" && !ignoreKeyUp) {
     const targ = ev.target;
-    console.log(`key ${ev.key} selectedIdx ${selectedIdx} len ${value.length}`);
     if (ev.key === "ArrowDown" && selectedIdx + 1 < value.length) {
       selectedIdx += 1;
       await tick();

@@ -51,7 +51,6 @@ const doUploads = async (pathPrefix = "") => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const destinationUrl = uploadBaseUrl + (uploadBaseUrl.endsWith("/") ? "" : "/") + itemName + "/" + path + "/" + file.name;
-        console.log(`Uploading to ${destinationUrl}`);
         const itemPromise = new Promise((resolve, reject) => {
           try {
             const xhr = new XMLHttpRequest();

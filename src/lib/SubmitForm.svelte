@@ -65,7 +65,6 @@
 							+ itemName + '/'
 							+ path + '/'
 							+ file.name;
-						console.log(`Uploading to ${destinationUrl}`);
 						
 						const itemPromise = new Promise<[string, string]>((resolve, reject) => {
 							try {

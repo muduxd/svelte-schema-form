@@ -85,6 +85,5 @@ describe("schemasafe behaviour", () => {
     const res = validate({
       abc: "xxx",
     });
-    console.log("valid: " + JSON.stringify(res));
   });
 });
