@@ -6,7 +6,7 @@ export let value;
 
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
 	<input id={params.path.join('.')} name={params.path.join('.')}
-		type="color" value={value || 'blue'} class="input"
+		type="color" value={value || '#ff0000'} class="input"
 		disabled={schema.readOnly || params.containerReadOnly}
 		on:input={ev => {
 			let val = ev.currentTarget.value
