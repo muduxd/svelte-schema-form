@@ -1,6 +1,8 @@
 <script>export let params;
 export let schema;
 export let value;
+$:
+  console.log(value);
 </script>
 
 
