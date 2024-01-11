@@ -9,7 +9,7 @@ $:
 </script>
 
 {#if params.containerParent !== "array"}
-	<label id={`label-${id}`} for={id} class:required={params.required} class:readonly={schema.readOnly || params.containerReadOnly} class="label">
+	<label id={`label-${id}`} for={id} class:required={params.required} class:readonly={schema.readOnly || params.containerReadOnly} class="label mt-2">
 		{@html stringToHtml(title)}
 		{#if schema.description}
 			<span class="info" title={schema.description}></span>
