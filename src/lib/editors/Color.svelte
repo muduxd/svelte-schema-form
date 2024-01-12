@@ -3,8 +3,6 @@
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
-
-	$: console.log(value)
 </script>
 
 
