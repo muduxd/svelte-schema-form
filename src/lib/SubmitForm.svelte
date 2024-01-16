@@ -100,6 +100,7 @@
 	};
 
 	const submit = async () => {
+		console.log("submitting")
 		if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0) {
 			await doUploads();
 			dispatch('submit', { value });
