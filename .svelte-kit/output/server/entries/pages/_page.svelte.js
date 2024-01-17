@@ -910,7 +910,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
       {}
     )} <div class="button-container flex justify-center"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
       "submit-button btn variant-filled-primary !text-white mt-5",
-      dirty ? "dirty" : ""
+      dirty && submitRequiresDirty ? "dirty" : ""
     ].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();

@@ -83,7 +83,7 @@ const doUploads = async (pathPrefix = "") => {
   }
 };
 const submit = async () => {
-  if (Object.keys(currentErrors).length === 0) {
+  if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0) {
     await doUploads();
     dispatch("submit", { value });
     dirty = false;
@@ -96,6 +96,6 @@ componentContext.doUploads = doUploads;
 <form class='svelte-schema-form' {action} class:dirty>
 	<SchemaForm bind:schema {value} on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
 	<div class="button-container flex justify-center">
-		<button type={action ? "submit" : "button"} class="submit-button btn variant-filled-primary !text-white mt-5" on:click={submit} class:dirty={dirty}>{submitText}</button>
+		<button type={action ? "submit" : "button"} class="submit-button btn variant-filled-primary !text-white mt-5" on:click={submit} class:dirty={dirty && submitRequiresDirty}>{submitText}</button>
 	</div>
 </form>
