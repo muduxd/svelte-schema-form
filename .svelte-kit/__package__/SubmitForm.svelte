@@ -100,12 +100,16 @@ componentContext.doUploads = doUploads;
 
 	<div class="button-container flex justify-center space-x-4">
 		<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
-		<button type={action ? "submit" : "button"} class="btn variant-filled-primary !bg-primary-600 !text-white mt-5" on:click={submit} class:not-dirty={!dirty && submitRequiresDirty}>{submitText}</button>
+		<button type={action ? "submit" : "button"} class="btn variant-filled-primary background-submit !text-white mt-5" on:click={submit} class:not-dirty={!dirty && submitRequiresDirty}>{submitText}</button>
 	</div>
 </form>
 
 <style>
 	.not-dirty {
 		background-color: rgb(var(--color-primary-400)) !important;
+	}
+
+	.background-submit {
+		background-color: rgb(var(--color-primary-600));
 	}
 </style>
