@@ -391,7 +391,7 @@ const Upload = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-const css$1 = {
+const css$2 = {
   code: "textarea.svelte-vofknr{background-color:white}",
   map: null
 };
@@ -405,7 +405,7 @@ const TextArea = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
-  $$result.css.add(css$1);
+  $$result.css.add(css$2);
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
       return `<textarea${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} class="textarea svelte-vofknr" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>${escape(value || "", false)}</textarea>`;
@@ -775,6 +775,10 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   } while (!$$settled);
   return $$rendered;
 });
+const css$1 = {
+  code: ".not-dirty.svelte-1t8zr3e{background-color:rgb(var(--color-primary-400)) !important}",
+  map: null
+};
 const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $pathProgress, $$unsubscribe_pathProgress;
   let { schema } = $$props;
@@ -879,6 +883,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.submitRequiresDirty(submitRequiresDirty);
   if ($$props.componentContext === void 0 && $$bindings.componentContext && componentContext !== void 0)
     $$bindings.componentContext(componentContext);
+  $$result.css.add(css$1);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -912,9 +917,9 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       },
       {}
-    )} <div class="button-container flex justify-center gap-[15px]"><button class="btn variant-ghost-surface mt-5" data-svelte-h="svelte-4ht99">Close</button> <button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
-      "btn variant-filled-primary !text-white mt-5",
-      dirty && submitRequiresDirty ? "dirty" : ""
+    )} <div class="button-container flex justify-center space-x-4"><button class="btn variant-ghost-surface mt-5" data-svelte-h="svelte-4ht99">Close</button> <button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
+      "btn variant-filled-primary !text-white mt-5 svelte-1t8zr3e",
+      !dirty && submitRequiresDirty ? "not-dirty" : ""
     ].join(" ").trim()}">${escape(submitText)}</button></div> </form>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();
