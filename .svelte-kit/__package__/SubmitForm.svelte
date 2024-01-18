@@ -8,6 +8,8 @@ import { writable } from "svelte/store";
 import set from "lodash-es/set";
 export let schema;
 export let value;
+export let cancelButton = () => {
+};
 export let uploadFiles = {};
 export let uploadBaseUrl = "";
 export let uploadNamePattern = "";
@@ -95,7 +97,14 @@ componentContext.doUploads = doUploads;
 
 <form class='svelte-schema-form' {action} class:dirty>
 	<SchemaForm bind:schema {value} on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
-	<div class="button-container flex justify-center">
-		<button type={action ? "submit" : "button"} class="submit-button btn variant-filled-primary !text-white mt-5" on:click={submit} class:dirty={dirty && submitRequiresDirty}>{submitText}</button>
+	<div class="button-container flex justify-center gap-[15px]">
+		<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
+		<button type={action ? "submit" : "button"} class="btn variant-filled-primary !text-white mt-5" on:click={submit} class:dirty={dirty && submitRequiresDirty}>{submitText}</button>
 	</div>
 </form>
+
+<style>
+	.not-dirty {
+		background-color: rgb(var(--color-primary-400));
+	}
+</style>

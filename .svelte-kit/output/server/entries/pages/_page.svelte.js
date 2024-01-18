@@ -779,6 +779,8 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let $pathProgress, $$unsubscribe_pathProgress;
   let { schema } = $$props;
   let { value } = $$props;
+  let { cancelButton = () => {
+  } } = $$props;
   let { uploadFiles = {} } = $$props;
   let { uploadBaseUrl = "" } = $$props;
   let { uploadNamePattern = "" } = $$props;
@@ -855,6 +857,8 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  if ($$props.cancelButton === void 0 && $$bindings.cancelButton && cancelButton !== void 0)
+    $$bindings.cancelButton(cancelButton);
   if ($$props.uploadFiles === void 0 && $$bindings.uploadFiles && uploadFiles !== void 0)
     $$bindings.uploadFiles(uploadFiles);
   if ($$props.uploadBaseUrl === void 0 && $$bindings.uploadBaseUrl && uploadBaseUrl !== void 0)
@@ -908,10 +912,10 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       },
       {}
-    )} <div class="button-container flex justify-center"><button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
-      "submit-button btn variant-filled-primary !text-white mt-5",
+    )} <div class="button-container flex justify-center gap-[15px]"><button class="btn variant-ghost-surface mt-5" data-svelte-h="svelte-4ht99">Close</button> <button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
+      "btn variant-filled-primary !text-white mt-5",
       dirty && submitRequiresDirty ? "dirty" : ""
-    ].join(" ").trim()}">${escape(submitText)}</button></div></form>`;
+    ].join(" ").trim()}">${escape(submitText)}</button></div> </form>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();
   return $$rendered;

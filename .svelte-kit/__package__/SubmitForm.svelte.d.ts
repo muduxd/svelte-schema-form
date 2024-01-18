@@ -3,6 +3,7 @@ declare const __propDef: {
     props: {
         schema: any;
         value: any;
+        cancelButton?: (() => void) | undefined;
         uploadFiles?: Record<string, FileList> | undefined;
         uploadBaseUrl?: string | undefined;
         uploadNamePattern?: string | undefined;
@@ -32,6 +33,9 @@ export default class SubmitForm extends SvelteComponent<SubmitFormProps, SubmitF
     get value(): any;
     /**accessor*/
     set value(_: any);
+    get cancelButton(): (() => void) | undefined;
+    /**accessor*/
+    set cancelButton(_: (() => void) | undefined);
     get uploadFiles(): Record<string, FileList> | undefined;
     /**accessor*/
     set uploadFiles(_: Record<string, FileList> | undefined);
