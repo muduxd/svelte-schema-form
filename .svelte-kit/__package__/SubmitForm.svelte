@@ -106,7 +106,8 @@ componentContext.doUploads = doUploads;
 
 <style>
 	.not-dirty {
-		background-color: rgb(var(--color-primary-400)) !important;
+		background-color: rgb(var(--color-surface-300)) !important;
+		color: rgb(var(--color-surface-500)) !important;
 	}
 
 	.background-submit {

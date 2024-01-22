@@ -776,7 +776,7 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   return $$rendered;
 });
 const css$1 = {
-  code: ".not-dirty.svelte-gsu2o5{background-color:rgb(var(--color-primary-400)) !important}.background-submit.svelte-gsu2o5{background-color:rgb(var(--color-primary-600))}",
+  code: ".not-dirty.svelte-1mg8fxn{background-color:rgb(var(--color-surface-300)) !important;color:rgb(var(--color-surface-500)) !important}.background-submit.svelte-1mg8fxn{background-color:rgb(var(--color-primary-600))}",
   map: null
 };
 const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -918,7 +918,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
       },
       {}
     )} <div class="button-container flex justify-center space-x-4"><button class="btn variant-ghost-surface mt-5" data-svelte-h="svelte-4ht99">Close</button> <button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
-      "btn variant-filled-primary background-submit !text-white mt-5 svelte-gsu2o5",
+      "btn variant-filled-primary background-submit !text-white mt-5 svelte-1mg8fxn",
       !dirty && submitRequiresDirty ? "not-dirty" : ""
     ].join(" ").trim()}">${escape(submitText)}</button></div> </form>`;
   } while (!$$settled);
