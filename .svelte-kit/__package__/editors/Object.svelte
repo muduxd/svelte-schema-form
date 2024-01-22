@@ -23,8 +23,9 @@ $:
 		{#if params.collapsible }
 			<span class="collapser {collapserOpenState}" on:click={toggle}></span>
 		{/if}
+
 		{#if params.containerParent !== "array" || schema.title}
-			<span class="subset-label-title object-label-title">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
+			<span class="subset-label-title object-label-title mx-2 text-lg font-bold">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
 			{#if schema.description}
 				<span class="subset-label-description object-label-description mx-2 text-lg font-bold">{@html stringToHtml(schema.description)}</span>
 			{/if}
@@ -33,18 +34,18 @@ $:
 	{/if}
 
 	{#if collapserOpenState === "open"}
-	{#each propNames as propName (propName)}
-	<SubSchemaForm
-		params={{
-			...params,
-			path: [ ...params.path, propName ],
-			required: (schema?.required || []).includes(propName),
-			containerParent: "object",
-			containerReadOnly: params.containerReadOnly || schema.readOnly || false,
-		}}
-		value={value?.[propName]}
-		bind:schema={schema.properties[propName]}
-	/>
-	{/each}
+		{#each propNames as propName (propName)}
+			<SubSchemaForm
+				params={{
+					...params,
+					path: [ ...params.path, propName ],
+					required: (schema?.required || []).includes(propName),
+					containerParent: "object",
+					containerReadOnly: params.containerReadOnly || schema.readOnly || false,
+				}}
+				value={value?.[propName]}
+				bind:schema={schema.properties[propName]}
+			/>
+		{/each}
 	{/if}
 </fieldset>
