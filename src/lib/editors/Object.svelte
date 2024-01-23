@@ -21,9 +21,11 @@
 
 	$: legendText = schemaLabel(schema, params.path);
 	$: showLegend = params.collapsible || (params.containerParent !== 'array' && !!legendText);
+	$: legendClasses = showLegend ? "my-4 p-4 border-2 border-white !rounded-xl" : ""
 </script>
 
-<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} flex flex-col gap-[5px] my-4 p-4 border-2 border-white rounded-xl">
+
+<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} flex flex-col gap-[5px] {legendClasses}">
 	{#if showLegend }
 	<legend class="subset-label object-label">
 		{#if params.collapsible }
@@ -31,7 +33,7 @@
 		{/if}
 
 		{#if params.containerParent !== "array" || schema.title}
-			<span class="subset-label-title object-label-title mx-2 text-lg font-bold">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
+			<span class="subset-label-title object-label-title !mx-2 text-lg font-bold">{@html stringToHtml(schemaLabel(schema, params.path))}</span>
 			{#if schema.description}
 				<span class="subset-label-description object-label-description mx-2 text-lg font-bold">{@html stringToHtml(schema.description)}</span>
 			{/if}
