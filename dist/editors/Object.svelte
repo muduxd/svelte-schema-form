@@ -16,7 +16,7 @@ $:
 $:
   showLegend = params.collapsible || params.containerParent !== "array" && !!legendText;
 $:
-  legendClasses = showLegend ? "my-4 p-4 border-2 border-white !rounded-xl" : "";
+  legendClasses = showLegend ? "!my-4 p-4 border-2 border-white !rounded-xl !overflow-hidden" : "";
 </script>
 
 

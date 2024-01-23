@@ -198,7 +198,7 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     propNames = Object.keys(schema.properties);
     legendText = schemaLabel(schema, params.path);
     showLegend = params.collapsible || params.containerParent !== "array" && !!legendText;
-    legendClasses = showLegend ? "my-4 p-4 border-2 border-white !rounded-xl" : "";
+    legendClasses = showLegend ? "!my-4 p-4 border-2 border-white !rounded-xl !overflow-hidden" : "";
     $$rendered = `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset object depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] " + escape(legendClasses, true)}">${showLegend ? `<legend class="subset-label object-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} ${params.containerParent !== "array" || schema.title ? `<span class="subset-label-title object-label-title !mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schemaLabel(schema, params.path))}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${each(propNames, (propName) => {
       return `${validate_component(SubSchemaForm, "SubSchemaForm").$$render(
         $$result,
