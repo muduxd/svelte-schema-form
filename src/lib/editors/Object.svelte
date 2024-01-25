@@ -21,7 +21,7 @@
 
 	$: legendText = schemaLabel(schema, params.path);
 	$: showLegend = params.collapsible || (params.containerParent !== 'array' && !!legendText);
-	$: legendClasses = showLegend ? "!my-4 !p-4 !pt-0 border-2 border-white legend-group" : ""
+	$: legendClasses = showLegend ? "legend-group" : ""
 </script>
 
 
@@ -61,10 +61,11 @@
 
 <style>
 	.legend-group {
-		margin: 10px 0;
-		border-radius: 10px;
-		border-color: rgb(var(--color-surface-200));
-	    color: rgb(var(--color-surface-200));
+		padding: 10px;
 		padding-top: 0;
+		margin: 10px 0;
+	    color: rgb(var(--color-surface-200));
+		border: 2px solid rgb(var(--color-surface-200));
+		border-radius: 10px;
 	}
 </style>
