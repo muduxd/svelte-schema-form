@@ -16,7 +16,7 @@ $:
 $:
   showLegend = params.collapsible || params.containerParent !== "array" && !!legendText;
 $:
-  legendClasses = showLegend ? "!my-4 p-4 border-2 border-white !rounded-xl !overflow-hidden" : "";
+  legendClasses = showLegend ? "!my-4 !p-4 !pt-0 border-2 border-white legend-group" : "";
 </script>
 
 
@@ -52,3 +52,14 @@ $:
 		{/each}
 	{/if}
 </fieldset>
+
+
+<style>
+	.legend-group {
+		margin: 10px 0;
+		border-radius: 10px;
+		border-color: rgb(var(--color-surface-200));
+	    color: rgb(var(--color-surface-200));
+		padding-top: 0;
+	}
+</style>
