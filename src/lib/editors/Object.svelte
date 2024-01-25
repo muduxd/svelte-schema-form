@@ -61,11 +61,11 @@
 
 <style>
 	.legend-group {
-		padding: 10px;
+		padding: 20px;
 		padding-top: 0;
 		margin: 10px 0;
-	    color: rgb(var(--color-surface-200));
-		border: 2px solid rgb(var(--color-surface-200));
+	    color: rgb(var(--color-surface-100));
+		border: 2px solid rgb(var(--color-surface-100));
 		border-radius: 10px;
 	}
 </style>

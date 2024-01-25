@@ -175,7 +175,7 @@ const FieldWrapper = create_ssr_component(($$result, $$props, $$bindings, slots)
   ].join(" ").trim()}"><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error && params.showErrors ? `<div class="error">${escape(error)}</div>` : ``}`;
 });
 const css$3 = {
-  code: ".legend-group.svelte-1c9xpqd{padding:10px;padding-top:0;margin:10px 0;color:rgb(var(--color-surface-200));border:2px solid rgb(var(--color-surface-200));border-radius:10px}",
+  code: ".legend-group.svelte-zseo9y{padding:20px;padding-top:0;margin:10px 0;color:rgb(var(--color-surface-100));border:2px solid rgb(var(--color-surface-100));border-radius:10px}",
   map: null
 };
 const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -204,7 +204,7 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     legendText = schemaLabel(schema, params.path);
     showLegend = params.collapsible || params.containerParent !== "array" && !!legendText;
     legendClasses = showLegend ? "legend-group" : "";
-    $$rendered = `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset object depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] " + escape(legendClasses, true) + " svelte-1c9xpqd"}">${showLegend ? `<legend class="subset-label object-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1c9xpqd"}"></span>` : ``} ${params.containerParent !== "array" || schema.title ? `<span class="subset-label-title object-label-title !mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schemaLabel(schema, params.path))}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${each(propNames, (propName) => {
+    $$rendered = `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset object depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] " + escape(legendClasses, true) + " svelte-zseo9y"}">${showLegend ? `<legend class="subset-label object-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-zseo9y"}"></span>` : ``} ${params.containerParent !== "array" || schema.title ? `<span class="subset-label-title object-label-title !mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schemaLabel(schema, params.path))}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description mx-2 text-lg font-bold"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${each(propNames, (propName) => {
       return `${validate_component(SubSchemaForm, "SubSchemaForm").$$render(
         $$result,
         {
