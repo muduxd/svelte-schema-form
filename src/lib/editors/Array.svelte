@@ -50,16 +50,19 @@
 			/>
 			<div class="list-controls">
 				{#if controls.includes('delete')}
-				<button type="button" class="list-control delete" title="delete" on:click={arrayDelete(idx, params, value)}></button>
+					<button type="button" class="list-control delete" title="delete" on:click={arrayDelete(idx, params, value)}>f</button>
 				{/if}
+
 				{#if controls.includes('duplicate')}
-				<button type="button" class="list-control duplicate" title="duplicate" on:click={arrayDuplicate(idx, params, value)}></button>
+					<button type="button" class="list-control duplicate" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>f</button>
 				{/if}
+
 				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up" title="move up" on:click={arrayUp(idx, params, value)}></button>
+					<button type="button" class="list-control up" title="move up" on:click={arrayUp(idx, params, value)}>f</button>
 				{/if}
+
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down" title="move down" on:click={arrayDown(idx, params, value)}></button>
+					<button type="button" class="list-control down" title="move down" on:click={arrayDown(idx, params, value)}>f</button>
 				{/if}
 			</div>
 
@@ -68,7 +71,7 @@
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}></button>
+			<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>f</button>
 		{/if}
 	{/if}
 </fieldset>

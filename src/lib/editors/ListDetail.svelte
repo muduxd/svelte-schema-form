@@ -167,16 +167,16 @@
 					<div class="array-buttons">
 						<div class="row-buttons">
 							{#if controls.includes('delete')}
-							<button type="button" class="list-control delete" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation></button>
+								<button type="button" class="list-control delete btn-icon w-[35px] variant-filled-primary !mx-2" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>f</button>
 							{/if}
 							{#if controls.includes('duplicate')}
-							<button type="button" class="list-control duplicate" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation></button>
+								<button type="button" class="list-control duplicate btn-icon w-[35px] variant-filled-primary !mx-2" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>f</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null &&  idx > 0}
-								<button type="button" class="list-control up" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation></button>
+								<button type="button" class="list-control up btn-icon w-[35px] variant-filled-primary !mx-2" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>f</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null && idx < (value || []).length - 1}
-								<button type="button" class="list-control down" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation></button>
+								<button type="button" class="list-control down btn-icon w-[35px] variant-filled-primary !mx-2" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>f</button>
 							{/if}
 						</div>
 					</div>
