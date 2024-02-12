@@ -119,6 +119,7 @@ $: {
     rowView.sort(sortFunc(sort));
   }
 }
+const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
 </script>
 
 {#if showWrapper}
@@ -137,6 +138,8 @@ $: {
 
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div class="table-container" tabindex="0" style:grid-template-columns={gridTemplateColumns} on:keyup={onKey} on:click={onClick}>
 			{#if mode === "list"}
 				{#each listFields as fieldName, idx}
@@ -155,16 +158,16 @@ $: {
 					<div class="array-buttons">
 						<div class="row-buttons">
 							{#if controls.includes('delete')}
-								<button type="button" class="list-control delete !mx-2 bg-primary-500 p-2 rounded-full self-start" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>Delete</button>
+								<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>Delete</button>
 							{/if}
 							{#if controls.includes('duplicate')}
-								<button type="button" class="list-control duplicate !mx-2 bg-primary-500 p-2 rounded-full self-start" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>Duplicate</button>
+								<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>Duplicate</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null &&  idx > 0}
-								<button type="button" class="list-control up !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>Up</button>
+								<button type="button" class="list-control up {buttonClasses}" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>Up</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null && idx < (value || []).length - 1}
-								<button type="button" class="list-control down !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>Down</button>
+								<button type="button" class="list-control down {buttonClasses}" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>Down</button>
 							{/if}
 						</div>
 					</div>
@@ -193,7 +196,7 @@ $: {
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-		<button type="button" class="list-control add !mx-2 bg-primary-500 p-2 rounded-full self-start" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
+		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
 		{/if}
 	{/if}
 </fieldset>

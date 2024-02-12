@@ -254,6 +254,7 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
+const buttonClasses$1 = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
 const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let legendText;
   let showWrapper;
@@ -301,8 +302,8 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           }
         },
         {}
-      )} <div class="list-controls m-2.5">${controls.includes("delete") ? `<button type="button" class="list-control delete !mx-2 bg-primary-500 p-2 rounded-full self-start" title="delete" data-svelte-h="svelte-1ak18ql">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="list-control duplicate !mx-2 bg-primary-500 p-2 rounded-full self-start" title="duplicate" data-svelte-h="svelte-995937">Duplicate</button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="list-control up !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move up" data-svelte-h="svelte-sc8yo2">Up</button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="list-control down !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move down" data-svelte-h="svelte-1e15xww">Down</button>` : ``} </div>`;
-    })}` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add !mx-2 bg-primary-500 p-2 rounded-full self-start" title="add item" data-svelte-h="svelte-1g03cac">Add</button>` : ``}` : ``}</fieldset>` : ``}`;
+      )} <div class="list-controls m-2.5">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true)}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true)}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true)}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true)}" title="move down">Down</button>` : ``} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true)}" title="add item">Add</button>` : ``} </div>`;
+    })}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
 });
@@ -536,6 +537,7 @@ const Hidden = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.value(value);
   return ` <input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="hidden"${add_attribute("value", value || "", 0)}>`;
 });
+const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
 const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let itemSchema;
   let listProps;
@@ -598,15 +600,15 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       }
     }
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px]"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `<div class="table-container" tabindex="0"${add_styles({
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px]"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `  <div class="table-container" tabindex="0"${add_styles({
       "grid-template-columns": gridTemplateColumns
     })}>${`${each(listFields, (fieldName, idx) => {
       return `<div${add_attribute("class", headingClass(idx, sort), 0)} tabindex="0">${escape(fieldName)}</div>`;
     })} ${!readOnly ? `<div class="buttons-header" data-svelte-h="svelte-1ufcg2c"> </div>` : ``} ${each(rowView, (item, idx) => {
       return `<div class="${["row-wrapper", idx === selectedIdx ? "selected" : ""].join(" ").trim()}">${each(listProps, (propName) => {
         return `<div class="item">${escape(item[propName] === void 0 ? " " : item[propName])}</div>`;
-      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="list-control delete !mx-2 bg-primary-500 p-2 rounded-full self-start" title="delete" data-svelte-h="svelte-7w54pc">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="list-control duplicate !mx-2 bg-primary-500 p-2 rounded-full self-start" title="duplicate" data-svelte-h="svelte-1mgb0jw">Duplicate</button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="list-control up !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move up" data-svelte-h="svelte-e2g0yh">Up</button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="list-control down !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move down" data-svelte-h="svelte-qa8mfx">Down</button>` : ``}</div> </div>` : ``}`;
-    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add !mx-2 bg-primary-500 p-2 rounded-full self-start" title="add item" data-svelte-h="svelte-1g03cac">Add</button>` : ``}` : ``}</fieldset>` : ``}`;
+      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses, true)}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true)}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true)}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses, true)}" title="move down">Down</button>` : ``}</div> </div>` : ``}`;
+    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add" title="add item" data-svelte-h="svelte-pkoi94">Add</button>` : ``}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
 });
