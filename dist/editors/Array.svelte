@@ -48,21 +48,21 @@ $:
 				value={item}
 				bind:schema={schema.items}
 			/>
-			<div class="list-controls">
+			<div class="list-controls m-2.5">
 				{#if controls.includes('delete')}
-					<button type="button" class="list-control delete !mx-2 bg-primary-500 p-2 rounded-full" title="delete" on:click={arrayDelete(idx, params, value)}>Delete</button>
+					<button type="button" class="list-control delete !mx-2 bg-primary-500 p-2 rounded-full self-start" title="delete" on:click={arrayDelete(idx, params, value)}>Delete</button>
 				{/if}
 
 				{#if controls.includes('duplicate')}
-					<button type="button" class="list-control duplicate !mx-2 bg-primary-500 p-2 rounded-full" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>Duplicate</button>
+					<button type="button" class="list-control duplicate !mx-2 bg-primary-500 p-2 rounded-full self-start" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>Duplicate</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up !mx-2 bg-primary-500 p-2 rounded-full" title="move up" on:click={arrayUp(idx, params, value)}>Up</button>
+					<button type="button" class="list-control up !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move up" on:click={arrayUp(idx, params, value)}>Up</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down !mx-2 bg-primary-500 p-2 rounded-full" title="move down" on:click={arrayDown(idx, params, value)}>Down</button>
+					<button type="button" class="list-control down !mx-2 bg-primary-500 p-2 rounded-full self-start" title="move down" on:click={arrayDown(idx, params, value)}>Down</button>
 				{/if}
 			</div>
 
@@ -71,7 +71,7 @@ $:
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-			<button type="button" class="list-control add !mx-2 bg-primary-500 p-2 rounded-full" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
+			<button type="button" class="list-control add !mx-2 bg-primary-500 p-2 rounded-full self-start" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
 		{/if}
 	{/if}
 </fieldset>
