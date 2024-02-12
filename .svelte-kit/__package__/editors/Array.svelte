@@ -50,19 +50,19 @@ $:
 			/>
 			<div class="list-controls">
 				{#if controls.includes('delete')}
-					<button type="button" class="list-control delete" title="delete" on:click={arrayDelete(idx, params, value)}>f</button>
+					<button type="button" class="list-control delete btn-icon w-[35px] variant-filled-primary !mx-2" title="delete" on:click={arrayDelete(idx, params, value)}>f</button>
 				{/if}
 
 				{#if controls.includes('duplicate')}
-					<button type="button" class="list-control duplicate" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>f</button>
+					<button type="button" class="list-control duplicate btn-icon w-[35px] variant-filled-primary !mx-2" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>f</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up" title="move up" on:click={arrayUp(idx, params, value)}>f</button>
+					<button type="button" class="list-control up btn-icon w-[35px] variant-filled-primary !mx-2" title="move up" on:click={arrayUp(idx, params, value)}>f</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down" title="move down" on:click={arrayDown(idx, params, value)}>f</button>
+					<button type="button" class="list-control down btn-icon w-[35px] variant-filled-primary !mx-2" title="move down" on:click={arrayDown(idx, params, value)}>f</button>
 				{/if}
 			</div>
 
@@ -71,7 +71,7 @@ $:
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-			<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>f</button>
+			<button type="button" class="list-control add btn-icon w-[35px] variant-filled-primary !mx-2" title="add item" on:click={arrayAdd(schema, params, value)}>f</button>
 		{/if}
 	{/if}
 </fieldset>
