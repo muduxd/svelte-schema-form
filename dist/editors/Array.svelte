@@ -65,13 +65,15 @@ const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
 					<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>Down</button>
 				{/if}
-
-				{#if controls.includes('add')}
-					<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
-				{/if}
 			</div>
 
 			{/each}
+
+
+			{#if controls.includes('add')}
+				<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
+			{/if}
+
 		{:else}
 			<div class="emptyText">{emptyText}</div>
 		{/if}
