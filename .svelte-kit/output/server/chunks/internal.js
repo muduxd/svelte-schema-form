@@ -25,9 +25,11 @@ function set_safe_public_env(environment) {
 }
 function afterUpdate() {
 }
-let building = false;
+let prerendering = false;
 function set_building() {
-  building = true;
+}
+function set_prerendering() {
+  prerendering = true;
 }
 const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { stores } = $$props;
@@ -102,6 +104,10 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   } while (!$$settled);
   return $$rendered;
 });
+function set_read_implementation(fn) {
+}
+function set_manifest(_) {
+}
 const options = {
   app_dir: "_app",
   app_template_contains_nonce: false,
@@ -116,7 +122,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\r\n<html lang="en">\r\n	<head>\r\n		<meta charset="utf-8" />\r\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\r\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\r\n		' + head + "\r\n	</head>\r\n	<body>\r\n		<div>" + body + "</div>\r\n	</body>\r\n</html>\r\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		' + head + "\n	</head>\n	<body>\n		<div>" + body + "</div>\n	</body>\n</html>\n",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -188,9 +194,9 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "jjd5dj"
+  version_hash: "1v5fmhc"
 };
-function get_hooks() {
+async function get_hooks() {
   return {};
 }
 export {
@@ -198,12 +204,15 @@ export {
   base as b,
   options as c,
   set_private_env as d,
-  building as e,
+  prerendering as e,
   set_public_env as f,
   get_hooks as g,
   set_safe_public_env as h,
   set_assets as i,
   set_building as j,
+  set_manifest as k,
+  set_prerendering as l,
+  set_read_implementation as m,
   override as o,
   public_env as p,
   reset as r,

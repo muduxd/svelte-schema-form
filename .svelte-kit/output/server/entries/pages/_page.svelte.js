@@ -907,18 +907,22 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$rendered = `  <form class="${["svelte-schema-form", dirty ? "dirty" : ""].join(" ").trim()}"${add_attribute("action", action, 0)}>${validate_component(SchemaForm, "SchemaForm").$$render(
       $$result,
       {
-        value,
         showErrors,
         components,
         collapsible,
         componentContext,
         schema,
+        value,
         dirty,
         uploadFiles
       },
       {
         schema: ($$value) => {
           schema = $$value;
+          $$settled = false;
+        },
+        value: ($$value) => {
+          value = $$value;
           $$settled = false;
         },
         dirty: ($$value) => {

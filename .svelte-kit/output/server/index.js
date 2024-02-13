@@ -1,4 +1,5 @@
-import { b as base, a as assets, o as override, r as reset, p as public_env, s as safe_public_env, c as options, d as set_private_env, e as building, f as set_public_env, g as get_hooks, h as set_safe_public_env } from "./chunks/internal.js";
+import { b as base, a as assets, o as override, r as reset, p as public_env, s as safe_public_env, c as options, d as set_private_env, e as prerendering, f as set_public_env, g as get_hooks, h as set_safe_public_env } from "./chunks/internal.js";
+import { m as make_trackable, d as disable_search, n as normalize_path, a as add_data_suffix, r as resolve, b as decode_pathname, h as has_data_suffix, s as strip_data_suffix, c as decode_params, v as validate_layout_server_exports, e as validate_layout_exports, f as validate_page_server_exports, g as validate_page_exports, i as validate_server_exports } from "./chunks/exports.js";
 import * as devalue from "devalue";
 import { w as writable, r as readable } from "./chunks/index.js";
 import { parse, serialize } from "cookie";
@@ -304,123 +305,6 @@ function compact(arr) {
     (val) => val != null
   );
 }
-const internal = new URL("sveltekit-internal://");
-function resolve(base2, path) {
-  if (path[0] === "/" && path[1] === "/")
-    return path;
-  let url = new URL(base2, internal);
-  url = new URL(path, url);
-  return url.protocol === internal.protocol ? url.pathname + url.search + url.hash : url.href;
-}
-function normalize_path(path, trailing_slash) {
-  if (path === "/" || trailing_slash === "ignore")
-    return path;
-  if (trailing_slash === "never") {
-    return path.endsWith("/") ? path.slice(0, -1) : path;
-  } else if (trailing_slash === "always" && !path.endsWith("/")) {
-    return path + "/";
-  }
-  return path;
-}
-function decode_pathname(pathname) {
-  return pathname.split("%25").map(decodeURI).join("%25");
-}
-function decode_params(params) {
-  for (const key2 in params) {
-    params[key2] = decodeURIComponent(params[key2]);
-  }
-  return params;
-}
-const tracked_url_properties = (
-  /** @type {const} */
-  [
-    "href",
-    "pathname",
-    "search",
-    "toString",
-    "toJSON"
-  ]
-);
-function make_trackable(url, callback, search_params_callback) {
-  const tracked = new URL(url);
-  Object.defineProperty(tracked, "searchParams", {
-    value: new Proxy(tracked.searchParams, {
-      get(obj, key2) {
-        if (key2 === "get" || key2 === "getAll" || key2 === "has") {
-          return (param) => {
-            search_params_callback(param);
-            return obj[key2](param);
-          };
-        }
-        callback();
-        const value = Reflect.get(obj, key2);
-        return typeof value === "function" ? value.bind(obj) : value;
-      }
-    }),
-    enumerable: true,
-    configurable: true
-  });
-  for (const property of tracked_url_properties) {
-    Object.defineProperty(tracked, property, {
-      get() {
-        callback();
-        return url[property];
-      },
-      enumerable: true,
-      configurable: true
-    });
-  }
-  {
-    tracked[Symbol.for("nodejs.util.inspect.custom")] = (depth, opts, inspect) => {
-      return inspect(url, opts);
-    };
-  }
-  disable_hash(tracked);
-  return tracked;
-}
-function disable_hash(url) {
-  allow_nodejs_console_log(url);
-  Object.defineProperty(url, "hash", {
-    get() {
-      throw new Error(
-        "Cannot access event.url.hash. Consider using `$page.url.hash` inside a component instead"
-      );
-    }
-  });
-}
-function disable_search(url) {
-  allow_nodejs_console_log(url);
-  for (const property of ["search", "searchParams"]) {
-    Object.defineProperty(url, property, {
-      get() {
-        throw new Error(`Cannot access url.${property} on a page with prerendering enabled`);
-      }
-    });
-  }
-}
-function allow_nodejs_console_log(url) {
-  {
-    url[Symbol.for("nodejs.util.inspect.custom")] = (depth, opts, inspect) => {
-      return inspect(new URL(url), opts);
-    };
-  }
-}
-const DATA_SUFFIX = "/__data.json";
-const HTML_DATA_SUFFIX = ".html__data.json";
-function has_data_suffix(pathname) {
-  return pathname.endsWith(DATA_SUFFIX) || pathname.endsWith(HTML_DATA_SUFFIX);
-}
-function add_data_suffix(pathname) {
-  if (pathname.endsWith(".html"))
-    return pathname.replace(/\.html$/, HTML_DATA_SUFFIX);
-  return pathname.replace(/\/$/, "") + DATA_SUFFIX;
-}
-function strip_data_suffix(pathname) {
-  if (pathname.endsWith(HTML_DATA_SUFFIX)) {
-    return pathname.slice(0, -HTML_DATA_SUFFIX.length) + ".html";
-  }
-  return pathname.slice(0, -DATA_SUFFIX.length);
-}
 function is_action_json_request(event) {
   const accept = negotiate(event.request.headers.get("accept") ?? "*/*", [
     "application/json",
@@ -631,6 +515,17 @@ function try_deserialize(data, fn, route_id) {
 }
 const INVALIDATED_PARAM = "x-sveltekit-invalidated";
 const TRAILING_SLASH_PARAM = "x-sveltekit-trailing-slash";
+function b64_encode(buffer) {
+  if (globalThis.Buffer) {
+    return Buffer.from(buffer).toString("base64");
+  }
+  const little_endian = new Uint8Array(new Uint16Array([1]).buffer)[0] > 0;
+  return btoa(
+    new TextDecoder(little_endian ? "utf-16le" : "utf-16be").decode(
+      new Uint16Array(new Uint8Array(buffer))
+    )
+  );
+}
 async function load_server_data({ event, state, node, parent }) {
   if (!node?.server)
     return null;
@@ -744,17 +639,6 @@ async function load_data({
     untrack: (fn) => fn()
   });
   return result ?? null;
-}
-function b64_encode(buffer) {
-  if (globalThis.Buffer) {
-    return Buffer.from(buffer).toString("base64");
-  }
-  const little_endian = new Uint8Array(new Uint16Array([1]).buffer)[0] > 0;
-  return btoa(
-    new TextDecoder(little_endian ? "utf-16le" : "utf-16be").decode(
-      new Uint16Array(new Uint8Array(buffer))
-    )
-  );
 }
 function create_universal_fetch(event, state, fetched, csr, resolve_opts) {
   const universal_fetch = async (input, init2) => {
@@ -921,7 +805,7 @@ const replacements = {
   "\u2029": "\\u2029"
 };
 const pattern = new RegExp(`[${Object.keys(replacements).join("")}]`, "g");
-function serialize_data(fetched, filter, prerendering = false) {
+function serialize_data(fetched, filter, prerendering2 = false) {
   const headers2 = {};
   let cache_control = null;
   let age = null;
@@ -962,7 +846,7 @@ function serialize_data(fetched, filter, prerendering = false) {
     }
     attrs.push(`data-hash="${hash(...values)}"`);
   }
-  if (!prerendering && fetched.method === "GET" && cache_control && !varyAny) {
+  if (!prerendering2 && fetched.method === "GET" && cache_control && !varyAny) {
     const match = /s-maxage=(\d+)/g.exec(cache_control) ?? /max-age=(\d+)/g.exec(cache_control);
     if (match) {
       const ttl = +match[1] - +(age ?? "0");
@@ -1124,7 +1008,13 @@ class BaseProvider {
   /** @type {import('types').Csp.Source[]} */
   #script_src;
   /** @type {import('types').Csp.Source[]} */
+  #script_src_elem;
+  /** @type {import('types').Csp.Source[]} */
   #style_src;
+  /** @type {import('types').Csp.Source[]} */
+  #style_src_attr;
+  /** @type {import('types').Csp.Source[]} */
+  #style_src_elem;
   /** @type {string} */
   #nonce;
   /**
@@ -1137,11 +1027,17 @@ class BaseProvider {
     this.#directives = directives;
     const d = this.#directives;
     this.#script_src = [];
+    this.#script_src_elem = [];
     this.#style_src = [];
+    this.#style_src_attr = [];
+    this.#style_src_elem = [];
     const effective_script_src = d["script-src"] || d["default-src"];
+    const script_src_elem = d["script-src-elem"];
     const effective_style_src = d["style-src"] || d["default-src"];
-    this.#script_needs_csp = !!effective_script_src && effective_script_src.filter((value) => value !== "unsafe-inline").length > 0;
-    this.#style_needs_csp = !!effective_style_src && effective_style_src.filter((value) => value !== "unsafe-inline").length > 0;
+    const style_src_attr = d["style-src-attr"];
+    const style_src_elem = d["style-src-elem"];
+    this.#script_needs_csp = !!effective_script_src && effective_script_src.filter((value) => value !== "unsafe-inline").length > 0 || !!script_src_elem && script_src_elem.filter((value) => value !== "unsafe-inline").length > 0;
+    this.#style_needs_csp = !!effective_style_src && effective_style_src.filter((value) => value !== "unsafe-inline").length > 0 || !!style_src_attr && style_src_attr.filter((value) => value !== "unsafe-inline").length > 0 || !!style_src_elem && style_src_elem.filter((value) => value !== "unsafe-inline").length > 0;
     this.script_needs_nonce = this.#script_needs_csp && !this.#use_hashes;
     this.style_needs_nonce = this.#style_needs_csp && !this.#use_hashes;
     this.#nonce = nonce;
@@ -1149,20 +1045,53 @@ class BaseProvider {
   /** @param {string} content */
   add_script(content) {
     if (this.#script_needs_csp) {
+      const d = this.#directives;
       if (this.#use_hashes) {
-        this.#script_src.push(`sha256-${sha256(content)}`);
-      } else if (this.#script_src.length === 0) {
-        this.#script_src.push(`nonce-${this.#nonce}`);
+        const hash2 = sha256(content);
+        this.#script_src.push(`sha256-${hash2}`);
+        if (d["script-src-elem"]?.length) {
+          this.#script_src_elem.push(`sha256-${hash2}`);
+        }
+      } else {
+        if (this.#script_src.length === 0) {
+          this.#script_src.push(`nonce-${this.#nonce}`);
+        }
+        if (d["script-src-elem"]?.length) {
+          this.#script_src_elem.push(`nonce-${this.#nonce}`);
+        }
       }
     }
   }
   /** @param {string} content */
   add_style(content) {
     if (this.#style_needs_csp) {
+      const empty_comment_hash = "9OlNO0DNEeaVzHL4RZwCLsBHA8WBQ8toBp/4F5XV2nc=";
+      const d = this.#directives;
       if (this.#use_hashes) {
-        this.#style_src.push(`sha256-${sha256(content)}`);
-      } else if (this.#style_src.length === 0) {
-        this.#style_src.push(`nonce-${this.#nonce}`);
+        const hash2 = sha256(content);
+        this.#style_src.push(`sha256-${hash2}`);
+        if (d["style-src-attr"]?.length) {
+          this.#style_src_attr.push(`sha256-${hash2}`);
+        }
+        if (d["style-src-elem"]?.length) {
+          if (hash2 !== empty_comment_hash && !d["style-src-elem"].includes(`sha256-${empty_comment_hash}`)) {
+            this.#style_src_elem.push(`sha256-${empty_comment_hash}`);
+          }
+          this.#style_src_elem.push(`sha256-${hash2}`);
+        }
+      } else {
+        if (this.#style_src.length === 0 && !d["style-src"]?.includes("unsafe-inline")) {
+          this.#style_src.push(`nonce-${this.#nonce}`);
+        }
+        if (d["style-src-attr"]?.length) {
+          this.#style_src_attr.push(`nonce-${this.#nonce}`);
+        }
+        if (d["style-src-elem"]?.length) {
+          if (!d["style-src-elem"].includes(`sha256-${empty_comment_hash}`)) {
+            this.#style_src_elem.push(`sha256-${empty_comment_hash}`);
+          }
+          this.#style_src_elem.push(`nonce-${this.#nonce}`);
+        }
       }
     }
   }
@@ -1178,10 +1107,28 @@ class BaseProvider {
         ...this.#style_src
       ];
     }
+    if (this.#style_src_attr.length > 0) {
+      directives["style-src-attr"] = [
+        ...directives["style-src-attr"] || [],
+        ...this.#style_src_attr
+      ];
+    }
+    if (this.#style_src_elem.length > 0) {
+      directives["style-src-elem"] = [
+        ...directives["style-src-elem"] || [],
+        ...this.#style_src_elem
+      ];
+    }
     if (this.#script_src.length > 0) {
       directives["script-src"] = [
         ...directives["script-src"] || directives["default-src"] || [],
         ...this.#script_src
+      ];
+    }
+    if (this.#script_src_elem.length > 0) {
+      directives["script-src-elem"] = [
+        ...directives["script-src-elem"] || [],
+        ...this.#script_src_elem
       ];
     }
     for (const key2 in directives) {
@@ -1481,11 +1428,14 @@ async function render_response({
       }
     }
     const blocks = [];
-    const properties = [
-      assets && `assets: ${s(assets)}`,
-      `base: ${base_expression}`,
-      `env: ${!client.uses_env_dynamic_public || state.prerendering ? null : s(public_env)}`
-    ].filter(Boolean);
+    const load_env_eagerly = client.uses_env_dynamic_public && state.prerendering;
+    const properties = [`base: ${base_expression}`];
+    if (assets) {
+      properties.push(`assets: ${s(assets)}`);
+    }
+    if (client.uses_env_dynamic_public) {
+      properties.push(`env: ${load_env_eagerly ? "null" : s(public_env)}`);
+    }
     if (chunks) {
       blocks.push("const deferred = new Map();");
       properties.push(`defer: (id) => new Promise((fulfil, reject) => {
@@ -1529,16 +1479,31 @@ async function render_response({
       if (options2.embedded) {
         hydrate.push(`params: ${devalue.uneval(event.params)}`, `route: ${s(event.route)}`);
       }
+      const indent = "	".repeat(load_env_eagerly ? 7 : 6);
       args.push(`{
-							${hydrate.join(",\n							")}
-						}`);
+${indent}	${hydrate.join(`,
+${indent}	`)}
+${indent}}`);
     }
-    blocks.push(`Promise.all([
+    if (load_env_eagerly) {
+      blocks.push(`import(${s(`${base$1}/${options2.app_dir}/env.js`)}).then(({ env }) => {
+						${global}.env = env;
+
+						Promise.all([
+							import(${s(prefixed(client.start))}),
+							import(${s(prefixed(client.app))})
+						]).then(([kit, app]) => {
+							kit.start(${args.join(", ")});
+						});
+					});`);
+    } else {
+      blocks.push(`Promise.all([
 						import(${s(prefixed(client.start))}),
 						import(${s(prefixed(client.app))})
 					]).then(([kit, app]) => {
 						kit.start(${args.join(", ")});
 					});`);
+    }
     if (options2.service_worker) {
       const opts = "";
       blocks.push(`if ('serviceWorker' in navigator) {
@@ -1760,7 +1725,7 @@ async function respond_with_error({
       state,
       page_config: {
         ssr,
-        csr: get_option([default_layout], "csr") ?? true
+        csr
       },
       status,
       error: await handle_error_and_jsonify(event, options2, error),
@@ -1990,6 +1955,13 @@ function get_data_json(event, options2, nodes) {
     ));
   }
 }
+function load_page_nodes(page, manifest) {
+  return Promise.all([
+    // we use == here rather than === because [undefined] serializes as "[null]"
+    ...page.layouts.map((n) => n == void 0 ? n : manifest._.nodes[n]()),
+    manifest._.nodes[page.leaf]()
+  ]);
+}
 const MAX_DEPTH = 10;
 async function render_page(event, page, options2, manifest, state, resolve_opts) {
   if (state.depth > MAX_DEPTH) {
@@ -2003,11 +1975,7 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
     return handle_action_json_request(event, options2, node?.server);
   }
   try {
-    const nodes = await Promise.all([
-      // we use == here rather than === because [undefined] serializes as "[null]"
-      ...page.layouts.map((n) => n == void 0 ? n : manifest._.nodes[n]()),
-      manifest._.nodes[page.leaf]()
-    ]);
+    const nodes = await load_page_nodes(page, manifest);
     const leaf_node = (
       /** @type {import('types').SSRNode} */
       nodes.at(-1)
@@ -2026,7 +1994,7 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
         status = action_result.status;
       }
     }
-    const should_prerender_data = nodes.some((node) => node?.server);
+    const should_prerender_data = nodes.some((node) => node?.server?.load);
     const data_pathname = add_data_suffix(event.url.pathname);
     const should_prerender = get_option(nodes, "prerender") ?? false;
     if (should_prerender) {
@@ -2041,7 +2009,7 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
     }
     state.prerender_default = should_prerender;
     const fetched = [];
-    if (get_option(nodes, "ssr") === false && !state.prerendering) {
+    if (get_option(nodes, "ssr") === false && !(state.prerendering && should_prerender_data)) {
       return await render_response({
         branch: [],
         fetched,
@@ -2199,6 +2167,7 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
         body: data
       });
     }
+    const ssr = get_option(nodes, "ssr") ?? true;
     return await render_response({
       event,
       options: options2,
@@ -2207,11 +2176,11 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
       resolve_opts,
       page_config: {
         csr: get_option(nodes, "csr") ?? true,
-        ssr: get_option(nodes, "ssr") ?? true
+        ssr
       },
       status,
       error: null,
-      branch: compact(branch),
+      branch: ssr === false ? [] : compact(branch),
       action_result,
       fetched
     });
@@ -2499,71 +2468,6 @@ function normalize_fetch_input(info, init2, url) {
   }
   return new Request(typeof info === "string" ? new URL(info, url) : info, init2);
 }
-function validator(expected) {
-  function validate(module, file) {
-    if (!module)
-      return;
-    for (const key2 in module) {
-      if (key2[0] === "_" || expected.has(key2))
-        continue;
-      const values = [...expected.values()];
-      const hint = hint_for_supported_files(key2, file?.slice(file.lastIndexOf("."))) ?? `valid exports are ${values.join(", ")}, or anything with a '_' prefix`;
-      throw new Error(`Invalid export '${key2}'${file ? ` in ${file}` : ""} (${hint})`);
-    }
-  }
-  return validate;
-}
-function hint_for_supported_files(key2, ext = ".js") {
-  const supported_files = [];
-  if (valid_layout_exports.has(key2)) {
-    supported_files.push(`+layout${ext}`);
-  }
-  if (valid_page_exports.has(key2)) {
-    supported_files.push(`+page${ext}`);
-  }
-  if (valid_layout_server_exports.has(key2)) {
-    supported_files.push(`+layout.server${ext}`);
-  }
-  if (valid_page_server_exports.has(key2)) {
-    supported_files.push(`+page.server${ext}`);
-  }
-  if (valid_server_exports.has(key2)) {
-    supported_files.push(`+server${ext}`);
-  }
-  if (supported_files.length > 0) {
-    return `'${key2}' is a valid export in ${supported_files.slice(0, -1).join(", ")}${supported_files.length > 1 ? " or " : ""}${supported_files.at(-1)}`;
-  }
-}
-const valid_layout_exports = /* @__PURE__ */ new Set([
-  "load",
-  "prerender",
-  "csr",
-  "ssr",
-  "trailingSlash",
-  "config"
-]);
-const valid_page_exports = /* @__PURE__ */ new Set([...valid_layout_exports, "entries"]);
-const valid_layout_server_exports = /* @__PURE__ */ new Set([...valid_layout_exports]);
-const valid_page_server_exports = /* @__PURE__ */ new Set([...valid_layout_server_exports, "actions", "entries"]);
-const valid_server_exports = /* @__PURE__ */ new Set([
-  "GET",
-  "POST",
-  "PATCH",
-  "PUT",
-  "DELETE",
-  "OPTIONS",
-  "HEAD",
-  "fallback",
-  "prerender",
-  "trailingSlash",
-  "config",
-  "entries"
-]);
-const validate_layout_exports = validator(valid_layout_exports);
-const validate_page_exports = validator(valid_page_exports);
-const validate_layout_server_exports = validator(valid_layout_server_exports);
-const validate_page_server_exports = validator(valid_page_server_exports);
-const validate_server_exports = validator(valid_server_exports);
 let body;
 let etag;
 let headers;
@@ -2578,6 +2482,19 @@ function get_public_env(request) {
     return new Response(void 0, { status: 304, headers });
   }
   return new Response(body, { headers });
+}
+function get_page_config(nodes) {
+  let current = {};
+  for (const node of nodes) {
+    if (!node?.universal?.config && !node?.server?.config)
+      continue;
+    current = {
+      ...current,
+      ...node?.universal?.config,
+      ...node?.server?.config
+    };
+  }
+  return Object.keys(current).length ? current : void 0;
 }
 const default_transform = ({ html }) => html;
 const default_filter = () => false;
@@ -2599,9 +2516,17 @@ async function respond(request, options2, manifest, state) {
       return text(csrf_error.body.message, { status: csrf_error.status });
     }
   }
+  let rerouted_path;
+  try {
+    rerouted_path = options2.hooks.reroute({ url: new URL(url) }) ?? url.pathname;
+  } catch (e) {
+    return text("Internal Server Error", {
+      status: 500
+    });
+  }
   let decoded;
   try {
-    decoded = decode_pathname(url.pathname);
+    decoded = decode_pathname(rerouted_path);
   } catch {
     return text("Malformed URI", { status: 400 });
   }
@@ -2615,6 +2540,9 @@ async function respond(request, options2, manifest, state) {
   }
   if (decoded === `/${options2.app_dir}/env.js`) {
     return get_public_env(request);
+  }
+  if (decoded.startsWith(`/${options2.app_dir}`)) {
+    return text("Not found", { status: 404 });
   }
   const is_data_request = has_data_suffix(decoded);
   let invalidated_data_nodes;
@@ -2690,11 +2618,7 @@ async function respond(request, options2, manifest, state) {
       if (url.pathname === base || url.pathname === base + "/") {
         trailing_slash = "always";
       } else if (route.page) {
-        const nodes = await Promise.all([
-          // we use == here rather than === because [undefined] serializes as "[null]"
-          ...route.page.layouts.map((n) => n == void 0 ? n : manifest._.nodes[n]()),
-          manifest._.nodes[route.page.leaf]()
-        ]);
+        const nodes = await load_page_nodes(route.page, manifest);
         if (DEV)
           ;
         trailing_slash = get_option(nodes, "trailingSlash");
@@ -2717,6 +2641,25 @@ async function respond(request, options2, manifest, state) {
               )
             }
           });
+        }
+      }
+      if (state.before_handle || state.emulator?.platform) {
+        let config = {};
+        let prerender = false;
+        if (route.endpoint) {
+          const node = await route.endpoint();
+          config = node.config ?? config;
+          prerender = node.prerender ?? prerender;
+        } else if (route.page) {
+          const nodes = await load_page_nodes(route.page, manifest);
+          config = get_page_config(nodes) ?? config;
+          prerender = get_option(nodes, "prerender") ?? false;
+        }
+        if (state.before_handle) {
+          state.before_handle(event, config, prerender);
+        }
+        if (state.emulator?.platform) {
+          event.platform = await state.emulator.platform({ config, prerender });
         }
       }
     }
@@ -2960,18 +2903,23 @@ class Server {
   }
   /**
    * @param {{
-   *   env: Record<string, string>
+   *   env: Record<string, string>;
+   *   read?: (file: string) => ReadableStream;
    * }} opts
    */
-  async init({ env }) {
+  async init({ env, read }) {
     const prefixes = {
       public_prefix: this.#options.env_public_prefix,
       private_prefix: this.#options.env_private_prefix
     };
     const private_env = filter_private_env(env, prefixes);
     const public_env2 = filter_public_env(env, prefixes);
-    set_private_env(building ? new Proxy({ type: "private" }, prerender_env_handler) : private_env);
-    set_public_env(building ? new Proxy({ type: "public" }, prerender_env_handler) : public_env2);
+    set_private_env(
+      prerendering ? new Proxy({ type: "private" }, prerender_env_handler) : private_env
+    );
+    set_public_env(
+      prerendering ? new Proxy({ type: "public" }, prerender_env_handler) : public_env2
+    );
     set_safe_public_env(public_env2);
     if (!this.#options.hooks) {
       try {
@@ -2979,7 +2927,9 @@ class Server {
         this.#options.hooks = {
           handle: module.handle || (({ event, resolve: resolve2 }) => resolve2(event)),
           handleError: module.handleError || (({ error }) => console.error(error)),
-          handleFetch: module.handleFetch || (({ request, fetch: fetch2 }) => fetch2(request))
+          handleFetch: module.handleFetch || (({ request, fetch: fetch2 }) => fetch2(request)),
+          reroute: module.reroute || (() => {
+          })
         };
       } catch (error) {
         {
