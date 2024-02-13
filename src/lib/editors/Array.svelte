@@ -51,7 +51,7 @@
 				value={item}
 				bind:schema={schema.items}
 			/>
-			<div class="list-controls m-2.5">
+			<div class="list-controls">
 				{#if controls.includes('delete')}
 					<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>Delete</button>
 				{/if}
@@ -80,3 +80,9 @@
 	{/if}
 </fieldset>
 {/if}
+
+<style>
+	.list-controls {
+		margin: 10px;
+	}
+</style>

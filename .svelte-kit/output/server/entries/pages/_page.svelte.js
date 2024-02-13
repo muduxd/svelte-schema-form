@@ -174,7 +174,7 @@ const FieldWrapper = create_ssr_component(($$result, $$props, $$bindings, slots)
     (params.required ? "required" : "") + " " + (schema.readOnly || params.containerReadOnly ? "readonly" : "")
   ].join(" ").trim()}"><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error && params.showErrors ? `<div class="error">${escape(error)}</div>` : ``}`;
 });
-const css$3 = {
+const css$4 = {
   code: ".legend-group.svelte-zseo9y{padding:20px;padding-top:0;margin:10px 0;color:rgb(var(--color-surface-100));border:2px solid rgb(var(--color-surface-100));border-radius:10px}",
   map: null
 };
@@ -193,7 +193,7 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
-  $$result.css.add(css$3);
+  $$result.css.add(css$4);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -254,6 +254,10 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
+const css$3 = {
+  code: ".list-controls.svelte-1w6vv7i{margin:10px}",
+  map: null
+};
 const buttonClasses$1 = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
 const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let legendText;
@@ -271,6 +275,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  $$result.css.add(css$3);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -282,7 +287,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     emptyText = (!value || value.length === 0) && typeof schema.emptyDisplay === "string" && schema.emptyDisplay;
     readOnly = params.containerReadOnly || schema.readOnly || false;
     controls = schema.controls === void 0 ? readOnly ? "" : "add, reorder, delete, duplicate" : schema.controls;
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px]"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1w6vv7i"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1w6vv7i"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
       return `${validate_component(SubSchemaForm || missing_component, "svelte:component").$$render(
         $$result,
         {
@@ -302,7 +307,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           }
         },
         {}
-      )} <div class="list-controls m-2.5">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true)}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true)}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true)}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true)}" title="move down">Down</button>` : ``} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true)}" title="add item">Add</button>` : ``} </div>`;
+      )} <div class="list-controls svelte-1w6vv7i">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move down">Down</button>` : ``} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="add item">Add</button>` : ``} </div>`;
     })}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
