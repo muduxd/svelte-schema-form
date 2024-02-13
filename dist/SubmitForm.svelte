@@ -96,7 +96,7 @@ componentContext.doUploads = doUploads;
 </script>
 
 <form class='svelte-schema-form' {action} class:dirty>
-	<SchemaForm bind:schema {value} on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
+	<SchemaForm bind:schema bind:value on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
 
 	<div class="button-container flex justify-center space-x-4">
 		<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
