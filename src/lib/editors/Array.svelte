@@ -107,4 +107,8 @@
 	.list-controls {
 		margin: 10px;
 	}
+
+	.list-control.add {
+		align-self: flex-start;
+	}
 </style>

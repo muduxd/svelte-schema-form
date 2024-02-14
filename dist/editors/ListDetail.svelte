@@ -219,3 +219,11 @@ const iconSize = 16;
 	{/if}
 </fieldset>
 {/if}
+
+
+
+<style>
+	.list-control.add {
+		align-self: flex-start;
+	}
+</style>
