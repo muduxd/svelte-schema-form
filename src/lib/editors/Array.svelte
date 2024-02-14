@@ -8,6 +8,15 @@
 	export let schema: any;
 	export let value: any[];
 
+	
+	import Icon from 'svelte-icons-pack/Icon.svelte'
+  	import FaSolidPlus from 'svelte-icons-pack/fa/FaSolidPlus'
+  	import FaSolidArrowUp from 'svelte-icons-pack/fa/FaSolidArrowUp'
+  	import FaSolidArrowDown from 'svelte-icons-pack/fa/FaSolidArrowDown'
+  	import FaSolidTrash from 'svelte-icons-pack/fa/FaSolidTrash'
+  	import FaCopy from 'svelte-icons-pack/fa/FaCopy'
+
+
 	let collapserOpenState: "open" | "closed" = params.path.length === 0 || !params.collapsible ? "open" : "closed";
 
 	const toggle = () => {
@@ -53,19 +62,27 @@
 			/>
 			<div class="list-controls">
 				{#if controls.includes('delete')}
-					<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>Delete</button>
+					<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>
+						<Icon src={FaSolidTrash} color="white" size=24 />
+					</button>
 				{/if}
 
 				{#if controls.includes('duplicate')}
-					<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>Duplicate</button>
+					<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>
+						<Icon src={FaCopy} color="white" size=24 />
+					</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up {buttonClasses}" title="move up" on:click={arrayUp(idx, params, value)}>Up</button>
+					<button type="button" class="list-control up {buttonClasses}" title="move up" on:click={arrayUp(idx, params, value)}>
+						<Icon src={FaSolidArrowUp} color="white" size=24 />
+					</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>Down</button>
+					<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>
+						<Icon src={FaSolidArrowDown} color="white" size=24 />
+					</button>
 				{/if}
 			</div>
 
@@ -73,7 +90,9 @@
 
 
 			{#if controls.includes('add')}
-				<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
+				<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>
+					<Icon src={FaSolidPlus} color="white" size=24 />
+				</button>
 			{/if}
 
 		{:else}

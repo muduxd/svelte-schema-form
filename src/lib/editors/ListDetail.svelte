@@ -9,6 +9,15 @@
 	export let schema: any;
 	export let value: any[];
 
+
+	import Icon from 'svelte-icons-pack/Icon.svelte'
+  	import FaSolidPlus from 'svelte-icons-pack/fa/FaSolidPlus'
+  	import FaSolidArrowUp from 'svelte-icons-pack/fa/FaSolidArrowUp'
+  	import FaSolidArrowDown from 'svelte-icons-pack/fa/FaSolidArrowDown'
+  	import FaSolidTrash from 'svelte-icons-pack/fa/FaSolidTrash'
+  	import FaCopy from 'svelte-icons-pack/fa/FaCopy'
+	
+
 	interface SortSpec {
 		field: string;
 		direction: "asc" | "desc";
@@ -155,6 +164,7 @@
 		{#if !emptyText}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<div class="table-container" tabindex="0" style:grid-template-columns={gridTemplateColumns} on:keyup={onKey} on:click={onClick}>
 			{#if mode === "list"}
 				{#each listFields as fieldName, idx}
@@ -173,16 +183,24 @@
 					<div class="array-buttons">
 						<div class="row-buttons">
 							{#if controls.includes('delete')}
-								<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>Delete</button>
+								<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>
+									<Icon src={FaSolidTrash} color="white" size=24 />
+								</button>
 							{/if}
 							{#if controls.includes('duplicate')}
-								<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>Duplicate</button>
+								<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>
+									<Icon src={FaCopy} color="white" size=24 />
+								</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null &&  idx > 0}
-								<button type="button" class="list-control up {buttonClasses}" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>Up</button>
+								<button type="button" class="list-control up {buttonClasses}" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>
+									<Icon src={FaSolidArrowUp} color="white" size=24 />
+								</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null && idx < (value || []).length - 1}
-								<button type="button" class="list-control down {buttonClasses}" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>Down</button>
+								<button type="button" class="list-control down {buttonClasses}" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>
+									<Icon src={FaSolidArrowDown} color="white" size=24 />
+								</button>
 							{/if}
 						</div>
 					</div>
@@ -211,7 +229,9 @@
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>Add</button>
+		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>
+			<Icon src={FaSolidPlus} color="white" size=24 />
+		</button>
 		{/if}
 	{/if}
 </fieldset>

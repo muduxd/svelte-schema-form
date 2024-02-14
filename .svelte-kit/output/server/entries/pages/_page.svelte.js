@@ -1,8 +1,13 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, g as getContext, a as subscribe, f as add_classes, h as add_styles, i as createEventDispatcher, s as setContext, j as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, g as getContext, a as subscribe, j as add_classes, k as add_styles, l as createEventDispatcher, s as setContext, n as set_store_value } from "../../chunks/ssr.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
 import "@exodus/schemasafe";
+import FaSolidPlus from "svelte-icons-pack/fa/FaSolidPlus.js";
+import FaSolidArrowUp from "svelte-icons-pack/fa/FaSolidArrowUp.js";
+import FaSolidArrowDown from "svelte-icons-pack/fa/FaSolidArrowDown.js";
+import FaSolidTrash from "svelte-icons-pack/fa/FaSolidTrash.js";
+import FaCopy from "svelte-icons-pack/fa/FaCopy.js";
 import "@exodus/schemasafe/src/pointer.js";
 import { w as writable } from "../../chunks/index.js";
 const upTo = (str, match, start) => {
@@ -254,6 +259,55 @@ const Enum = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
+const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { src } = $$props;
+  let { size = "1em" } = $$props;
+  let { color = void 0 } = $$props;
+  let { title = void 0 } = $$props;
+  let { className = "" } = $$props;
+  let innerHtml;
+  let attr;
+  if ($$props.src === void 0 && $$bindings.src && src !== void 0)
+    $$bindings.src(src);
+  if ($$props.size === void 0 && $$bindings.size && size !== void 0)
+    $$bindings.size(size);
+  if ($$props.color === void 0 && $$bindings.color && color !== void 0)
+    $$bindings.color(color);
+  if ($$props.title === void 0 && $$bindings.title && title !== void 0)
+    $$bindings.title(title);
+  if ($$props.className === void 0 && $$bindings.className && className !== void 0)
+    $$bindings.className(className);
+  {
+    {
+      attr = {};
+      if (color) {
+        if (src.a.stroke !== "none") {
+          attr.stroke = color;
+        }
+        if (src.a.fill !== "none") {
+          attr.fill = color;
+        }
+      }
+    }
+  }
+  {
+    {
+      innerHtml = (title ? `<title>${title}</title>` : "") + src.c;
+    }
+  }
+  return `<svg${spread(
+    [
+      { width: escape_attribute_value(size) },
+      { height: escape_attribute_value(size) },
+      { "stroke-width": "0" },
+      { class: escape_attribute_value(className) },
+      escape_object(src.a),
+      escape_object(attr),
+      { xmlns: "http://www.w3.org/2000/svg" }
+    ],
+    {}
+  )}><!-- HTML_TAG_START -->${innerHtml}<!-- HTML_TAG_END --></svg>`;
+});
 const css$3 = {
   code: ".list-controls.svelte-1w6vv7i{margin:10px}",
   map: null
@@ -307,8 +361,44 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           }
         },
         {}
-      )} <div class="list-controls svelte-1w6vv7i">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move down">Down</button>` : ``} </div>`;
-    })} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="add item">Add</button>` : ``}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
+      )} <div class="list-controls svelte-1w6vv7i">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="delete">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidTrash,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="duplicate">${validate_component(Icon, "Icon").$$render($$result, { src: FaCopy, color: "white", size: "24" }, {}, {})} </button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move up">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidArrowUp,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move down">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidArrowDown,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``} </div>`;
+    })} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="add item">${validate_component(Icon, "Icon").$$render(
+      $$result,
+      {
+        src: FaSolidPlus,
+        color: "white",
+        size: "24"
+      },
+      {},
+      {}
+    )}</button>` : ``}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
 });
@@ -605,15 +695,51 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       }
     }
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px]"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `  <div class="table-container" tabindex="0"${add_styles({
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px]"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true)}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `   <div class="table-container" tabindex="0"${add_styles({
       "grid-template-columns": gridTemplateColumns
     })}>${`${each(listFields, (fieldName, idx) => {
       return `<div${add_attribute("class", headingClass(idx, sort), 0)} tabindex="0">${escape(fieldName)}</div>`;
     })} ${!readOnly ? `<div class="buttons-header" data-svelte-h="svelte-1ufcg2c"> </div>` : ``} ${each(rowView, (item, idx) => {
       return `<div class="${["row-wrapper", idx === selectedIdx ? "selected" : ""].join(" ").trim()}">${each(listProps, (propName) => {
         return `<div class="item">${escape(item[propName] === void 0 ? " " : item[propName])}</div>`;
-      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses, true)}" title="delete">Delete</button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true)}" title="duplicate">Duplicate</button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true)}" title="move up">Up</button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses, true)}" title="move down">Down</button>` : ``}</div> </div>` : ``}`;
-    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add" title="add item" data-svelte-h="svelte-pkoi94">Add</button>` : ``}` : ``}</fieldset>` : ``}`;
+      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses, true)}" title="delete">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidTrash,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true)}" title="duplicate">${validate_component(Icon, "Icon").$$render($$result, { src: FaCopy, color: "white", size: "24" }, {}, {})} </button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true)}" title="move up">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidArrowUp,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses, true)}" title="move down">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaSolidArrowDown,
+          color: "white",
+          size: "24"
+        },
+        {},
+        {}
+      )} </button>` : ``}</div> </div>` : ``}`;
+    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add" title="add item">${validate_component(Icon, "Icon").$$render(
+      $$result,
+      {
+        src: FaSolidPlus,
+        color: "white",
+        size: "24"
+      },
+      {},
+      {}
+    )}</button>` : ``}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
 });
