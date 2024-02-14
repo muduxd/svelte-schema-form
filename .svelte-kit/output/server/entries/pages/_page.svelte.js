@@ -312,7 +312,8 @@ const css$3 = {
   code: ".list-controls.svelte-1w6vv7i{margin:10px}",
   map: null
 };
-const buttonClasses$1 = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
+const buttonClasses$1 = "!mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
+const iconSize$1 = 16;
 const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let legendText;
   let showWrapper;
@@ -366,16 +367,25 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         {
           src: FaSolidTrash,
           color: "white",
-          size: "24"
+          size: iconSize$1
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="duplicate">${validate_component(Icon, "Icon").$$render($$result, { src: FaCopy, color: "white", size: "24" }, {}, {})} </button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move up">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="duplicate">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaCopy,
+          color: "white",
+          size: iconSize$1
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1w6vv7i"}" title="move up">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowUp,
           color: "white",
-          size: "24"
+          size: iconSize$1
         },
         {},
         {}
@@ -384,7 +394,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         {
           src: FaSolidArrowDown,
           color: "white",
-          size: "24"
+          size: iconSize$1
         },
         {},
         {}
@@ -394,7 +404,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       {
         src: FaSolidPlus,
         color: "white",
-        size: "24"
+        size: iconSize$1
       },
       {},
       {}
@@ -632,7 +642,8 @@ const Hidden = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.value(value);
   return ` <input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="hidden"${add_attribute("value", value || "", 0)}>`;
 });
-const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
+const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
+const iconSize = 16;
 const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let itemSchema;
   let listProps;
@@ -707,16 +718,25 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         {
           src: FaSolidTrash,
           color: "white",
-          size: "24"
+          size: iconSize
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true)}" title="duplicate">${validate_component(Icon, "Icon").$$render($$result, { src: FaCopy, color: "white", size: "24" }, {}, {})} </button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true)}" title="move up">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true)}" title="duplicate">${validate_component(Icon, "Icon").$$render(
+        $$result,
+        {
+          src: FaCopy,
+          color: "white",
+          size: iconSize
+        },
+        {},
+        {}
+      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true)}" title="move up">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowUp,
           color: "white",
-          size: "24"
+          size: iconSize
         },
         {},
         {}
@@ -725,7 +745,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         {
           src: FaSolidArrowDown,
           color: "white",
-          size: "24"
+          size: iconSize
         },
         {},
         {}
@@ -735,7 +755,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
       {
         src: FaSolidPlus,
         color: "white",
-        size: "24"
+        size: iconSize
       },
       {},
       {}

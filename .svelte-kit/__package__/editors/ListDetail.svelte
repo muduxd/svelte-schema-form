@@ -125,7 +125,8 @@ $: {
     rowView.sort(sortFunc(sort));
   }
 }
-const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
+const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
+const iconSize = 16;
 </script>
 
 {#if showWrapper}
@@ -166,22 +167,22 @@ const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
 						<div class="row-buttons">
 							{#if controls.includes('delete')}
 								<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click|stopPropagation={arrayDelete(idx, params, value)} on:keyup|stopPropagation>
-									<Icon src={FaSolidTrash} color="white" size=24 />
+									<Icon src={FaSolidTrash} color="white" size={iconSize} />
 								</button>
 							{/if}
 							{#if controls.includes('duplicate')}
 								<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click|stopPropagation={arrayDuplicate(idx, params, value)} on:keyup|stopPropagation>
-									<Icon src={FaCopy} color="white" size=24 />
+									<Icon src={FaCopy} color="white" size={iconSize} />
 								</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null &&  idx > 0}
 								<button type="button" class="list-control up {buttonClasses}" title="move up" on:click|stopPropagation={arrayUp(idx, params, value)} on:keyup|stopPropagation>
-									<Icon src={FaSolidArrowUp} color="white" size=24 />
+									<Icon src={FaSolidArrowUp} color="white" size={iconSize} />
 								</button>
 							{/if}
 							{#if controls.includes('reorder') && sort === null && idx < (value || []).length - 1}
 								<button type="button" class="list-control down {buttonClasses}" title="move down" on:click|stopPropagation={arrayDown(idx, params, value)} on:keyup|stopPropagation>
-									<Icon src={FaSolidArrowDown} color="white" size=24 />
+									<Icon src={FaSolidArrowDown} color="white" size={iconSize} />
 								</button>
 							{/if}
 						</div>
@@ -212,7 +213,7 @@ const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start";
 		{/if}
 		{#if controls.includes('add')}
 		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>
-			<Icon src={FaSolidPlus} color="white" size=24 />
+			<Icon src={FaSolidPlus} color="white" size={iconSize} />
 		</button>
 		{/if}
 	{/if}

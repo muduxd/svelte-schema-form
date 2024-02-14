@@ -25,7 +25,8 @@ $:
   readOnly = params.containerReadOnly || schema.readOnly || false;
 $:
   controls = schema.controls === void 0 ? readOnly ? "" : "add, reorder, delete, duplicate" : schema.controls;
-const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
+const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
+const iconSize = 16;
 </script>
 
 {#if showWrapper}
@@ -58,25 +59,25 @@ const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
 			<div class="list-controls">
 				{#if controls.includes('delete')}
 					<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>
-						<Icon src={FaSolidTrash} color="white" size=24 />
+						<Icon src={FaSolidTrash} color="white" size={iconSize} />
 					</button>
 				{/if}
 
 				{#if controls.includes('duplicate')}
 					<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>
-						<Icon src={FaCopy} color="white" size=24 />
+						<Icon src={FaCopy} color="white" size={iconSize} />
 					</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx > 0}
 					<button type="button" class="list-control up {buttonClasses}" title="move up" on:click={arrayUp(idx, params, value)}>
-						<Icon src={FaSolidArrowUp} color="white" size=24 />
+						<Icon src={FaSolidArrowUp} color="white" size={iconSize} />
 					</button>
 				{/if}
 
 				{#if controls.includes('reorder') && idx < (value || []).length - 1}
 					<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>
-						<Icon src={FaSolidArrowDown} color="white" size=24 />
+						<Icon src={FaSolidArrowDown} color="white" size={iconSize} />
 					</button>
 				{/if}
 			</div>
@@ -86,7 +87,7 @@ const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start";
 
 			{#if controls.includes('add')}
 				<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>
-					<Icon src={FaSolidPlus} color="white" size=24 />
+					<Icon src={FaSolidPlus} color="white" size={iconSize} />
 				</button>
 			{/if}
 
