@@ -230,7 +230,7 @@
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add')}
-		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}>
+		<button type="button" class="list-control add {buttonClasses}" title="add item" on:click={arrayAdd(schema, params, value)}>
 			<Icon src={FaSolidPlus} color="white" size={iconSize} />
 		</button>
 		{/if}
@@ -243,5 +243,6 @@
 <style>
 	.list-control.add {
 		align-self: flex-start;
+		margin-top: 10px;
 	}
 </style>

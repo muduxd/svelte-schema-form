@@ -121,5 +121,6 @@
 
 	.list-control.add {
 		align-self: flex-start;
+		margin-top: 10px;
 	}
 </style>

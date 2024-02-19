@@ -9,9 +9,4 @@ $:
   component = components[editorForSchema(schema)];
 </script>
 
-<svelte:component this={component} {params} {value} bind:schema 
-class="h-[40px]"
-/>
-
-
-
+<svelte:component this={component} {params} {value} bind:schema class="h-[40px]" />

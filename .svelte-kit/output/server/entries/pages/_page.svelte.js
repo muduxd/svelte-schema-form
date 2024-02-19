@@ -309,7 +309,7 @@ const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )}><!-- HTML_TAG_START -->${innerHtml}<!-- HTML_TAG_END --></svg>`;
 });
 const css$4 = {
-  code: ".list-controls.svelte-1bjbcmm{margin:10px;display:flex}.list-control.add.svelte-1bjbcmm{align-self:flex-start}",
+  code: ".list-controls.svelte-34tvem{margin:10px;display:flex}.list-control.add.svelte-34tvem{align-self:flex-start;margin-top:10px}",
   map: null
 };
 const buttonClasses$1 = "!mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
@@ -342,7 +342,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     emptyText = (!value || value.length === 0) && typeof schema.emptyDisplay === "string" && schema.emptyDisplay;
     readOnly = params.containerReadOnly || schema.readOnly || false;
     controls = schema.controls === void 0 ? readOnly ? "" : "add, reorder, delete, duplicate" : schema.controls;
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1bjbcmm"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1bjbcmm"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-34tvem"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-34tvem"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
       return `<div class="flex items-center">${validate_component(SubSchemaForm || missing_component, "svelte:component").$$render(
         $$result,
         {
@@ -362,7 +362,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           }
         },
         {}
-      )} <div class="list-controls svelte-1bjbcmm">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true) + " svelte-1bjbcmm"}" title="delete">${validate_component(Icon, "Icon").$$render(
+      )} <div class="list-controls svelte-34tvem">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses$1, true) + " svelte-34tvem"}" title="delete">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidTrash,
@@ -371,7 +371,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-1bjbcmm"}" title="duplicate">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses$1, true) + " svelte-34tvem"}" title="duplicate">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaCopy,
@@ -380,7 +380,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-1bjbcmm"}" title="move up">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("reorder") && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses$1, true) + " svelte-34tvem"}" title="move up">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowUp,
@@ -389,7 +389,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true) + " svelte-1bjbcmm"}" title="move down">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("reorder") && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses$1, true) + " svelte-34tvem"}" title="move down">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowDown,
@@ -399,7 +399,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         {},
         {}
       )} </button>` : ``}</div> </div>`;
-    })} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true) + " svelte-1bjbcmm"}" title="add item">${validate_component(Icon, "Icon").$$render(
+    })} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses$1, true) + " svelte-34tvem"}" title="add item">${validate_component(Icon, "Icon").$$render(
       $$result,
       {
         src: FaSolidPlus,
@@ -643,7 +643,7 @@ const Hidden = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return ` <input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="hidden"${add_attribute("value", value || "", 0)}>`;
 });
 const css$2 = {
-  code: ".list-control.add.svelte-1woaykr{align-self:flex-start}",
+  code: ".list-control.add.svelte-1b5o1q3{align-self:flex-start;margin-top:10px}",
   map: null
 };
 const buttonClasses = " !mx-2 bg-primary-500 p-2 rounded-full self-start text-center";
@@ -711,14 +711,14 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       }
     }
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1woaykr"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1woaykr"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `   <div class="table-container" tabindex="0"${add_styles({
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1b5o1q3"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1b5o1q3"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `   <div class="table-container" tabindex="0"${add_styles({
       "grid-template-columns": gridTemplateColumns
     })}>${`${each(listFields, (fieldName, idx) => {
-      return `<div class="${escape(null_to_empty(headingClass(idx, sort)), true) + " svelte-1woaykr"}" tabindex="0">${escape(fieldName)}</div>`;
+      return `<div class="${escape(null_to_empty(headingClass(idx, sort)), true) + " svelte-1b5o1q3"}" tabindex="0">${escape(fieldName)}</div>`;
     })} ${!readOnly ? `<div class="buttons-header" data-svelte-h="svelte-1ufcg2c"> </div>` : ``} ${each(rowView, (item, idx) => {
       return `<div class="${["row-wrapper", idx === selectedIdx ? "selected" : ""].join(" ").trim()}">${each(listProps, (propName) => {
         return `<div class="item">${escape(item[propName] === void 0 ? " " : item[propName])}</div>`;
-      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses, true) + " svelte-1woaykr"}" title="delete">${validate_component(Icon, "Icon").$$render(
+      })}</div> ${!readOnly ? `<div class="array-buttons"><div class="row-buttons">${controls.includes("delete") ? `<button type="button" class="${"list-control delete " + escape(buttonClasses, true) + " svelte-1b5o1q3"}" title="delete">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidTrash,
@@ -727,7 +727,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true) + " svelte-1woaykr"}" title="duplicate">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("duplicate") ? `<button type="button" class="${"list-control duplicate " + escape(buttonClasses, true) + " svelte-1b5o1q3"}" title="duplicate">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaCopy,
@@ -736,7 +736,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true) + " svelte-1woaykr"}" title="move up">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx > 0 ? `<button type="button" class="${"list-control up " + escape(buttonClasses, true) + " svelte-1b5o1q3"}" title="move up">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowUp,
@@ -745,7 +745,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         },
         {},
         {}
-      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses, true) + " svelte-1woaykr"}" title="move down">${validate_component(Icon, "Icon").$$render(
+      )} </button>` : ``} ${controls.includes("reorder") && sort === null && idx < (value || []).length - 1 ? `<button type="button" class="${"list-control down " + escape(buttonClasses, true) + " svelte-1b5o1q3"}" title="move down">${validate_component(Icon, "Icon").$$render(
         $$result,
         {
           src: FaSolidArrowDown,
@@ -755,7 +755,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         {},
         {}
       )} </button>` : ``}</div> </div>` : ``}`;
-    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="list-control add svelte-1woaykr" title="add item">${validate_component(Icon, "Icon").$$render(
+    })}`}</div>` : `<div class="emptyText">${escape(emptyText)}</div>`} ${controls.includes("add") ? `<button type="button" class="${"list-control add " + escape(buttonClasses, true) + " svelte-1b5o1q3"}" title="add item">${validate_component(Icon, "Icon").$$render(
       $$result,
       {
         src: FaSolidPlus,

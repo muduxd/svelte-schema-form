@@ -116,5 +116,6 @@ const iconSize = 16;
 
 	.list-control.add {
 		align-self: flex-start;
+		margin-top: 10px;
 	}
 </style>
