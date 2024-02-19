@@ -342,7 +342,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     emptyText = (!value || value.length === 0) && typeof schema.emptyDisplay === "string" && schema.emptyDisplay;
     readOnly = params.containerReadOnly || schema.readOnly || false;
     controls = schema.controls === void 0 ? readOnly ? "" : "add, reorder, delete, duplicate" : schema.controls;
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1jyzt0k"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1jyzt0k"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
+    $$rendered = `${showWrapper ? `<div class="flex"><fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1jyzt0k"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1jyzt0k"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `${each(value || [], (item, idx) => {
       return `${validate_component(SubSchemaForm || missing_component, "svelte:component").$$render(
         $$result,
         {
@@ -408,7 +408,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       },
       {},
       {}
-    )}</button>` : ``}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
+    )}</button>` : ``}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset></div>` : ``}`;
   } while (!$$settled);
   return $$rendered;
 });
@@ -1095,50 +1095,22 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   return $$rendered;
 });
 const css = {
-  code: ".svelte-1p0h1dm.svelte-1p0h1dm{box-sizing:border-box}.container.svelte-1p0h1dm.svelte-1p0h1dm{display:flex;position:relative}.schema.svelte-1p0h1dm.svelte-1p0h1dm,.form.svelte-1p0h1dm.svelte-1p0h1dm,.output.svelte-1p0h1dm.svelte-1p0h1dm{width:32%;border:solid 1px black;height:99vh;position:relative}.schema.svelte-1p0h1dm.svelte-1p0h1dm{border:none;display:flex;flex-direction:column}.form.svelte-1p0h1dm.svelte-1p0h1dm,.output.svelte-1p0h1dm.svelte-1p0h1dm{margin-left:1%;padding:1em}#schema.svelte-1p0h1dm.svelte-1p0h1dm{width:100%;height:100%;gap:1em}.schema.jsonInvalid.svelte-1p0h1dm #schema.svelte-1p0h1dm{color:darkred}#collapsible.svelte-1p0h1dm.svelte-1p0h1dm{margin-bottom:6px}.control.svelte-1p0h1dm.svelte-1p0h1dm{margin-bottom:6px}",
+  code: '.svelte-1shpih0.svelte-1shpih0{box-sizing:border-box}.container.svelte-1shpih0.svelte-1shpih0{display:flex;position:relative}.schema.svelte-1shpih0.svelte-1shpih0,.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{width:32%;border:solid 1px black;height:99vh;position:relative}.schema.svelte-1shpih0.svelte-1shpih0{border:none;display:flex;flex-direction:column}.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{margin-left:1%;padding:1em}#schema.svelte-1shpih0.svelte-1shpih0{width:100%;height:100%;gap:1em}.schema.jsonInvalid.svelte-1shpih0 #schema.svelte-1shpih0{color:darkred}#collapsible.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}.control.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}form.svelte-schema-form .subset{display:grid;grid-template-rows:auto;grid-gap:1em;align-items:flex-start;padding-left:1em;box-sizing:border-box;border:none}form.svelte-schema-form .depth-0{padding-left:0}.svelte-schema-form .object{grid-template-columns:max-content 1fr;border-left:1px solid #999;grid-column:span 2}form.svelte-schema-form .array > .object{grid-column:span 1}form.svelte-schema-form .object.depth-0{border-left:none}form.svelte-schema-form .array{grid-column:span 2;grid-template-columns:1fr max-content}form.svelte-schema-form .subset > .subset-label{margin-bottom:1em}form.svelte-schema-form .subset > .subset-label .subset-label-title{display:block}form.svelte-schema-form .array > legend{margin-left:-1em}form.svelte-schema-form .array > .object{margin-left:-1em}form.svelte-schema-form .list-item{display:flex}form.svelte-schema-form input[type="checkbox"]{justify-self:start}form.svelte-schema-form .error{grid-column:1 / span 2}form.svelte-schema-form .sf-drop-area{width:100%;display:flex}form.svelte-schema-form .sf-drop-area .sf-upload-caption{position:absolute;top:0;bottom:0;left:0;right:30px;display:flex;justify-content:center;align-items:center;z-index:-1}form.svelte-schema-form .sf-drop-area .sf-upload-controls{position:absolute;right:0;display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:4px;box-sizing:border-box}form.svelte-schema-form .sf-drop-area .sf-upload-controls button{border:0;padding:0;height:20px;width:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-controls .sf-upload-deleter{width:20px;height:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-input{align-self:center;width:calc(100% - 30px);margin:0 10px}form.svelte-schema-form .sf-drop-area.link .sf-upload-thumb, form.svelte-schema-form .sf-drop-area.link .sf-upload-file{display:none}form.svelte-schema-form .sf-drop-area .sf-upload-file{font-size:1.4em;font-weight:bold;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0.4em;color:white;background-color:#ddd}form.svelte-schema-form .sf-progress-bars{grid-column:2;display:flex;flex-direction:column;gap:3px;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar{width:100%;position:relative;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar .sf-progress-done{position:absolute;left:0;top:0;bottom:0}form.svelte-schema-form .sf-autocomplete{width:100%;position:relative}form.svelte-schema-form .sf-autocomplete .sf-items{z-index:1;position:absolute;right:0;left:0;max-height:12em;overflow-y:auto;overflow-x:hidden}form.svelte-schema-form .sf-autocomplete .sf-items > div, form.svelte-schema-form .sf-autocomplete .sf-selected-item{display:flex;align-items:center}form.svelte-schema-form .list-detail{width:100%}form.svelte-schema-form .list-detail .table-container{display:grid}form.svelte-schema-form .list-detail .row-wrapper{display:contents}form.svelte-schema-form .list-detail .item{display:flex}form.svelte-schema-form .list-detail .table-container > .element{grid-column:span 3}form.svelte-schema-form .list-detail .add-button-container{grid-column:span 3}',
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
     type: "object",
     properties: {
-      something: {
-        type: "string",
-        maxLength: 5,
-        description: "description for something"
-      },
-      amount: { type: "number" },
-      test: { type: "color" },
-      choose: { type: "string", enum: ["a", "b", "c"] },
-      checkThis: { type: "boolean" },
-      things: { type: "array", items: { type: "string" } },
-      complicatedThings: {
-        type: "array",
-        editor: "blocks",
-        effectiveUrl: "/abc",
-        items: {
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            thumbnail: { type: "string", editor: "upload" }
-          }
-        }
-      },
-      "obj": {
-        "type": "object",
-        "properties": { "xyz": { "type": "string" } }
-      },
-      "aFile": { "type": "string", "editor": "upload" }
-    },
-    required: ["amount"],
-    pathPattern: "item_${amount}"
+      things: { type: "array", items: { type: "string" } }
+    }
   };
   let value = {};
   let valueJson = "";
   let collapsible = false;
   const componentContext = { currencySymbol: "£" };
   $$result.css.add(css);
-  return `<div class="container svelte-1p0h1dm"><div class="${["schema svelte-1p0h1dm", ""].join(" ").trim()}"><div class="control svelte-1p0h1dm"><input type="checkbox" id="collapsible" class="svelte-1p0h1dm"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1p0h1dm" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1p0h1dm">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1p0h1dm">${validate_component(SubmitForm, "SubmitForm").$$render(
+  return `<div class="container svelte-1shpih0"><div class="${["schema svelte-1shpih0", ""].join(" ").trim()}"><div class="control svelte-1shpih0"><input type="checkbox" id="collapsible" class="svelte-1shpih0"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1shpih0" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1shpih0">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1shpih0">${validate_component(SubmitForm, "SubmitForm").$$render(
     $$result,
     {
       schema,
@@ -1149,7 +1121,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     },
     {},
     {}
-  )}</div> <div class="output svelte-1p0h1dm"><pre class="svelte-1p0h1dm">			${escape(valueJson)}
+  )}</div> <div class="output svelte-1shpih0"><pre class="svelte-1shpih0">			${escape(valueJson)}
 		</pre></div> </div>`;
 });
 export {

@@ -34,7 +34,11 @@
 	const iconSize = 16
 </script>
 
+
+
+
 {#if showWrapper}
+<div class="flex">
 <fieldset name={params.path.join('.')} class="subset array depth-{params.path.length} flex flex-col gap-[5px]">
 	{#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
@@ -51,7 +55,6 @@
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
-			<div class="flex">
 			<svelte:component this={SubSchemaForm}
 				params={{
 					...params,
@@ -87,7 +90,6 @@
 					</button>
 				{/if}
 			</div>
-			</div>
 
 			{/each}
 
@@ -103,7 +105,12 @@
 		{/if}
 	{/if}
 </fieldset>
+</div>
+
 {/if}
+
+
+
 
 <style>
 	.list-controls {

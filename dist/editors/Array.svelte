@@ -29,7 +29,11 @@ const buttonClasses = "!mx-2 bg-primary-500 p-2 rounded-full self-start text-cen
 const iconSize = 16;
 </script>
 
+
+
+
 {#if showWrapper}
+<div class="flex">
 <fieldset name={params.path.join('.')} class="subset array depth-{params.path.length} flex flex-col gap-[5px]">
 	{#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
@@ -96,7 +100,12 @@ const iconSize = 16;
 		{/if}
 	{/if}
 </fieldset>
+</div>
+
 {/if}
+
+
+
 
 <style>
 	.list-controls {
