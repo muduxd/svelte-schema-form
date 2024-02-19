@@ -38,7 +38,6 @@
 
 
 {#if showWrapper}
-<div class="flex">
 <fieldset name={params.path.join('.')} class="subset array depth-{params.path.length} flex flex-col gap-[5px]">
 	{#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
@@ -55,41 +54,44 @@
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
-			<svelte:component this={SubSchemaForm}
-				params={{
-					...params,
-					path: [ ...params.path, idx.toString() ],
-					containerParent: "array",
-					containerReadOnly: params.containerReadOnly || schema.readOnly || false
-				}}
-				value={item}
-				bind:schema={schema.items}
-			/>
-			<div class="list-controls">
-				{#if controls.includes('delete')}
-					<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>
-						<Icon src={FaSolidTrash} color="white" size={iconSize} />
-					</button>
-				{/if}
+					<div class="flex">
+					<svelte:component this={SubSchemaForm}
+						params={{
+							...params,
+							path: [ ...params.path, idx.toString() ],
+							containerParent: "array",
+							containerReadOnly: params.containerReadOnly || schema.readOnly || false
+						}}
+						value={item}
+						bind:schema={schema.items}
+					/>
+					
+					<div class="list-controls">
+						{#if controls.includes('delete')}
+							<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>
+								<Icon src={FaSolidTrash} color="white" size={iconSize} />
+							</button>
+						{/if}
 
-				{#if controls.includes('duplicate')}
-					<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>
-						<Icon src={FaCopy} color="white" size={iconSize} />
-					</button>
-				{/if}
+						{#if controls.includes('duplicate')}
+							<button type="button" class="list-control duplicate {buttonClasses}" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>
+								<Icon src={FaCopy} color="white" size={iconSize} />
+							</button>
+						{/if}
 
-				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up {buttonClasses}" title="move up" on:click={arrayUp(idx, params, value)}>
-						<Icon src={FaSolidArrowUp} color="white" size={iconSize} />
-					</button>
-				{/if}
+						{#if controls.includes('reorder') && idx > 0}
+							<button type="button" class="list-control up {buttonClasses}" title="move up" on:click={arrayUp(idx, params, value)}>
+								<Icon src={FaSolidArrowUp} color="white" size={iconSize} />
+							</button>
+						{/if}
 
-				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>
-						<Icon src={FaSolidArrowDown} color="white" size={iconSize} />
-					</button>
-				{/if}
-			</div>
+						{#if controls.includes('reorder') && idx < (value || []).length - 1}
+							<button type="button" class="list-control down {buttonClasses}" title="move down" on:click={arrayDown(idx, params, value)}>
+								<Icon src={FaSolidArrowDown} color="white" size={iconSize} />
+							</button>
+						{/if}
+					</div>
+					</div>
 
 			{/each}
 
@@ -105,7 +107,6 @@
 		{/if}
 	{/if}
 </fieldset>
-</div>
 
 {/if}
 
