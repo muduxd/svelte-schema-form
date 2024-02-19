@@ -51,6 +51,7 @@
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
+			<div class="flex">
 			<svelte:component this={SubSchemaForm}
 				params={{
 					...params,
@@ -85,6 +86,7 @@
 						<Icon src={FaSolidArrowDown} color="white" size={iconSize} />
 					</button>
 				{/if}
+			</div>
 			</div>
 
 			{/each}
