@@ -54,7 +54,7 @@
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
-					<div class="flex">
+					<div class="flex items-center">
 					<svelte:component this={SubSchemaForm}
 						params={{
 							...params,
@@ -65,7 +65,7 @@
 						value={item}
 						bind:schema={schema.items}
 					/>
-					
+
 					<div class="list-controls">
 						{#if controls.includes('delete')}
 							<button type="button" class="list-control delete {buttonClasses}" title="delete" on:click={arrayDelete(idx, params, value)}>
@@ -116,6 +116,7 @@
 <style>
 	.list-controls {
 		margin: 10px;
+		display: flex;
 	}
 
 	.list-control.add {
