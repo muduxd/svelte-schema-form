@@ -63,4 +63,8 @@ $:
 		border: 2px solid rgb(var(--color-surface-100));
 		border-radius: 10px;
 	}
+
+	fieldset.subset.object {
+		flex-grow: 1 !important;
+	}
 </style>

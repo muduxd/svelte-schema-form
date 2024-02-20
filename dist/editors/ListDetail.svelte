@@ -227,4 +227,8 @@ const iconSize = 16;
 		align-self: flex-start;
 		margin-top: 10px;
 	}
+
+	fieldset.subset.array {
+		flex-grow: 1 !important;
+	}
 </style>
