@@ -20,7 +20,6 @@ export let collapsible = false;
 export let submitText = "Submit";
 export let submitRequiresDirty = true;
 export let componentContext = {};
-export let SlideToggle;
 const dispatch = createEventDispatcher();
 let pathProgress = writable({});
 setContext(ProgressContext, pathProgress);
