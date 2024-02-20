@@ -6,9 +6,17 @@
 	let schema: any = {
 		type: "object",
 		properties: {
-			something: { type: "string", maxLength: 5, description: "description for something" },
-			checkThis: { type: "boolean" },
-		}
+			items: {
+				type: "object",
+				properties: {
+					type_name: { 
+						type: "string",
+						title: "Type Name"
+					},
+					color: {type: "color" } 
+				}
+			}
+		},
 	}
 
 	let jsonInvalid = false;

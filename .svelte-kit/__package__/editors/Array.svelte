@@ -50,16 +50,16 @@ const iconSize = 16;
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
 					<div class="flex items-center">
-					<svelte:component this={SubSchemaForm}
-						params={{
-							...params,
-							path: [ ...params.path, idx.toString() ],
-							containerParent: "array",
-							containerReadOnly: params.containerReadOnly || schema.readOnly || false
-						}}
-						value={item}
-						bind:schema={schema.items}
-					/>
+						<svelte:component this={SubSchemaForm}
+							params={{
+								...params,
+								path: [ ...params.path, idx.toString() ],
+								containerParent: "array",
+								containerReadOnly: params.containerReadOnly || schema.readOnly || false
+							}}
+							value={item}
+							bind:schema={schema.items}
+						/>
 
 					<div class="list-controls">
 						{#if controls.includes('delete')}

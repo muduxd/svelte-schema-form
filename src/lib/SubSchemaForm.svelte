@@ -12,4 +12,6 @@
 	$: component = components[editorForSchema(schema)];
 </script>
 
+<div>
 <svelte:component this={component} {params} {value} bind:schema class="h-[40px]" />
+</div>
