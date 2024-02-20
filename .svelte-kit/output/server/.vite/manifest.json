@@ -30,14 +30,6 @@
     "isEntry": true,
     "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
   },
-  "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte": {
-    "file": "entries/fallbacks/layout.svelte.js",
-    "imports": [
-      "_ssr.js"
-    ],
-    "isEntry": true,
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte"
-  },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
     "file": "index.js",
     "imports": [
@@ -47,9 +39,20 @@
     "isEntry": true,
     "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js"
   },
+  "src/routes/+layout.svelte": {
+    "css": [
+      "_app/immutable/assets/_layout.fSEPhS9V.css"
+    ],
+    "file": "entries/pages/_layout.svelte.js",
+    "imports": [
+      "_ssr.js"
+    ],
+    "isEntry": true,
+    "src": "src/routes/+layout.svelte"
+  },
   "src/routes/+page.svelte": {
     "css": [
-      "_app/immutable/assets/_page.-L9cSarV.css"
+      "_app/immutable/assets/_page.0gLiGsVq.css"
     ],
     "file": "entries/pages/_page.svelte.js",
     "imports": [

@@ -1,13 +1,10 @@
 <script>export let params;
 export let schema;
-export let value;
+let value = false;
+import { SlideToggle } from "@skeletonlabs/skeleton";
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
-	<input id={params.path.join('.')} name={params.path.join('.')}
-		type="checkbox" checked={value || false} class="checkbox"
-		disabled={schema.readOnly || params.containerReadOnly}
-		on:change={ev => params.pathChanged(params.path, ev.currentTarget.checked)}
-	/>
+	<SlideToggle id={params.path.join('.')} name={params.path.join('.')} bind:checked={value} on:change={() => params.pathChanged(params.path, value)} />
 </svelte:component>

@@ -4,7 +4,6 @@ declare const __propDef: {
     props: {
         params: CommonComponentParameters;
         schema: any;
-        value: boolean;
     };
     events: {
         [evt: string]: CustomEvent<any>;

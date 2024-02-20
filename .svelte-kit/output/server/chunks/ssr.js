@@ -22,6 +22,26 @@ function subscribe(store, ...callbacks) {
   const unsub = store.subscribe(...callbacks);
   return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
 }
+function get_store_value(store) {
+  let value;
+  subscribe(store, (_) => value = _)();
+  return value;
+}
+function compute_rest_props(props, keys) {
+  const rest = {};
+  keys = new Set(keys);
+  for (const k in props)
+    if (!keys.has(k) && k[0] !== "$")
+      rest[k] = props[k];
+  return rest;
+}
+function compute_slots(slots) {
+  const result = {};
+  for (const key in slots) {
+    result[key] = true;
+  }
+  return result;
+}
 function null_to_empty(value) {
   return value == null ? "" : value;
 }
@@ -271,14 +291,17 @@ export {
   getContext as g,
   escape_attribute_value as h,
   escape_object as i,
-  add_classes as j,
-  add_styles as k,
+  get_store_value as j,
+  compute_rest_props as k,
   createEventDispatcher as l,
   missing_component as m,
-  null_to_empty as n,
-  set_store_value as o,
-  noop as p,
-  safe_not_equal as q,
+  compute_slots as n,
+  add_classes as o,
+  add_styles as p,
+  null_to_empty as q,
+  set_store_value as r,
   setContext as s,
+  noop as t,
+  safe_not_equal as u,
   validate_component as v
 };
