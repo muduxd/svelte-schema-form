@@ -6,14 +6,10 @@
 	let schema: any = {
 		type: "object",
 		properties: {
-			things: {
-				type: "array",
-				items: {
-					type: "string"
-				}
-			},
-		},
-	};
+			something: { type: "string", maxLength: 5, description: "description for something" },
+			checkThis: { type: "boolean" },
+		}
+	}
 
 	let jsonInvalid = false;
 

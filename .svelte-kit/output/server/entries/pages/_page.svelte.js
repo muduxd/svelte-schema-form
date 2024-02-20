@@ -711,7 +711,7 @@ const ListDetail = create_ssr_component(($$result, $$props, $$bindings, slots) =
         }
       }
     }
-    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col gap-[5px] svelte-1b5o1q3"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1b5o1q3"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `   <div class="table-container" tabindex="0"${add_styles({
+    $$rendered = `${showWrapper ? `<fieldset${add_attribute("name", params.path.join("."), 0)} class="${"subset array list-detail depth-" + escape(params.path.length, true) + " flex flex-col grow gap-[5px] svelte-1b5o1q3"}">${params.collapsible || legendText ? `<legend class="subset-label array-label">${params.collapsible ? `<span class="${"collapser " + escape(collapserOpenState, true) + " svelte-1b5o1q3"}"></span>` : ``} <span class="subset-label-title object-label-title"><!-- HTML_TAG_START -->${stringToHtml(legendText)}<!-- HTML_TAG_END --></span> ${schema.description ? `<span class="subset-label-description object-label-description"><!-- HTML_TAG_START -->${stringToHtml(schema.description)}<!-- HTML_TAG_END --></span>` : ``}</legend>` : ``} ${collapserOpenState === "open" ? `${!emptyText ? `   <div class="table-container" tabindex="0"${add_styles({
       "grid-template-columns": gridTemplateColumns
     })}>${`${each(listFields, (fieldName, idx) => {
       return `<div class="${escape(null_to_empty(headingClass(idx, sort)), true) + " svelte-1b5o1q3"}" tabindex="0">${escape(fieldName)}</div>`;
@@ -1102,7 +1102,12 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
     type: "object",
     properties: {
-      things: { type: "array", items: { type: "string" } }
+      something: {
+        type: "string",
+        maxLength: 5,
+        description: "description for something"
+      },
+      checkThis: { type: "boolean" }
     }
   };
   let value = {};
