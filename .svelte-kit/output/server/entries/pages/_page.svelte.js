@@ -960,6 +960,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let { submitText = "Submit" } = $$props;
   let { submitRequiresDirty = true } = $$props;
   let { componentContext = {} } = $$props;
+  let { SlideToggle } = $$props;
   createEventDispatcher();
   let pathProgress = writable({});
   $$unsubscribe_pathProgress = subscribe(pathProgress, (value2) => $pathProgress = value2);
@@ -1048,6 +1049,8 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.submitRequiresDirty(submitRequiresDirty);
   if ($$props.componentContext === void 0 && $$bindings.componentContext && componentContext !== void 0)
     $$bindings.componentContext(componentContext);
+  if ($$props.SlideToggle === void 0 && $$bindings.SlideToggle && SlideToggle !== void 0)
+    $$bindings.SlideToggle(SlideToggle);
   $$result.css.add(css$1);
   let $$settled;
   let $$rendered;

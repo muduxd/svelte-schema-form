@@ -14,6 +14,7 @@ declare const __propDef: {
         submitText?: string | undefined;
         submitRequiresDirty?: boolean | undefined;
         componentContext?: Record<string, unknown> | undefined;
+        SlideToggle: any;
     };
     events: {
         value: CustomEvent<any>;
@@ -66,5 +67,8 @@ export default class SubmitForm extends SvelteComponent<SubmitFormProps, SubmitF
     get componentContext(): Record<string, unknown> | undefined;
     /**accessor*/
     set componentContext(_: Record<string, unknown> | undefined);
+    get SlideToggle(): any;
+    /**accessor*/
+    set SlideToggle(_: any);
 }
 export {};

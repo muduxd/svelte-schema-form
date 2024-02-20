@@ -21,6 +21,7 @@
 	export let submitText = "Submit";
 	export let submitRequiresDirty = true;
 	export let componentContext = {} as Record<string, unknown>;
+	export let SlideToggle
 
 	const dispatch = createEventDispatcher();
 	let pathProgress = writable({} as Record<string, Record<string, number>>);
