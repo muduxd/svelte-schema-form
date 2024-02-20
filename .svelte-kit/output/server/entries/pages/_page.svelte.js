@@ -542,6 +542,7 @@ const Boolean = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           {
             id: params.path.join("."),
             name: params.path.join("."),
+            size: "sm",
             checked: value
           },
           {
