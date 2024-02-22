@@ -20,7 +20,7 @@ $:
 </script>
 
 
-<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} flex grow gap-[5px] {legendClasses}">
+<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} flex flex-col grow gap-[5px] {legendClasses}">
 	{#if showLegend }
 	<legend class="subset-label object-label">
 		{#if params.collapsible }
