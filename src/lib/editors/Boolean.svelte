@@ -5,8 +5,6 @@
 	export let value: boolean = false;
 
 	import { SlideToggle } from "@skeletonlabs/skeleton"
-
-	console.log(value)
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
