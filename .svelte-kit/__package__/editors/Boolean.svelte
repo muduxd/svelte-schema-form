@@ -1,7 +1,8 @@
 <script>export let params;
 export let schema;
-let value = false;
+export let value = false;
 import { SlideToggle } from "@skeletonlabs/skeleton";
+console.log(value);
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->

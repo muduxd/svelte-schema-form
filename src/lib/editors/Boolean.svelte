@@ -2,9 +2,11 @@
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 	export let params: CommonComponentParameters;
 	export let schema: any;
-	let value: boolean = false;
+	export let value: boolean = false;
 
 	import { SlideToggle } from "@skeletonlabs/skeleton"
+
+	console.log(value)
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->

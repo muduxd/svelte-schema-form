@@ -524,11 +524,14 @@ const SlideToggle = create_ssr_component(($$result, $$props, $$bindings, slots) 
 const Boolean = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
   let { schema } = $$props;
-  let value = false;
+  let { value = false } = $$props;
+  console.log(value);
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
     $$bindings.schema(schema);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
