@@ -79,6 +79,7 @@
 		idx: incr()
 	} as CommonComponentParameters;
 
+	
 	const pathChanged = (path: string[], val: any, op?: string) => {
 		let changed = false;
 

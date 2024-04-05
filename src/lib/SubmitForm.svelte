@@ -104,7 +104,7 @@
 
 	const submit = async () => {
 		if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0) {
-			await doUploads();
+			// await doUploads();
 			dispatch('submit', { value });
 			dirty = false;
 		}

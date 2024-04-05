@@ -86,7 +86,6 @@ const doUploads = async (pathPrefix = "") => {
 };
 const submit = async () => {
   if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0) {
-    await doUploads();
     dispatch("submit", { value });
     dirty = false;
   }
