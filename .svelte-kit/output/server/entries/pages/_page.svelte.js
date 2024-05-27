@@ -950,8 +950,8 @@ const Radio = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   flexDirection = schema.direction || "row";
   return ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
     default: () => {
-      return `<div role="radiogroup" class="group-container"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}>${each(enumVals, (enumVal, idx) => {
-        return `<input class="sr-only" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", enumVal, 0)}${add_attribute("name", id, 0)} ${enumVal === value ? "checked" : ""}> <label${add_attribute("for", `${id}-${idx}`, 0)} class="label mt-2">${escape((enumText || [])[idx])} </label>`;
+      return `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}>${each(enumVals, (enumVal, idx) => {
+        return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", enumVal, 0)}${add_attribute("name", id, 0)} ${enumVal === value ? "checked" : ""}> <p>${escape((enumText || [])[idx])}</p> </label>`;
       })}</div>`;
     }
   })}`;

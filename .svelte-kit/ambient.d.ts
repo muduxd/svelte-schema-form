@@ -106,6 +106,7 @@ declare module '$env/static/private' {
 	export const PKG_CONFIG_SYSTEM_INCLUDE_PATH: string;
 	export const PKG_CONFIG_SYSTEM_LIBRARY_PATH: string;
 	export const PLINK_PROTOCOL: string;
+	export const PNPM_HOME: string;
 	export const PROCESSOR_ARCHITECTURE: string;
 	export const PROCESSOR_IDENTIFIER: string;
 	export const PROCESSOR_LEVEL: string;
@@ -255,6 +256,7 @@ declare module '$env/dynamic/private' {
 		PKG_CONFIG_SYSTEM_INCLUDE_PATH: string;
 		PKG_CONFIG_SYSTEM_LIBRARY_PATH: string;
 		PLINK_PROTOCOL: string;
+		PNPM_HOME: string;
 		PROCESSOR_ARCHITECTURE: string;
 		PROCESSOR_IDENTIFIER: string;
 		PROCESSOR_LEVEL: string;
