@@ -4,19 +4,11 @@
 	import "$lib/css/basic-skin.scss";
 
 	let schema: any = {
-		type: "object",
-		properties: {
-			items: {
-				type: "object",
-				properties: {
-					type_name: { 
-						type: "string",
-						title: "Type Name"
-					},
-					color: {type: "color" } 
-				}
-			}
-		},
+		type:"buffers",
+		enum: ["0", "1", "2"],
+		title: "Price",
+		editor: "radio",
+		enumText: ["Ask", "Bid", "Pip"],
 	}
 
 	let jsonInvalid = false;
