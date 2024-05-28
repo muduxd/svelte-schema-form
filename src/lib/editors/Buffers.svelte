@@ -1,33 +1,28 @@
 <script lang="ts">
+  import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
-	import { ListBox, ListBoxItem, Tab, TabGroup, popup } from '@skeletonlabs/skeleton';
-	import type { PopupSettings } from '@skeletonlabs/skeleton';
+  import Object from "./Object.svelte";
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
-	let tabSet: number = 0
-	let bufferInputValue = "";
-	let bufferValue = '';
-	let objectInputValue = "";
-	let objectValue = "";
-  	let comboboxValue = '';
-    let enumVals: string[];
-	export let buffersStrings: string[] = []; // Default value
-	export let objectsStrings: string[] = []; // Default value
+	let buffersVals: string[];
+	let buffersText: string[];
+	let objectsVals: string[];
+	let objectsText: string[];
 	let id = params.path.join('.');
-	$: enumVals = schema.enum;
+	let tabSet: number = 0
+	$: buffersVals = schema.buffersText.map((_:any, index:number) => index) || schema.enum;
+	$: buffersText = schema.buffersText;
+	$: objectsVals = schema.objectsText.map((_:any, index:number) => index) || schema.enum;
+	$: objectsText = schema.objectsText;
 	$: flexDirection = schema.direction || 'row';
 
-	const popupCombobox: PopupSettings = {
-		event: 'click',
-		target: 'popupCombobox',
-		placement: 'bottom',
-		closeQuery: '.listbox-item'
-	};
+	$: buffersText.forEach(el => {
+		console.log(el)
+	});
 </script>
 
-
-
+<!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
 	<TabGroup>
 		<Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
@@ -36,43 +31,63 @@
 
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
-			  <button class="btn variant-filled w-48 justify-between" use:popup={popupCombobox}>
-				<span class="capitalize">{`${comboboxValue} | ${bufferInputValue}`}</span>
-				<span>↓</span>
-			  </button>
-			  <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
-				<input id={params.path.join('.')} name={params.path.join('.')} placeholder={params.path.join('.')} class="input px-4 py-2"
-					type="text" value={bufferInputValue}
-					disabled={schema.readOnly || params.containerReadOnly}
-					on:input={(e)=>{console.log(e)}}
-				/>
-				<ListBox rounded="rounded-none">
-					{#each buffersStrings as bufferString, index}
-						<ListBoxItem class="flex gap-3" bind:group={comboboxValue} name="medium" value={bufferValue}>{bufferString}</ListBoxItem>
-					{/each}
-				</ListBox>
-				<div class="arrow bg-surface-100-800-token" />
-			  </div>
+			<div role="radiogroup"
+				class="space-y-2"
+				aria-labelledby={`label-${id}`}
+				style="flex-direction:{flexDirection}" 
+				id={`group-${id}`}
+			>
+			<input id={params.path.join('.')} name={params.path.join('.')}
+				type="number" value={value || ''} class="input px-4 py-2"
+				placeholder="0"
+				disabled={schema.readOnly || params.containerReadOnly}
+				on:input={ev => {
+					let val = parseFloat(ev.currentTarget.value);
+					params.pathChanged(params.path, isNaN(val) ? undefined : val);
+				}}
+			/>
+				{#each buffersText as bufferText, idx}
+					<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
+						<input
+							class="radio"
+							type="radio"
+							id={`${id}-${idx}`}
+							on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+							value={bufferText}
+							name={id}
+							checked={bufferText === value}
+						/>
+
+						<p>{(bufferText || "")}</p>
+					</label>
+				{/each}
+			</div>
 			{:else if tabSet === 1}
-			  <button class="btn variant-filled w-48 justify-between" use:popup={popupCombobox}>
-				<span class="capitalize">{`${comboboxValue} | ${objectInputValue}`}</span>
-				<span>↓</span>
-			  </button>
-			  <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
-				<input id={params.path.join('.')} name={params.path.join('.')} placeholder={params.path.join('.')} class="input px-4 py-2"
-					type="text" value={objectInputValue}
-					disabled={schema.readOnly || params.containerReadOnly}
-					on:input={(e)=>{console.log(e)}}
-				/>
-				<ListBox rounded="rounded-none">
-					{#each objectsStrings as objectString, index}
-						<ListBoxItem class="flex gap-3" bind:group={comboboxValue} name="medium" value={objectValue}>{objectString}</ListBoxItem>
+				<div role="radiogroup" 
+					class="space-y-2"
+					aria-labelledby={`label-${id}`}
+					style="flex-direction:{flexDirection}" 
+					id={`group-${id}`}
+				>
+
+					{#each objectsText as objectText, idx}
+						<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
+							<input
+								class="radio"
+								type="radio"
+								id={`${id}-${idx}`}
+								on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+								value={objectText}
+								name={id}
+								checked={objectText === value}
+							/>
+
+							<p>{(objectText || "")}</p>
+						</label>
 					{/each}
-				</ListBox>
-				<div class="arrow bg-surface-100-800-token" />
-			  </div>
+				</div>
 			{:else if tabSet === 2}
-				<div>asd</div>
+			<div></div>
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

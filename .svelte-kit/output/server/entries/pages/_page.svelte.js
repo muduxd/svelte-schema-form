@@ -1,4 +1,4 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, s as setContext, g as getContext, k as compute_slots, l as compute_rest_props, n as createEventDispatcher, a as subscribe, o as add_classes, p as add_styles, q as null_to_empty, r as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, k as compute_rest_props, l as createEventDispatcher, n as compute_slots, s as setContext, g as getContext, a as subscribe, o as add_classes, p as add_styles, q as null_to_empty, r as set_store_value } from "../../chunks/ssr.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
@@ -441,150 +441,6 @@ function prefersReducedMotion() {
 }
 readable(prefersReducedMotion(), (set2) => {
 });
-const cBase$4 = "";
-const ListBox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let classesBase;
-  let { multiple = false } = $$props;
-  let { spacing = "space-y-1" } = $$props;
-  let { rounded = "rounded-token" } = $$props;
-  let { active = "variant-filled" } = $$props;
-  let { hover = "hover:variant-soft" } = $$props;
-  let { padding = "px-4 py-2" } = $$props;
-  let { regionLead = "" } = $$props;
-  let { regionDefault = "" } = $$props;
-  let { regionTrail = "" } = $$props;
-  let { labelledby = "" } = $$props;
-  setContext("multiple", multiple);
-  setContext("rounded", rounded);
-  setContext("active", active);
-  setContext("hover", hover);
-  setContext("padding", padding);
-  setContext("regionLead", regionLead);
-  setContext("regionDefault", regionDefault);
-  setContext("regionTrail", regionTrail);
-  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0)
-    $$bindings.multiple(multiple);
-  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
-    $$bindings.spacing(spacing);
-  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
-    $$bindings.rounded(rounded);
-  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
-    $$bindings.active(active);
-  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
-    $$bindings.hover(hover);
-  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
-    $$bindings.padding(padding);
-  if ($$props.regionLead === void 0 && $$bindings.regionLead && regionLead !== void 0)
-    $$bindings.regionLead(regionLead);
-  if ($$props.regionDefault === void 0 && $$bindings.regionDefault && regionDefault !== void 0)
-    $$bindings.regionDefault(regionDefault);
-  if ($$props.regionTrail === void 0 && $$bindings.regionTrail && regionTrail !== void 0)
-    $$bindings.regionTrail(regionTrail);
-  if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
-    $$bindings.labelledby(labelledby);
-  classesBase = `${cBase$4} ${spacing} ${rounded} ${$$props.class ?? ""}`;
-  return `<div class="${"listbox " + escape(classesBase, true)}" role="listbox"${add_attribute("aria-labelledby", labelledby, 0)} data-testid="listbox">${slots.default ? slots.default({}) : ``}</div>`;
-});
-const cBase$3 = "cursor-pointer -outline-offset-[3px]";
-const cLabel$1 = "flex items-center space-x-4";
-const cRegionLead = "";
-const cRegionDefault = "flex-1";
-const cRegionTrail = "";
-function areDeeplyEqual(param1, param2) {
-  if (param1 === param2)
-    return true;
-  if (!(param1 instanceof Object) || !(param2 instanceof Object))
-    return false;
-  const keys1 = Object.keys(param1);
-  const keys2 = Object.keys(param2);
-  if (keys1.length !== keys2.length)
-    return false;
-  for (const key of keys1) {
-    const value1 = param1[key];
-    const value2 = param2[key];
-    if (!areDeeplyEqual(value1, value2))
-      return false;
-  }
-  return true;
-}
-const ListBoxItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let selected;
-  let classesActive;
-  let classesBase;
-  let classesLabel;
-  let classesRegionLead;
-  let classesRegionDefault;
-  let classesRegionTrail;
-  let $$slots = compute_slots(slots);
-  let { group } = $$props;
-  let { name } = $$props;
-  let { value } = $$props;
-  let { multiple = getContext("multiple") } = $$props;
-  let { rounded = getContext("rounded") } = $$props;
-  let { active = getContext("active") } = $$props;
-  let { hover = getContext("hover") } = $$props;
-  let { padding = getContext("padding") } = $$props;
-  let { regionLead = getContext("regionLead") } = $$props;
-  let { regionDefault = getContext("regionDefault") } = $$props;
-  let { regionTrail = getContext("regionTrail") } = $$props;
-  let checked;
-  let elemInput;
-  function updateCheckbox(group2) {
-    checked = group2.indexOf(value) >= 0;
-  }
-  function updateGroup(checked2) {
-    const index = group.indexOf(value);
-    if (checked2) {
-      if (index < 0) {
-        group.push(value);
-        group = group;
-      }
-    } else {
-      if (index >= 0) {
-        group.splice(index, 1);
-        group = group;
-      }
-    }
-  }
-  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
-    $$bindings.group(group);
-  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
-    $$bindings.name(name);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
-    $$bindings.value(value);
-  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0)
-    $$bindings.multiple(multiple);
-  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
-    $$bindings.rounded(rounded);
-  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
-    $$bindings.active(active);
-  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
-    $$bindings.hover(hover);
-  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
-    $$bindings.padding(padding);
-  if ($$props.regionLead === void 0 && $$bindings.regionLead && regionLead !== void 0)
-    $$bindings.regionLead(regionLead);
-  if ($$props.regionDefault === void 0 && $$bindings.regionDefault && regionDefault !== void 0)
-    $$bindings.regionDefault(regionDefault);
-  if ($$props.regionTrail === void 0 && $$bindings.regionTrail && regionTrail !== void 0)
-    $$bindings.regionTrail(regionTrail);
-  {
-    if (multiple)
-      updateCheckbox(group);
-  }
-  {
-    if (multiple)
-      updateGroup(checked);
-  }
-  selected = multiple ? group.some((groupVal) => areDeeplyEqual(value, groupVal)) : areDeeplyEqual(group, value);
-  classesActive = selected ? active : hover;
-  classesBase = `${cBase$3} ${rounded} ${padding} ${classesActive} ${$$props.class ?? ""}`;
-  classesLabel = `${cLabel$1}`;
-  classesRegionLead = `${cRegionLead} ${regionLead}`;
-  classesRegionDefault = `${cRegionDefault} ${regionDefault}`;
-  classesRegionTrail = `${cRegionTrail} ${regionTrail}`;
-  return `<label> <div class="${"listbox-item " + escape(classesBase, true)}" data-testid="listbox-item" role="option"${add_attribute("aria-selected", selected, 0)} tabindex="0"> <div class="h-0 w-0 overflow-hidden">${multiple ? `<input type="checkbox"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${add_attribute("checked", checked, 1)}>` : `<input type="radio"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}>`}</div>  <div class="${"listbox-label " + escape(classesLabel, true)}"> ${$$slots.lead ? `<div class="${"listbox-label-lead " + escape(classesRegionLead, true)}">${slots.lead ? slots.lead({}) : ``}</div>` : ``}  <div class="${"listbox-label-content " + escape(classesRegionDefault, true)}">${slots.default ? slots.default({}) : ``}</div>  ${$$slots.trail ? `<div class="${"listbox-label-trail " + escape(classesRegionTrail, true)}">${slots.trail ? slots.trail({}) : ``}</div>` : ``}</div></div></label>`;
-});
 const cBase$2 = "inline-block";
 const cLabel = "unstyled flex items-center";
 const cTrack = "flex transition-all duration-[200ms] cursor-pointer";
@@ -855,92 +711,46 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-let bufferInputValue = "";
-let bufferValue = "";
-let objectInputValue = "";
-let objectValue = "";
 const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let flexDirection;
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
+  let buffersText;
+  let objectsText;
+  let id = params.path.join(".");
   let tabSet = 0;
-  let comboboxValue = "";
-  let { buffersStrings = [] } = $$props;
-  let { objectsStrings = [] } = $$props;
-  params.path.join(".");
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
-  if ($$props.buffersStrings === void 0 && $$bindings.buffersStrings && buffersStrings !== void 0)
-    $$bindings.buffersStrings(buffersStrings);
-  if ($$props.objectsStrings === void 0 && $$bindings.objectsStrings && objectsStrings !== void 0)
-    $$bindings.objectsStrings(objectsStrings);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
   do {
     $$settled = true;
     $$result.head = previous_head;
-    schema.enum;
-    schema.direction || "row";
-    $$rendered = `${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
+    schema.buffersText.map((_2, index) => index) || schema.enum;
+    buffersText = schema.buffersText;
+    schema.objectsText.map((_2, index) => index) || schema.enum;
+    objectsText = schema.objectsText;
+    flexDirection = schema.direction || "row";
+    {
+      buffersText.forEach((el) => {
+        console.log(el);
+      });
+    }
+    $$rendered = ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
         return `${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
-            return `${tabSet === 0 ? `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${bufferInputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", bufferInputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
-              default: () => {
-                return `${each(buffersStrings, (bufferString, index) => {
-                  return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
-                    $$result,
-                    {
-                      class: "flex gap-3",
-                      name: "medium",
-                      value: bufferValue,
-                      group: comboboxValue
-                    },
-                    {
-                      group: ($$value) => {
-                        comboboxValue = $$value;
-                        $$settled = false;
-                      }
-                    },
-                    {
-                      default: () => {
-                        return `${escape(bufferString)}`;
-                      }
-                    }
-                  )}`;
-                })}`;
-              }
-            })} <div class="arrow bg-surface-100-800-token"></div></div>` : `${tabSet === 1 ? `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${objectInputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", objectInputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
-              default: () => {
-                return `${each(objectsStrings, (objectString, index) => {
-                  return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
-                    $$result,
-                    {
-                      class: "flex gap-3",
-                      name: "medium",
-                      value: objectValue,
-                      group: comboboxValue
-                    },
-                    {
-                      group: ($$value) => {
-                        comboboxValue = $$value;
-                        $$settled = false;
-                      }
-                    },
-                    {
-                      default: () => {
-                        return `${escape(objectString)}`;
-                      }
-                    }
-                  )}`;
-                })}`;
-              }
-            })} <div class="arrow bg-surface-100-800-token"></div></div>` : `${tabSet === 2 ? `<div data-svelte-h="svelte-tdb5oa">asd</div>` : ``}`}`} `;
+            return `${tabSet === 0 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${each(buffersText, (bufferText, idx) => {
+              return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", id, 0)} ${bufferText === value ? "checked" : ""}> <p>${escape(bufferText || "")}</p> </label>`;
+            })}</div>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}>${each(objectsText, (objectText, idx) => {
+              return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", objectText, 0)}${add_attribute("name", id, 0)} ${objectText === value ? "checked" : ""}> <p>${escape(objectText || "")}</p> </label>`;
+            })}</div>` : `${tabSet === 2 ? `<div></div>` : ``}`}`} `;
           },
           default: () => {
             return `${validate_component(Tab, "Tab").$$render(
@@ -1650,12 +1460,15 @@ const css = {
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
-    type: "string",
-    enum: ["0", "1", "2"],
     title: "Price",
-    editor: "buffers",
-    buffersStrings: ["Ask", "Bid", "Pip"],
-    objectStrings: ["ASd", "Test", "Blabla"]
+    type: "object",
+    properties: {
+      buffers: {
+        editor: "buffers",
+        buffersText: ["Ask", "Bid", "Pip", "asdasd"],
+        objectsText: ["O1", "O2", "O3", "O4"]
+      }
+    }
   };
   let value = {};
   let valueJson = "";
