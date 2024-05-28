@@ -4,10 +4,10 @@
 	import "$lib/css/basic-skin.scss";
 
 	let schema: any = {
-		type:"buffers",
+		type:"string",
 		enum: ["0", "1", "2"],
 		title: "Price",
-		editor: "radio",
+		editor: "buffers",
 		enumText: ["Ask", "Bid", "Pip"],
 	}
 
