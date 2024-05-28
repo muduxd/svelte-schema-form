@@ -8,7 +8,8 @@
 		enum: ["0", "1", "2"],
 		title: "Price",
 		editor: "buffers",
-		enumText: ["Ask", "Bid", "Pip"],
+		buffersStrings: ["Ask", "Bid", "Pip"],
+		objectStrings: ["ASd", "Test", "Blabla"]
 	}
 
 	let jsonInvalid = false;

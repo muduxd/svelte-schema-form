@@ -5,6 +5,8 @@ declare const __propDef: {
         params: CommonComponentParameters;
         schema: any;
         value: any;
+        buffersStrings?: string[] | undefined;
+        objectsStrings?: string[] | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

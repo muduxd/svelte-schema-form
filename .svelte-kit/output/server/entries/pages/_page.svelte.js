@@ -441,7 +441,7 @@ function prefersReducedMotion() {
 }
 readable(prefersReducedMotion(), (set2) => {
 });
-const cBase$2 = "";
+const cBase$4 = "";
 const ListBox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let classesBase;
   let { multiple = false } = $$props;
@@ -482,10 +482,10 @@ const ListBox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.regionTrail(regionTrail);
   if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
     $$bindings.labelledby(labelledby);
-  classesBase = `${cBase$2} ${spacing} ${rounded} ${$$props.class ?? ""}`;
+  classesBase = `${cBase$4} ${spacing} ${rounded} ${$$props.class ?? ""}`;
   return `<div class="${"listbox " + escape(classesBase, true)}" role="listbox"${add_attribute("aria-labelledby", labelledby, 0)} data-testid="listbox">${slots.default ? slots.default({}) : ``}</div>`;
 });
-const cBase$1 = "cursor-pointer -outline-offset-[3px]";
+const cBase$3 = "cursor-pointer -outline-offset-[3px]";
 const cLabel$1 = "flex items-center space-x-4";
 const cRegionLead = "";
 const cRegionDefault = "flex-1";
@@ -578,14 +578,14 @@ const ListBoxItem = create_ssr_component(($$result, $$props, $$bindings, slots) 
   }
   selected = multiple ? group.some((groupVal) => areDeeplyEqual(value, groupVal)) : areDeeplyEqual(group, value);
   classesActive = selected ? active : hover;
-  classesBase = `${cBase$1} ${rounded} ${padding} ${classesActive} ${$$props.class ?? ""}`;
+  classesBase = `${cBase$3} ${rounded} ${padding} ${classesActive} ${$$props.class ?? ""}`;
   classesLabel = `${cLabel$1}`;
   classesRegionLead = `${cRegionLead} ${regionLead}`;
   classesRegionDefault = `${cRegionDefault} ${regionDefault}`;
   classesRegionTrail = `${cRegionTrail} ${regionTrail}`;
   return `<label> <div class="${"listbox-item " + escape(classesBase, true)}" data-testid="listbox-item" role="option"${add_attribute("aria-selected", selected, 0)} tabindex="0"> <div class="h-0 w-0 overflow-hidden">${multiple ? `<input type="checkbox"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${add_attribute("checked", checked, 1)}>` : `<input type="radio"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}>`}</div>  <div class="${"listbox-label " + escape(classesLabel, true)}"> ${$$slots.lead ? `<div class="${"listbox-label-lead " + escape(classesRegionLead, true)}">${slots.lead ? slots.lead({}) : ``}</div>` : ``}  <div class="${"listbox-label-content " + escape(classesRegionDefault, true)}">${slots.default ? slots.default({}) : ``}</div>  ${$$slots.trail ? `<div class="${"listbox-label-trail " + escape(classesRegionTrail, true)}">${slots.trail ? slots.trail({}) : ``}</div>` : ``}</div></div></label>`;
 });
-const cBase = "inline-block";
+const cBase$2 = "inline-block";
 const cLabel = "unstyled flex items-center";
 const cTrack = "flex transition-all duration-[200ms] cursor-pointer";
 const cThumb = "w-[50%] h-full scale-[0.8] transition-all duration-[200ms] shadow";
@@ -644,7 +644,7 @@ const SlideToggle = create_ssr_component(($$result, $$props, $$bindings, slots) 
   cThumbBackground = checked ? "bg-white/75" : "bg-white";
   cThumbPos = checked ? "translate-x-full" : "";
   classesDisabled = $$props.disabled === true ? "opacity-50" : "hover:brightness-[105%] dark:hover:brightness-110 cursor-pointer";
-  classesBase = `${cBase} ${rounded} ${classesDisabled} ${$$props.class ?? ""}`;
+  classesBase = `${cBase$2} ${rounded} ${classesDisabled} ${$$props.class ?? ""}`;
   classesLabel = `${cLabel}`;
   classesTrack = `${cTrack} ${border} ${rounded} ${trackSize} ${cTrackActive}`;
   classesThumb = `${cThumb} ${rounded} ${cThumbBackground} ${cThumbPos}`;
@@ -664,6 +664,141 @@ const SlideToggle = create_ssr_component(($$result, $$props, $$bindings, slots) 
     "slide-toggle-thumb " + escape(classesThumb, true),
     $$props.disabled ? "cursor-not-allowed" : ""
   ].join(" ").trim()}"></div></div>  ${$$slots.default ? `<div class="slide-toggle-text ml-3">${slots.default ? slots.default({}) : ``}</div>` : ``}</label></div>`;
+});
+const cBase$1 = "space-y-4";
+const cList = "flex overflow-x-auto hide-scrollbar";
+const cPanel = "";
+const TabGroup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let classesBase;
+  let classesList;
+  let classesPanel;
+  let $$slots = compute_slots(slots);
+  let { justify = "justify-start" } = $$props;
+  let { border = "border-b border-surface-400-500-token" } = $$props;
+  let { active = "border-b-2 border-surface-900-50-token" } = $$props;
+  let { hover = "hover:variant-soft" } = $$props;
+  let { flex = "flex-none" } = $$props;
+  let { padding = "px-4 py-2" } = $$props;
+  let { rounded = "rounded-tl-container-token rounded-tr-container-token" } = $$props;
+  let { spacing = "space-y-1" } = $$props;
+  let { regionList = "" } = $$props;
+  let { regionPanel = "" } = $$props;
+  let { labelledby = "" } = $$props;
+  let { panel = "" } = $$props;
+  setContext("active", active);
+  setContext("hover", hover);
+  setContext("flex", flex);
+  setContext("padding", padding);
+  setContext("rounded", rounded);
+  setContext("spacing", spacing);
+  if ($$props.justify === void 0 && $$bindings.justify && justify !== void 0)
+    $$bindings.justify(justify);
+  if ($$props.border === void 0 && $$bindings.border && border !== void 0)
+    $$bindings.border(border);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
+    $$bindings.flex(flex);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
+    $$bindings.spacing(spacing);
+  if ($$props.regionList === void 0 && $$bindings.regionList && regionList !== void 0)
+    $$bindings.regionList(regionList);
+  if ($$props.regionPanel === void 0 && $$bindings.regionPanel && regionPanel !== void 0)
+    $$bindings.regionPanel(regionPanel);
+  if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
+    $$bindings.labelledby(labelledby);
+  if ($$props.panel === void 0 && $$bindings.panel && panel !== void 0)
+    $$bindings.panel(panel);
+  classesBase = `${cBase$1} ${$$props.class ?? ""}`;
+  classesList = `${cList} ${justify} ${border} ${regionList}`;
+  classesPanel = `${cPanel} ${regionPanel}`;
+  return `  <div class="${"tab-group " + escape(classesBase, true)}" data-testid="tab-group"> <div class="${"tab-list " + escape(classesList, true)}" role="tablist"${add_attribute("aria-labelledby", labelledby, 0)}>${slots.default ? slots.default({}) : ``}</div>  ${$$slots.panel ? `<div class="${"tab-panel " + escape(classesPanel, true)}" role="tabpanel"${add_attribute("aria-labelledby", panel, 0)} tabindex="0">${slots.panel ? slots.panel({}) : ``}</div>` : ``}</div>`;
+});
+const cBase = "text-center cursor-pointer transition-colors duration-100";
+const cInterface = "";
+const Tab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let selected;
+  let classesActive;
+  let classesBase;
+  let classesInterface;
+  let classesTab;
+  let $$restProps = compute_rest_props($$props, [
+    "group",
+    "name",
+    "value",
+    "title",
+    "controls",
+    "regionTab",
+    "active",
+    "hover",
+    "flex",
+    "padding",
+    "rounded",
+    "spacing"
+  ]);
+  let $$slots = compute_slots(slots);
+  let { group } = $$props;
+  let { name } = $$props;
+  let { value } = $$props;
+  let { title = "" } = $$props;
+  let { controls = "" } = $$props;
+  let { regionTab = "" } = $$props;
+  let { active = getContext("active") } = $$props;
+  let { hover = getContext("hover") } = $$props;
+  let { flex = getContext("flex") } = $$props;
+  let { padding = getContext("padding") } = $$props;
+  let { rounded = getContext("rounded") } = $$props;
+  let { spacing = getContext("spacing") } = $$props;
+  let elemInput;
+  function prunedRestProps() {
+    delete $$restProps.class;
+    return $$restProps;
+  }
+  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
+    $$bindings.group(group);
+  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
+    $$bindings.name(name);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
+  if ($$props.title === void 0 && $$bindings.title && title !== void 0)
+    $$bindings.title(title);
+  if ($$props.controls === void 0 && $$bindings.controls && controls !== void 0)
+    $$bindings.controls(controls);
+  if ($$props.regionTab === void 0 && $$bindings.regionTab && regionTab !== void 0)
+    $$bindings.regionTab(regionTab);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
+    $$bindings.flex(flex);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
+    $$bindings.spacing(spacing);
+  selected = value === group;
+  classesActive = selected ? active : hover;
+  classesBase = `${cBase} ${flex} ${padding} ${rounded} ${classesActive} ${$$props.class ?? ""}`;
+  classesInterface = `${cInterface} ${spacing}`;
+  classesTab = `${regionTab}`;
+  return `<label${add_attribute("class", classesBase, 0)}${add_attribute("title", title, 0)}> <div class="${"tab " + escape(classesTab, true)}" data-testid="tab" role="tab"${add_attribute("aria-controls", controls, 0)}${add_attribute("aria-selected", selected, 0)}${add_attribute("tabindex", selected ? 0 : -1, 0)}> <div class="h-0 w-0 overflow-hidden"><input${spread(
+    [
+      { type: "radio" },
+      { name: escape_attribute_value(name) },
+      { value: escape_attribute_value(value) },
+      escape_object(prunedRestProps()),
+      { tabindex: "-1" }
+    ],
+    {}
+  )}${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}></div>  <div class="${"tab-interface " + escape(classesInterface, true)}">${$$slots.lead ? `<div class="tab-lead">${slots.lead ? slots.lead({}) : ``}</div>` : ``} <div class="tab-label">${slots.default ? slots.default({}) : ``}</div></div></div></label>`;
 });
 const Boolean = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
@@ -720,13 +855,18 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-let inputValue = "";
+let bufferInputValue = "";
+let bufferValue = "";
+let objectInputValue = "";
+let objectValue = "";
 const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
+  let tabSet = 0;
   let comboboxValue = "";
-  let enumText;
+  let { buffersStrings = [] } = $$props;
+  let { objectsStrings = [] } = $$props;
   params.path.join(".");
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
@@ -734,6 +874,10 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  if ($$props.buffersStrings === void 0 && $$bindings.buffersStrings && buffersStrings !== void 0)
+    $$bindings.buffersStrings(buffersStrings);
+  if ($$props.objectsStrings === void 0 && $$bindings.objectsStrings && objectsStrings !== void 0)
+    $$bindings.objectsStrings(objectsStrings);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -741,42 +885,109 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$settled = true;
     $$result.head = previous_head;
     schema.enum;
-    enumText = schema.enumText || schema.enum;
     schema.direction || "row";
-    {
-      console.log(value);
-    }
-    {
-      console.log(inputValue);
-    }
     $$rendered = `${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
-        return `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${inputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", inputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
+        return `${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
+          panel: () => {
+            return `${tabSet === 0 ? `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${bufferInputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", bufferInputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
+              default: () => {
+                return `${each(buffersStrings, (bufferString, index) => {
+                  return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
+                    $$result,
+                    {
+                      class: "flex gap-3",
+                      name: "medium",
+                      value: bufferValue,
+                      group: comboboxValue
+                    },
+                    {
+                      group: ($$value) => {
+                        comboboxValue = $$value;
+                        $$settled = false;
+                      }
+                    },
+                    {
+                      default: () => {
+                        return `${escape(bufferString)}`;
+                      }
+                    }
+                  )}`;
+                })}`;
+              }
+            })} <div class="arrow bg-surface-100-800-token"></div></div>` : `${tabSet === 1 ? `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${objectInputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", objectInputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
+              default: () => {
+                return `${each(objectsStrings, (objectString, index) => {
+                  return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
+                    $$result,
+                    {
+                      class: "flex gap-3",
+                      name: "medium",
+                      value: objectValue,
+                      group: comboboxValue
+                    },
+                    {
+                      group: ($$value) => {
+                        comboboxValue = $$value;
+                        $$settled = false;
+                      }
+                    },
+                    {
+                      default: () => {
+                        return `${escape(objectString)}`;
+                      }
+                    }
+                  )}`;
+                })}`;
+              }
+            })} <div class="arrow bg-surface-100-800-token"></div></div>` : `${tabSet === 2 ? `<div data-svelte-h="svelte-tdb5oa">asd</div>` : ``}`}`} `;
+          },
           default: () => {
-            return `${each(enumText, (enumVal, index) => {
-              return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
-                $$result,
-                {
-                  class: "flex gap-3",
-                  name: "medium",
-                  value: enumVal,
-                  group: comboboxValue
-                },
-                {
-                  group: ($$value) => {
-                    comboboxValue = $$value;
-                    $$settled = false;
-                  }
-                },
-                {
-                  default: () => {
-                    return `${escape(enumVal)}`;
-                  }
+            return `${validate_component(Tab, "Tab").$$render(
+              $$result,
+              { name: "tab1", value: 0, group: tabSet },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
                 }
-              )}`;
-            })}`;
+              },
+              {
+                default: () => {
+                  return `Buffers`;
+                }
+              }
+            )} ${validate_component(Tab, "Tab").$$render(
+              $$result,
+              { name: "tab2", value: 1, group: tabSet },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Objects`;
+                }
+              }
+            )} ${validate_component(Tab, "Tab").$$render(
+              $$result,
+              { name: "tab3", value: 2, group: tabSet },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Constants`;
+                }
+              }
+            )}`;
           }
-        })} <div class="arrow bg-surface-100-800-token"></div></div>`;
+        })}`;
       }
     })}`;
   } while (!$$settled);
@@ -1443,7 +1654,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     enum: ["0", "1", "2"],
     title: "Price",
     editor: "buffers",
-    enumText: ["Ask", "Bid", "Pip"]
+    buffersStrings: ["Ask", "Bid", "Pip"],
+    objectStrings: ["ASd", "Test", "Blabla"]
   };
   let value = {};
   let valueJson = "";
