@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
-  import Object from "./Object.svelte";
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
@@ -17,9 +16,23 @@
 	$: objectsText = schema.objectsText;
 	$: flexDirection = schema.direction || 'row';
 
-	$: buffersText.forEach(el => {
-		console.log(el)
-	});
+	$: currentBuffer = ""
+	$: currentObject = ""
+	$: currentBufferInputVal = null as number | null //ev => {let val = parseFloat(ev.currentTarget.value); params.pathChanged(params.path, isNaN(val) ? undefined : val); }
+	$: currentObjectInputVal = null as number | null
+	$: currentConstantInputVal = null as number | null
+
+	const handleChange = (currentText:string, currentInputVal:number|null) =>{
+		if (currentInputVal === null)
+			currentInputVal = 0
+
+		let finalOutput = `${currentText} | S${currentInputVal}`
+
+		if (currentText == "")
+			finalOutput = `${currentInputVal}`
+		
+		params.pathChanged(params.path, finalOutput || undefined)
+	}
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
@@ -34,28 +47,25 @@
 			<div role="radiogroup"
 				class="space-y-2"
 				aria-labelledby={`label-${id}`}
-				style="flex-direction:{flexDirection}" 
+				style="flex-direction:{flexDirection}"
 				id={`group-${id}`}
 			>
 			<input id={params.path.join('.')} name={params.path.join('.')}
-				type="number" value={value || ''} class="input px-4 py-2"
+				type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
 				placeholder="0"
 				disabled={schema.readOnly || params.containerReadOnly}
-				on:input={ev => {
-					let val = parseFloat(ev.currentTarget.value);
-					params.pathChanged(params.path, isNaN(val) ? undefined : val);
-				}}
+				on:input={handleChange(currentBuffer, currentBufferInputVal)}
 			/>
 				{#each buffersText as bufferText, idx}
-					<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
+					<label for={`${id}-${idx}`} class="flex items-center space-x-2">
 						<input
 							class="radio"
 							type="radio"
 							id={`${id}-${idx}`}
-							on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+							on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal)}}
 							value={bufferText}
 							name={id}
-							checked={bufferText === value}
+							checked={currentBuffer === value}
 						/>
 
 						<p>{(bufferText || "")}</p>
@@ -69,14 +79,19 @@
 					style="flex-direction:{flexDirection}" 
 					id={`group-${id}`}
 				>
-
+				<input id={params.path.join('.')} name={params.path.join('.')}
+					type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
+					placeholder="0"
+					disabled={schema.readOnly || params.containerReadOnly}
+					on:input={handleChange(currentObject, currentObjectInputVal)}
+				/>
 					{#each objectsText as objectText, idx}
 						<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
 							<input
 								class="radio"
 								type="radio"
 								id={`${id}-${idx}`}
-								on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+								on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal)}}
 								value={objectText}
 								name={id}
 								checked={objectText === value}
@@ -87,7 +102,14 @@
 					{/each}
 				</div>
 			{:else if tabSet === 2}
-			<div></div>
+			<div>
+				<input id={params.path.join('.')} name={params.path.join('.')}
+					type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
+					placeholder="0"
+					disabled={schema.readOnly || params.containerReadOnly}
+					on:input={handleChange("", currentConstantInputVal)}
+				/>
+			</div>
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

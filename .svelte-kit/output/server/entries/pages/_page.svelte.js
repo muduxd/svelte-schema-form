@@ -713,6 +713,10 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let flexDirection;
+  let currentBuffer;
+  let currentBufferInputVal;
+  let currentObjectInputVal;
+  let currentConstantInputVal;
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
@@ -737,20 +741,19 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     schema.objectsText.map((_2, index) => index) || schema.enum;
     objectsText = schema.objectsText;
     flexDirection = schema.direction || "row";
-    {
-      buffersText.forEach((el) => {
-        console.log(el);
-      });
-    }
+    currentBuffer = "";
+    currentBufferInputVal = null;
+    currentObjectInputVal = null;
+    currentConstantInputVal = null;
     $$rendered = ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
         return `${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
-            return `${tabSet === 0 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number"${add_attribute("value", value || "", 0)} class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${each(buffersText, (bufferText, idx) => {
-              return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", id, 0)} ${bufferText === value ? "checked" : ""}> <p>${escape(bufferText || "")}</p> </label>`;
-            })}</div>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}>${each(objectsText, (objectText, idx) => {
+            return `${tabSet === 0 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> ${each(buffersText, (bufferText, idx) => {
+              return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", id, 0)} ${currentBuffer === value ? "checked" : ""}> <p>${escape(bufferText || "")}</p> </label>`;
+            })}</div>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> ${each(objectsText, (objectText, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", objectText, 0)}${add_attribute("name", id, 0)} ${objectText === value ? "checked" : ""}> <p>${escape(objectText || "")}</p> </label>`;
-            })}</div>` : `${tabSet === 2 ? `<div></div>` : ``}`}`} `;
+            })}</div>` : `${tabSet === 2 ? `<div><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div>` : ``}`}`} `;
           },
           default: () => {
             return `${validate_component(Tab, "Tab").$$render(
