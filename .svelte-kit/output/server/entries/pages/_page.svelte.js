@@ -1,4 +1,4 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, k as compute_rest_props, l as createEventDispatcher, n as compute_slots, g as getContext, a as subscribe, o as add_classes, p as add_styles, q as null_to_empty, s as setContext, r as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, s as setContext, g as getContext, k as compute_slots, l as compute_rest_props, n as createEventDispatcher, a as subscribe, o as add_classes, p as add_styles, q as null_to_empty, r as set_store_value } from "../../chunks/ssr.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
@@ -441,6 +441,150 @@ function prefersReducedMotion() {
 }
 readable(prefersReducedMotion(), (set2) => {
 });
+const cBase$2 = "";
+const ListBox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let classesBase;
+  let { multiple = false } = $$props;
+  let { spacing = "space-y-1" } = $$props;
+  let { rounded = "rounded-token" } = $$props;
+  let { active = "variant-filled" } = $$props;
+  let { hover = "hover:variant-soft" } = $$props;
+  let { padding = "px-4 py-2" } = $$props;
+  let { regionLead = "" } = $$props;
+  let { regionDefault = "" } = $$props;
+  let { regionTrail = "" } = $$props;
+  let { labelledby = "" } = $$props;
+  setContext("multiple", multiple);
+  setContext("rounded", rounded);
+  setContext("active", active);
+  setContext("hover", hover);
+  setContext("padding", padding);
+  setContext("regionLead", regionLead);
+  setContext("regionDefault", regionDefault);
+  setContext("regionTrail", regionTrail);
+  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0)
+    $$bindings.multiple(multiple);
+  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
+    $$bindings.spacing(spacing);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.regionLead === void 0 && $$bindings.regionLead && regionLead !== void 0)
+    $$bindings.regionLead(regionLead);
+  if ($$props.regionDefault === void 0 && $$bindings.regionDefault && regionDefault !== void 0)
+    $$bindings.regionDefault(regionDefault);
+  if ($$props.regionTrail === void 0 && $$bindings.regionTrail && regionTrail !== void 0)
+    $$bindings.regionTrail(regionTrail);
+  if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
+    $$bindings.labelledby(labelledby);
+  classesBase = `${cBase$2} ${spacing} ${rounded} ${$$props.class ?? ""}`;
+  return `<div class="${"listbox " + escape(classesBase, true)}" role="listbox"${add_attribute("aria-labelledby", labelledby, 0)} data-testid="listbox">${slots.default ? slots.default({}) : ``}</div>`;
+});
+const cBase$1 = "cursor-pointer -outline-offset-[3px]";
+const cLabel$1 = "flex items-center space-x-4";
+const cRegionLead = "";
+const cRegionDefault = "flex-1";
+const cRegionTrail = "";
+function areDeeplyEqual(param1, param2) {
+  if (param1 === param2)
+    return true;
+  if (!(param1 instanceof Object) || !(param2 instanceof Object))
+    return false;
+  const keys1 = Object.keys(param1);
+  const keys2 = Object.keys(param2);
+  if (keys1.length !== keys2.length)
+    return false;
+  for (const key of keys1) {
+    const value1 = param1[key];
+    const value2 = param2[key];
+    if (!areDeeplyEqual(value1, value2))
+      return false;
+  }
+  return true;
+}
+const ListBoxItem = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let selected;
+  let classesActive;
+  let classesBase;
+  let classesLabel;
+  let classesRegionLead;
+  let classesRegionDefault;
+  let classesRegionTrail;
+  let $$slots = compute_slots(slots);
+  let { group } = $$props;
+  let { name } = $$props;
+  let { value } = $$props;
+  let { multiple = getContext("multiple") } = $$props;
+  let { rounded = getContext("rounded") } = $$props;
+  let { active = getContext("active") } = $$props;
+  let { hover = getContext("hover") } = $$props;
+  let { padding = getContext("padding") } = $$props;
+  let { regionLead = getContext("regionLead") } = $$props;
+  let { regionDefault = getContext("regionDefault") } = $$props;
+  let { regionTrail = getContext("regionTrail") } = $$props;
+  let checked;
+  let elemInput;
+  function updateCheckbox(group2) {
+    checked = group2.indexOf(value) >= 0;
+  }
+  function updateGroup(checked2) {
+    const index = group.indexOf(value);
+    if (checked2) {
+      if (index < 0) {
+        group.push(value);
+        group = group;
+      }
+    } else {
+      if (index >= 0) {
+        group.splice(index, 1);
+        group = group;
+      }
+    }
+  }
+  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
+    $$bindings.group(group);
+  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
+    $$bindings.name(name);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
+  if ($$props.multiple === void 0 && $$bindings.multiple && multiple !== void 0)
+    $$bindings.multiple(multiple);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.regionLead === void 0 && $$bindings.regionLead && regionLead !== void 0)
+    $$bindings.regionLead(regionLead);
+  if ($$props.regionDefault === void 0 && $$bindings.regionDefault && regionDefault !== void 0)
+    $$bindings.regionDefault(regionDefault);
+  if ($$props.regionTrail === void 0 && $$bindings.regionTrail && regionTrail !== void 0)
+    $$bindings.regionTrail(regionTrail);
+  {
+    if (multiple)
+      updateCheckbox(group);
+  }
+  {
+    if (multiple)
+      updateGroup(checked);
+  }
+  selected = multiple ? group.some((groupVal) => areDeeplyEqual(value, groupVal)) : areDeeplyEqual(group, value);
+  classesActive = selected ? active : hover;
+  classesBase = `${cBase$1} ${rounded} ${padding} ${classesActive} ${$$props.class ?? ""}`;
+  classesLabel = `${cLabel$1}`;
+  classesRegionLead = `${cRegionLead} ${regionLead}`;
+  classesRegionDefault = `${cRegionDefault} ${regionDefault}`;
+  classesRegionTrail = `${cRegionTrail} ${regionTrail}`;
+  return `<label> <div class="${"listbox-item " + escape(classesBase, true)}" data-testid="listbox-item" role="option"${add_attribute("aria-selected", selected, 0)} tabindex="0"> <div class="h-0 w-0 overflow-hidden">${multiple ? `<input type="checkbox"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${add_attribute("checked", checked, 1)}>` : `<input type="radio"${add_attribute("name", name, 0)}${add_attribute("value", value, 0)} tabindex="-1"${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}>`}</div>  <div class="${"listbox-label " + escape(classesLabel, true)}"> ${$$slots.lead ? `<div class="${"listbox-label-lead " + escape(classesRegionLead, true)}">${slots.lead ? slots.lead({}) : ``}</div>` : ``}  <div class="${"listbox-label-content " + escape(classesRegionDefault, true)}">${slots.default ? slots.default({}) : ``}</div>  ${$$slots.trail ? `<div class="${"listbox-label-trail " + escape(classesRegionTrail, true)}">${slots.trail ? slots.trail({}) : ``}</div>` : ``}</div></div></label>`;
+});
 const cBase = "inline-block";
 const cLabel = "unstyled flex items-center";
 const cTrack = "flex transition-all duration-[200ms] cursor-pointer";
@@ -575,6 +719,68 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `<input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="color"${add_attribute("value", value, 0)} class="input" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}>`;
     }
   })}`;
+});
+let inputValue = "";
+const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { params } = $$props;
+  let { schema } = $$props;
+  let { value } = $$props;
+  let comboboxValue = "";
+  let enumText;
+  params.path.join(".");
+  if ($$props.params === void 0 && $$bindings.params && params !== void 0)
+    $$bindings.params(params);
+  if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
+    $$bindings.schema(schema);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
+  let $$settled;
+  let $$rendered;
+  let previous_head = $$result.head;
+  do {
+    $$settled = true;
+    $$result.head = previous_head;
+    schema.enum;
+    enumText = schema.enumText || schema.enum;
+    schema.direction || "row";
+    {
+      console.log(value);
+    }
+    {
+      console.log(inputValue);
+    }
+    $$rendered = `${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
+      default: () => {
+        return `<button class="btn variant-filled w-48 justify-between"><span class="capitalize">${escape(`${comboboxValue} | ${inputValue}`)}</span> <span data-svelte-h="svelte-1nbea6p">↓</span></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox"><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)}${add_attribute("placeholder", params.path.join("."), 0)} class="input px-4 py-2" type="text"${add_attribute("value", inputValue, 0)} ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}> ${validate_component(ListBox, "ListBox").$$render($$result, { rounded: "rounded-none" }, {}, {
+          default: () => {
+            return `${each(enumText, (enumVal, index) => {
+              return `${validate_component(ListBoxItem, "ListBoxItem").$$render(
+                $$result,
+                {
+                  class: "flex gap-3",
+                  name: "medium",
+                  value: enumVal,
+                  group: comboboxValue
+                },
+                {
+                  group: ($$value) => {
+                    comboboxValue = $$value;
+                    $$settled = false;
+                  }
+                },
+                {
+                  default: () => {
+                    return `${escape(enumVal)}`;
+                  }
+                }
+              )}`;
+            })}`;
+          }
+        })} <div class="arrow bg-surface-100-800-token"></div></div>`;
+      }
+    })}`;
+  } while (!$$settled);
+  return $$rendered;
 });
 const Number = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
@@ -1032,6 +1238,7 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
           date: String,
           number: Number,
           color: Color,
+          buffers: Buffers,
           integer: Number,
           boolean: Boolean,
           fieldWrapper: FieldWrapper,
@@ -1232,16 +1439,11 @@ const css = {
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
-    type: "object",
-    properties: {
-      items: {
-        type: "object",
-        properties: {
-          type_name: { type: "string", title: "Type Name" },
-          color: { type: "color" }
-        }
-      }
-    }
+    type: "string",
+    enum: ["0", "1", "2"],
+    title: "Price",
+    editor: "buffers",
+    enumText: ["Ask", "Bid", "Pip"]
   };
   let value = {};
   let valueJson = "";

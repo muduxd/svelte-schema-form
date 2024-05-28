@@ -14,6 +14,7 @@ import Array from "./editors/Array.svelte";
 import { incr, nullOptionalsAllowed } from "./utilities.js";
 import Boolean from "./editors/Boolean.svelte";
 import Color from "./editors/Color.svelte";
+import Buffers from "./editors/Buffers.svelte";
 import Number from "./editors/Number.svelte";
 import { errorMapper } from "./errorMapper";
 import Upload from "./editors/Upload.svelte";
@@ -49,6 +50,7 @@ $:
       date: String,
       number: Number,
       color: Color,
+      buffers: Buffers,
       integer: Number,
       boolean: Boolean,
       fieldWrapper: FieldWrapper,

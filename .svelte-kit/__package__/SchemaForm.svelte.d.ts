@@ -13,6 +13,7 @@ declare const __propDef: {
     events: {
         [evt: string]: CustomEvent<any>;
     };
+    /**accessor*/
     slots: {};
 };
 export type SchemaFormProps = typeof __propDef.props;
