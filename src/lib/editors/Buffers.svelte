@@ -16,6 +16,13 @@
 		closeQuery: '.listbox-item'
 	};
 
+	const popupComboboxClose: PopupSettings = {
+		event: 'click',
+		target: 'popupCombobox',
+		placement: 'bottom',
+		closeQuery: '.listbox-item',
+	};
+
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
@@ -59,7 +66,7 @@
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
 	<button class="btn flex items-center variant-filled w-48 justify-between" use:popup={popupCombobox}>
-		<span class="capitalize">{comboboxValue ?? 'Trigger'}</span>
+		<span class="capitalize">{comboboxValue ?? 'Choose buffer'}</span>
 		<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
 	</button>
 	<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
@@ -98,6 +105,7 @@
 						</label>
 					{/each}
 				</div>
+				<button class="listbox-item" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 1}
 					<div role="radiogroup" 
 						class="space-y-2"
@@ -127,6 +135,7 @@
 							</label>
 						{/each}
 					</div>
+					<button class="listbox-item" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
 				<div>
 					<input id={params.path.join('.')} name={params.path.join('.')}
@@ -136,9 +145,9 @@
 						on:input={handleChange("", currentConstantInputVal)}
 					/>
 				</div>
+				<button class="listbox-item" on:click={handleClick} type="button">Done</button>
 				{/if}
 			</svelte:fragment>
-			<button on:click={handleClick} use:popup={popupCombobox} type="button">Done</button>
 		</TabGroup>
 		<div class="arrow bg-surface-100-800-token" />
 	</div>
