@@ -9,6 +9,7 @@ import FaSolidArrowDown from "svelte-icons-pack/fa/FaSolidArrowDown.js";
 import FaSolidTrash from "svelte-icons-pack/fa/FaSolidTrash.js";
 import FaCopy from "svelte-icons-pack/fa/FaCopy.js";
 import { w as writable, r as readable } from "../../chunks/index.js";
+import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import "@exodus/schemasafe/src/pointer.js";
 const upTo = (str, match, start) => {
   const pos = str.indexOf(match, start);
@@ -412,6 +413,7 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   } while (!$$settled);
   return $$rendered;
 });
+const storePopup = writable(void 0);
 const stores = {};
 function localStorageStore(key, initialValue, options) {
   options?.serializer ?? JSON;
@@ -717,6 +719,14 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let currentBufferInputVal;
   let currentObjectInputVal;
   let currentConstantInputVal;
+  storePopup.set({
+    computePosition,
+    autoUpdate,
+    offset,
+    shift,
+    flip,
+    arrow
+  });
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
@@ -747,7 +757,7 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     currentConstantInputVal = null;
     $$rendered = ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
-        return `${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
+        return `<button class="btn flex items-center variant-filled w-48 justify-between"><span class="capitalize">${escape("Trigger")}</span> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></button> <div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
             return `${tabSet === 0 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> ${each(buffersText, (bufferText, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", id, 0)} ${currentBuffer === value ? "checked" : ""}> <p>${escape(bufferText || "")}</p> </label>`;
@@ -798,9 +808,9 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
                   return `Constants`;
                 }
               }
-            )}`;
+            )} <button type="button" data-svelte-h="svelte-upo3ys">Done</button>`;
           }
-        })}`;
+        })} <div class="arrow bg-surface-100-800-token"></div></div>`;
       }
     })}`;
   } while (!$$settled);
