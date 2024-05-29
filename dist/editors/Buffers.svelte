@@ -34,7 +34,7 @@ $:
 $:
   objectsText = schema.objectsText;
 $:
-  flexDirection = schema.direction || "row";
+  flexDirection = schema.direction || "column";
 $:
   currentBuffer = "";
 $:
@@ -65,7 +65,7 @@ const handleClick = () => {
 		<span class="capitalize">{comboboxValue ?? 'Choose buffer'}</span>
 		<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
 	</button>
-	<div class="card w-48 shadow-xl py-2" data-popup="popupCombobox">
+	<div class="p-4 w-48 shadow-xl py-2" data-popup="popupCombobox">
 		<TabGroup>
 			<Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
 			<Tab bind:group={tabSet} name="tab2" value={1}>Objects</Tab>
@@ -74,7 +74,7 @@ const handleClick = () => {
 			<svelte:fragment slot="panel">
 				{#if tabSet === 0}
 				<div role="radiogroup"
-					class="space-y-2"
+					class="flex flex-col gap-2"
 					aria-labelledby={`label-${id}`}
 					style="flex-direction:{flexDirection}"
 					id={`group-${id}`}
@@ -101,7 +101,7 @@ const handleClick = () => {
 						</label>
 					{/each}
 				</div>
-				<button class="listbox-item" on:click={handleClick} type="button">Done</button>
+				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 1}
 					<div role="radiogroup" 
 						class="space-y-2"
@@ -131,7 +131,7 @@ const handleClick = () => {
 							</label>
 						{/each}
 					</div>
-					<button class="listbox-item" on:click={handleClick} type="button">Done</button>
+					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
 				<div>
 					<input id={params.path.join('.')} name={params.path.join('.')}
@@ -141,7 +141,7 @@ const handleClick = () => {
 						on:input={handleChange("", currentConstantInputVal)}
 					/>
 				</div>
-				<button class="listbox-item" on:click={handleClick} type="button">Done</button>
+				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{/if}
 			</svelte:fragment>
 		</TabGroup>
