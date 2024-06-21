@@ -10,7 +10,7 @@
 			buffers: {
 				editor: "buffers",
 				buffersText: ["Ask", "Bid", "Pip", "asdasd"],
-				objectsText: ["O1", "O2", "O3", "O4"],
+				objects: [{_id: "1234asrd2324", name:"asd"}, {_id: "1234asrd2374", name:"blabla"}],
 				givenVariablesObj: [
 					{name: "asd", type:"string", value:"asdasd"},
 					{name: "dfssdfg", type:"string", value:"asdasd"},

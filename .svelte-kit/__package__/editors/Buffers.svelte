@@ -21,8 +21,7 @@ export let schema;
 export let value;
 let buffersVals;
 let buffersText;
-let objectsVals;
-let objectsText;
+let objects;
 let givenVariablesObj;
 $:
   givenVariablesObj = [...schema.givenVariablesObj];
@@ -35,9 +34,7 @@ $:
 $:
   buffersText = schema.buffersText;
 $:
-  objectsVals = schema.objectsText.map((_, index) => index) || schema.enum;
-$:
-  objectsText = schema.objectsText;
+  objects = schema.objects;
 $:
   flexDirection = schema.direction || "column";
 $:
@@ -50,8 +47,6 @@ $:
   currentObjectInputVal = null;
 $:
   currentConstantInputVal = null;
-$:
-  console.log(givenVariablesObj);
 let finalOutput = "";
 const handleChange = (currentText, currentInputVal) => {
   if (currentInputVal === null)
@@ -122,19 +117,19 @@ const handleClick = () => {
 						disabled={schema.readOnly || params.containerReadOnly}
 						on:input={handleChange(currentObject, currentObjectInputVal)}
 					/>
-						{#each objectsText as objectText, idx}
+						{#each objects as object, idx}
 							<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
 								<input
 									class="radio"
 									type="radio"
 									id={`${id}-${idx}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal)}}
-									value={objectText}
+									value={object._id}
 									name={id}
-									checked={objectText === value}
+									checked={object._id === value}
 								/>
 	
-								<p>{(objectText || "")}</p>
+								<p>{(object.name || "")}</p>
 							</label>
 						{/each}
 					</div>

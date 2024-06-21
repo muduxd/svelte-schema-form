@@ -28,8 +28,7 @@
 	export let value: any;
 	let buffersVals: string[];
 	let buffersText: string[];
-	let objectsVals: string[];
-	let objectsText: string[];
+	let objects: any[];
 	let givenVariablesObj: any[];
 	$: givenVariablesObj = [...schema.givenVariablesObj];
 	$: console.log("asdasd",givenVariablesObj)
@@ -37,8 +36,7 @@
 	let tabSet: number = 0
 	$: buffersVals = schema.buffersText.map((_:any, index:number) => index) || schema.enum;
 	$: buffersText = schema.buffersText;
-	$: objectsVals = schema.objectsText.map((_:any, index:number) => index) || schema.enum;
-	$: objectsText = schema.objectsText;
+	$: objects = schema.objects;
 	$: flexDirection = schema.direction || 'column';
 
 	$: currentBuffer = ""
@@ -46,8 +44,6 @@
 	$: currentBufferInputVal = null as number | null //ev => {let val = parseFloat(ev.currentTarget.value); params.pathChanged(params.path, isNaN(val) ? undefined : val); }
 	$: currentObjectInputVal = null as number | null
 	$: currentConstantInputVal = null as number | string | boolean | null
-
-	$:console.log(givenVariablesObj)
 
 	let finalOutput = ""
 
@@ -124,19 +120,19 @@
 						disabled={schema.readOnly || params.containerReadOnly}
 						on:input={handleChange(currentObject, currentObjectInputVal)}
 					/>
-						{#each objectsText as objectText, idx}
+						{#each objects as object, idx}
 							<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
 								<input
 									class="radio"
 									type="radio"
 									id={`${id}-${idx}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal)}}
-									value={objectText}
+									value={object._id}
 									name={id}
-									checked={objectText === value}
+									checked={object._id === value}
 								/>
 	
-								<p>{(objectText || "")}</p>
+								<p>{(object.name || "")}</p>
 							</label>
 						{/each}
 					</div>
