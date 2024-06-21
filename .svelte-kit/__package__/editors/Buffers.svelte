@@ -2,6 +2,7 @@
 import { popup } from "@skeletonlabs/skeleton";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { storePopup } from "@skeletonlabs/skeleton";
+import { onMount } from "svelte";
 storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 let comboboxValue;
 const popupCombobox = {
@@ -25,8 +26,6 @@ let objects;
 let givenVariablesObj;
 $:
   givenVariablesObj = [...schema.givenVariablesObj];
-$:
-  console.log("asdasd", givenVariablesObj);
 let id = params.path.join(".");
 let tabSet = 0;
 $:
@@ -47,7 +46,12 @@ $:
   currentObjectInputVal = null;
 $:
   currentConstantInputVal = null;
+$:
+  currentValVar = null;
 let finalOutput = "";
+onMount(() => {
+  currentValVar = givenVariablesObj[0].value;
+});
 const handleChange = (currentText, currentInputVal) => {
   if (currentInputVal === null)
     currentInputVal = 0;
@@ -72,6 +76,7 @@ const handleClick = () => {
 			<Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
 			<Tab bind:group={tabSet} name="tab2" value={1}>Objects</Tab>
 			<Tab bind:group={tabSet} name="tab3" value={2}>Constants</Tab>
+			<Tab bind:group={tabSet} name="tab4" value={3}>Variables</Tab>
 	
 			<svelte:fragment slot="panel">
 				{#if tabSet === 0}
@@ -135,24 +140,29 @@ const handleClick = () => {
 					</div>
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
-				<div>
-					
-					{#if Object.entries(givenVariablesObj).length > 0}
-						<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" on:input={handleChange("", currentConstantInputVal)}>
-							{#each givenVariablesObj as variableObj, index (index)}
-								<option value={variableObj.value}>{variableObj.name}</option>
-							{/each}
-						</select>
-					{:else}
+					<div>
 						<input id={params.path.join('.')} name={params.path.join('.')}
 							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
 							placeholder="0"
 							disabled={schema.readOnly || params.containerReadOnly}
 							on:input={handleChange("", currentConstantInputVal)}
 						/>
-					{/if}
-				</div>
-				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
+					</div>
+					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
+				{:else if tabSet === 3}
+					<div>
+						{#if Object.entries(givenVariablesObj).length > 0}
+							<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar)}>
+								{#each givenVariablesObj as variableObj, index (index)}
+									<option value={variableObj.value}>{variableObj.name}</option>
+								{/each}
+							</select>
+						{:else}
+							<p>No variables created.</p>
+						{/if}
+						
+					</div>
+					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{/if}
 			</svelte:fragment>
 		</TabGroup>
