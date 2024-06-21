@@ -143,7 +143,7 @@ const handleClick = () => {
 				<div>
 					
 					{#if Object.entries(givenVariablesObj).length > 0}
-						<select name="vals" id="vals" on:input={handleChange("", currentConstantInputVal)}>
+						<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" on:input={handleChange("", currentConstantInputVal)}>
 							{#each givenVariablesObj as variableObj, index (index)}
 								<option value={variableObj.value}>{variableObj.name}</option>
 							{/each}
