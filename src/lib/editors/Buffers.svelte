@@ -127,9 +127,9 @@
 									type="radio"
 									id={`${id}-${idx}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal)}}
-									value={object._id}
+									value={object.name}
 									name={id}
-									checked={object._id === value}
+									checked={object.name === value}
 								/>
 	
 								<p>{(object.name || "")}</p>
