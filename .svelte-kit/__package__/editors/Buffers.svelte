@@ -23,6 +23,11 @@ let buffersVals;
 let buffersText;
 let objectsVals;
 let objectsText;
+let givenVariablesObj;
+$:
+  givenVariablesObj = [...schema.givenVariablesObj];
+$:
+  console.log("asdasd", givenVariablesObj);
 let id = params.path.join(".");
 let tabSet = 0;
 $:
@@ -45,6 +50,8 @@ $:
   currentObjectInputVal = null;
 $:
   currentConstantInputVal = null;
+$:
+  console.log(givenVariablesObj);
 let finalOutput = "";
 const handleChange = (currentText, currentInputVal) => {
   if (currentInputVal === null)
@@ -134,12 +141,21 @@ const handleClick = () => {
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
 				<div>
-					<input id={params.path.join('.')} name={params.path.join('.')}
-						type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
-						placeholder="0"
-						disabled={schema.readOnly || params.containerReadOnly}
-						on:input={handleChange("", currentConstantInputVal)}
-					/>
+					
+					{#if Object.entries(givenVariablesObj).length > 0}
+						<select name="vals" id="vals" on:input={handleChange("", currentConstantInputVal)}>
+							{#each givenVariablesObj as variableObj, index (index)}
+								<option value={variableObj.value}>{variableObj.name}</option>
+							{/each}
+						</select>
+					{:else}
+						<input id={params.path.join('.')} name={params.path.join('.')}
+							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
+							placeholder="0"
+							disabled={schema.readOnly || params.containerReadOnly}
+							on:input={handleChange("", currentConstantInputVal)}
+						/>
+					{/if}
 				</div>
 				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{/if}

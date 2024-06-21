@@ -11,6 +11,11 @@
 				editor: "buffers",
 				buffersText: ["Ask", "Bid", "Pip", "asdasd"],
 				objectsText: ["O1", "O2", "O3", "O4"],
+				givenVariablesObj: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				]
 			},
 		}
 	}
