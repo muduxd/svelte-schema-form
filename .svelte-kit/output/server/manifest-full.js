@@ -10,7 +10,7 @@ return {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.Vo-mXj13.js","app":"_app/immutable/entry/app.j3pj9KjI.js","imports":["_app/immutable/entry/start.Vo-mXj13.js","_app/immutable/chunks/scheduler.e-SIUeoS.js","_app/immutable/chunks/singletons.bIB027gK.js","_app/immutable/chunks/index.fiq2uqmN.js","_app/immutable/entry/app.j3pj9KjI.js","_app/immutable/chunks/scheduler.e-SIUeoS.js","_app/immutable/chunks/index.mR-p4qrN.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
+		client: {"start":"_app/immutable/entry/start.5QWGX5GC.js","app":"_app/immutable/entry/app.pbx_X8z2.js","imports":["_app/immutable/entry/start.5QWGX5GC.js","_app/immutable/chunks/scheduler.e-SIUeoS.js","_app/immutable/chunks/singletons.YmT0IMdo.js","_app/immutable/chunks/index.fiq2uqmN.js","_app/immutable/entry/app.pbx_X8z2.js","_app/immutable/chunks/scheduler.e-SIUeoS.js","_app/immutable/chunks/index.mR-p4qrN.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

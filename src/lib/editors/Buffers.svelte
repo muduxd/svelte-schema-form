@@ -52,14 +52,15 @@
 		currentValVar = givenVariablesObj[0].value
 	})
 
-	const handleChange = (currentText:string, currentInputVal:number|string|boolean|null) =>{
+	const handleChange = (currentText:string, currentInputVal:number|string|boolean|null, type:string) =>{
 		if (currentInputVal === null)
 			currentInputVal = 0
 
-		finalOutput = `${currentText}[${currentInputVal}]`
+		finalOutput = `${type}:${currentText}[${currentInputVal}]`
+		console.log(finalOutput);
 
 		if (currentText == "")
-			finalOutput = `${currentInputVal}`
+			finalOutput = `${type}:${currentInputVal}`
 
 			params.pathChanged(params.path, finalOutput || undefined)
 	}
@@ -94,7 +95,7 @@
 					type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
 					placeholder="0"
 					disabled={schema.readOnly || params.containerReadOnly}
-					on:input={handleChange(currentBuffer, currentBufferInputVal)}
+					on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 				/>
 					{#each buffersText as bufferText, idx}
 						<label for={`${id}-${idx}`} class="flex items-center space-x-2">
@@ -102,7 +103,7 @@
 								class="radio"
 								type="radio"
 								id={`${id}-${idx}`}
-								on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal)}}
+								on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
 								value={bufferText}
 								name={id}
 								checked={currentBuffer === value}
@@ -124,7 +125,7 @@
 						type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
 						placeholder="0"
 						disabled={schema.readOnly || params.containerReadOnly}
-						on:input={handleChange(currentObject, currentObjectInputVal)}
+						on:input={handleChange(currentObject, currentObjectInputVal, "o")}
 					/>
 						{#each objects as object, idx}
 							<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
@@ -132,7 +133,7 @@
 									class="radio"
 									type="radio"
 									id={`${id}-${idx}`}
-									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal)}}
+									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
 									value={object.name}
 									name={id}
 									checked={object.name === value}
@@ -149,14 +150,14 @@
 							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
 							placeholder="0"
 							disabled={schema.readOnly || params.containerReadOnly}
-							on:input={handleChange("", currentConstantInputVal)}
+							on:input={handleChange("", currentConstantInputVal, "c")}
 						/>
 					</div>
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 3}
 					<div>
 						{#if Object.entries(givenVariablesObj).length > 0}
-							<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar)}>
+							<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
 								{#each givenVariablesObj as variableObj, index (index)}
 									<option value={variableObj.value}>{variableObj.name}</option>
 								{/each}
