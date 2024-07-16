@@ -3,7 +3,7 @@ import { popup } from "@skeletonlabs/skeleton";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { storePopup } from "@skeletonlabs/skeleton";
 import { onMount } from "svelte";
-import { previousNumber } from "../../store.js";
+import { previousNumber } from "../store.js";
 import { get } from "svelte/store";
 function generateRandomNumber(min, max) {
   let prevNumber = get(previousNumber);
