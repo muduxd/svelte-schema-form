@@ -48,10 +48,11 @@
 
 	let finalOutput = ""
 
-	$: if(givenVariablesObj.length > 0 && currentValVar == null){
+	onMount(()=>{
+		if(givenVariablesObj.length > 0)
 		currentValVar = givenVariablesObj[0].value
-	}
-	
+	})
+
 	const handleChange = (currentText:string, currentInputVal:number|string|boolean|null, type:string) =>{
 		if (currentInputVal === null)
 			currentInputVal = 0
