@@ -5,7 +5,21 @@
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-  import { onMount } from "svelte";
+  	import { onMount } from "svelte";
+	import { previousNumber } from "../../store.js";
+	import { get } from "svelte/store";
+
+	function generateRandomNumber(min:number, max:number) {
+		let prevNumber = get(previousNumber)
+		let newNumber;
+		do {
+			newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+		} while (newNumber === prevNumber);
+		
+		prevNumber = newNumber;
+		return newNumber;
+	}
+
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	let comboboxValue: string;
@@ -45,6 +59,8 @@
 	$: currentObjectInputVal = null as number | null
 	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
+
+	let randomNumber = generateRandomNumber(1,500);
 
 	let finalOutput = ""
 
@@ -99,15 +115,15 @@
 					on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 				/>
 					{#each buffersText as bufferText, idx (idx)}
-						<label for={`${id}-${idx}`} class="flex items-center space-x-2">
+						<label for={`${id}-${idx}-${randomNumber}`} class="flex items-center space-x-2">
 							<input
 								class="radio"
 								type="radio"
-								id={`${id}-${idx}`}
+								id={`${id}-${idx}-${randomNumber}`}
 								on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
 								value={bufferText}
 								name={id}
-								checked={currentBuffer === value}
+								bind:group={currentBuffer}
 							/>
 	
 							<p>{(bufferText || "")}</p>
@@ -129,15 +145,15 @@
 						on:input={handleChange(currentObject, currentObjectInputVal, "o")}
 					/>
 						{#each objects as object, idx}
-							<label for={`${id}-${idx}`} class="flex items-center space-x-2"> 
+							<label for={`${id}-${idx}-${randomNumber}`} class="flex items-center space-x-2"> 
 								<input
 									class="radio"
 									type="radio"
-									id={`${id}-${idx}`}
+									id={`${id}-${idx}-${randomNumber}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
 									value={object.name}
 									name={id}
-									checked={object.name === value}
+									bind:group={object.name}
 								/>
 	
 								<p>{(object.name || "")}</p>

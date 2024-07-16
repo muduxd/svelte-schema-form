@@ -4,8 +4,37 @@
 	import "$lib/css/basic-skin.scss";
 
 	let schema: any = {
-		title: "Price",
-		enum: ["asd","asd2","asd3","asd4"],
+		type:"object",
+		properties:{
+			buffers: {
+                title:"",
+				editor: "buffers",
+				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
+				objects: [{name: "asd", value:"asd"}],
+                givenVariablesObj: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				]
+			},
+		}
+	}
+
+	let schemaa: any = {
+		type:"object",
+		properties:{
+			buffers: {
+                title:"",
+				editor: "buffers",
+				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
+				objects: [{name: "asd", value:"asd"}],
+                givenVariablesObj: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				]
+			},
+		}
 	}
 
 	let jsonInvalid = false;
@@ -38,6 +67,7 @@
 	</div>
 	<div class="form">
 		<SubmitForm {schema} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
+		<SubmitForm schema={schemaa} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
 	</div>
 	<div class="output">
 		<pre>
