@@ -6,19 +6,6 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
   	import { onMount } from "svelte";
-	import { previousNumber } from "$lib/buffers_store";
-	import { get } from "svelte/store";
-
-	function generateRandomNumber(min:number, max:number) {
-		let prevNumber = get(previousNumber)
-		let newNumber;
-		do {
-			newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-		} while (newNumber === prevNumber);
-		
-		prevNumber = newNumber;
-		return newNumber;
-	}
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -43,6 +30,7 @@
 	export let value: any;
 	let buffersVals: string[];
 	let buffersText: string[];
+	let randomNumber: number;
 	let objects: any[];
 	let givenVariablesObj: any[] = [];
 	$: givenVariablesObj = [...schema.givenVariablesObj];
@@ -53,6 +41,8 @@
 	$: objects = schema.objects;
 	$: flexDirection = schema.direction || 'column';
 
+	$: randomNumber = schema.randomNumber;
+
 	$: currentBuffer = ""
 	$: currentObject = ""
 	$: currentBufferInputVal = null as number | null //ev => {let val = parseFloat(ev.currentTarget.value); params.pathChanged(params.path, isNaN(val) ? undefined : val); }
@@ -60,7 +50,6 @@
 	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
 
-	let randomNumber = generateRandomNumber(1,500);
 
 	let finalOutput = ""
 

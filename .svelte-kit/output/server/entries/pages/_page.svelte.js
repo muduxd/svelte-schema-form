@@ -713,22 +713,12 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-const previousNumber = writable();
 const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let flexDirection;
   let currentBuffer;
   let currentBufferInputVal;
   let currentObjectInputVal;
   let currentConstantInputVal;
-  function generateRandomNumber(min, max) {
-    let prevNumber = get_store_value(previousNumber);
-    let newNumber;
-    do {
-      newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    } while (newNumber === prevNumber);
-    prevNumber = newNumber;
-    return newNumber;
-  }
   storePopup.set({
     computePosition,
     autoUpdate,
@@ -741,11 +731,11 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { schema } = $$props;
   let { value } = $$props;
   let buffersText;
+  let randomNumber;
   let objects;
   let givenVariablesObj = [];
   let id = params.path.join(".");
   let tabSet = 0;
-  let randomNumber = generateRandomNumber(1, 500);
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -763,6 +753,7 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     buffersText = schema.buffersText;
     objects = schema.objects;
     flexDirection = schema.direction || "column";
+    randomNumber = schema.randomNumber;
     currentBuffer = "";
     currentBufferInputVal = null;
     currentObjectInputVal = null;

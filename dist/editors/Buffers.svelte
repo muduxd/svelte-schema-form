@@ -3,17 +3,6 @@ import { popup } from "@skeletonlabs/skeleton";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { storePopup } from "@skeletonlabs/skeleton";
 import { onMount } from "svelte";
-import { previousNumber } from "../buffers_store";
-import { get } from "svelte/store";
-function generateRandomNumber(min, max) {
-  let prevNumber = get(previousNumber);
-  let newNumber;
-  do {
-    newNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  } while (newNumber === prevNumber);
-  prevNumber = newNumber;
-  return newNumber;
-}
 storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 let comboboxValue;
 const popupCombobox = {
@@ -33,6 +22,7 @@ export let schema;
 export let value;
 let buffersVals;
 let buffersText;
+let randomNumber;
 let objects;
 let givenVariablesObj = [];
 $:
@@ -48,6 +38,8 @@ $:
 $:
   flexDirection = schema.direction || "column";
 $:
+  randomNumber = schema.randomNumber;
+$:
   currentBuffer = "";
 $:
   currentObject = "";
@@ -59,7 +51,6 @@ $:
   currentConstantInputVal = null;
 $:
   currentValVar = null;
-let randomNumber = generateRandomNumber(1, 500);
 let finalOutput = "";
 onMount(() => {
   if (givenVariablesObj.length > 0)
