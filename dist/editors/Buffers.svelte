@@ -53,7 +53,6 @@ const handleChange = (currentText, currentInputVal, type) => {
   if (currentInputVal === null)
     currentInputVal = 0;
   finalOutput = `${type}:${currentText}[${currentInputVal}]`;
-  console.log(finalOutput);
   if (currentText == "")
     finalOutput = `${type}:${currentInputVal}`;
   params.pathChanged(params.path, finalOutput || void 0);
@@ -160,7 +159,7 @@ const handleClick = () => {
 						{/if}
 						
 					</div>
-					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
+					<button disabled={!(givenVariablesObj.length > 0)} class={`listbox-item btn variant-filled-primary mt-2 w-full ${!(givenVariablesObj.length > 0) ? "not-dirty":""}`} on:click={handleClick} type="button">Done</button>
 				{/if}
 			</svelte:fragment>
 		</TabGroup>
