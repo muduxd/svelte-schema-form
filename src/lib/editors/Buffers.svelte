@@ -6,6 +6,7 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
   	import { onMount } from "svelte";
+	import { v4 as uuidv4 } from 'uuid'; // Import UUID for unique identifiers
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -18,19 +19,11 @@
 		closeQuery: '.listbox-item'
 	};
 
-	const popupComboboxClose: PopupSettings = {
-		event: 'click',
-		target: 'popupCombobox',
-		placement: 'bottom',
-		closeQuery: '.listbox-item',
-	};
-
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
 	let buffersVals: string[];
 	let buffersText: string[];
-	let randomNumber: number;
 	let objects: any[];
 	let givenVariablesObj: any[] = [];
 	$: givenVariablesObj = [...schema.givenVariablesObj];
@@ -41,8 +34,6 @@
 	$: objects = schema.objects;
 	$: flexDirection = schema.direction || 'column';
 
-	$: randomNumber = schema.randomNumber;
-
 	$: currentBuffer = ""
 	$: currentObject = ""
 	$: currentBufferInputVal = null as number | null //ev => {let val = parseFloat(ev.currentTarget.value); params.pathChanged(params.path, isNaN(val) ? undefined : val); }
@@ -50,6 +41,7 @@
 	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
 
+	let uniqueId = uuidv4();
 
 	let finalOutput = ""
 
@@ -93,25 +85,25 @@
 				{#if tabSet === 0}
 				<div role="radiogroup"
 					class="flex flex-col gap-2"
-					aria-labelledby={`label-${id}-${randomNumber}`}
+					aria-labelledby={`label-${id}-${uniqueId}`}
 					style="flex-direction:{flexDirection}"
-					id={`group-${id}-${randomNumber}`}
+					id={`group-${id}-${uniqueId}`}
 				>
-				<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
+				<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
 					type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
 					placeholder="0"
 					disabled={schema.readOnly || params.containerReadOnly}
 					on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 				/>
 					{#each buffersText as bufferText, idx (idx)}
-						<label for={`${id}-${idx}-${randomNumber}`} class="flex items-center space-x-2">
+						<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
 							<input
 								class="radio"
 								type="radio"
-								id={`${id}-${idx}-${randomNumber}`}
+								id={`${id}-${idx}-${uniqueId}`}
 								on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
 								value={bufferText}
-								name={`${id}-${randomNumber}`}
+								name={`${id}-${uniqueId}`}
 								bind:group={currentBuffer}
 							/>
 	
@@ -123,25 +115,25 @@
 				{:else if tabSet === 1}
 					<div role="radiogroup" 
 						class="space-y-2"
-						aria-labelledby={`label-${id}-${randomNumber}`}
+						aria-labelledby={`label-${id}-${uniqueId}`}
 						style="flex-direction:{flexDirection}" 
-						id={`group-${id}-${randomNumber}`}
+						id={`group-${id}-${uniqueId}`}
 					>
-					<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
+					<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
 						type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
 						placeholder="0"
 						disabled={schema.readOnly || params.containerReadOnly}
 						on:input={handleChange(currentObject, currentObjectInputVal, "o")}
 					/>
 						{#each objects as object, idx}
-							<label for={`${id}-${idx}-${randomNumber}`} class="flex items-center space-x-2"> 
+							<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2"> 
 								<input
 									class="radio"
 									type="radio"
-									id={`${id}-${idx}-${randomNumber}`}
+									id={`${id}-${idx}-${uniqueId}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
 									value={object.name}
-									name={`${id}-${randomNumber}`}
+									name={`${id}-${uniqueId}`}
 									bind:group={object.name}
 								/>
 	
@@ -152,7 +144,7 @@
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
 					<div>
-						<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
+						<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
 							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
 							placeholder="0"
 							disabled={schema.readOnly || params.containerReadOnly}
@@ -163,7 +155,7 @@
 				{:else if tabSet === 3}
 					<div>
 						{#if givenVariablesObj.length > 0}
-							<select name="vals" id={`vals-${randomNumber}`} class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
+							<select name="vals" id={`vals-${uniqueId}`} class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
 								{#each givenVariablesObj as variableObj, index (index)}
 									<option value={variableObj.value}>{variableObj.name}</option>
 								{/each}
