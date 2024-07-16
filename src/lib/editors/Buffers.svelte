@@ -6,7 +6,7 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
   	import { onMount } from "svelte";
-	import { previousNumber } from "$lib/store.js";
+	import { previousNumber } from "$lib/buffers_store";
 	import { get } from "svelte/store";
 
 	function generateRandomNumber(min:number, max:number) {
