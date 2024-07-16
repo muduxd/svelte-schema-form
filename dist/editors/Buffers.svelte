@@ -23,7 +23,7 @@ export let value;
 let buffersVals;
 let buffersText;
 let objects;
-let givenVariablesObj;
+let givenVariablesObj = [];
 $:
   givenVariablesObj = [...schema.givenVariablesObj];
 let id = params.path.join(".");
@@ -50,7 +50,8 @@ $:
   currentValVar = null;
 let finalOutput = "";
 onMount(() => {
-  currentValVar = givenVariablesObj[0].value;
+  if (givenVariablesObj.length > 0)
+    currentValVar = givenVariablesObj[0].value;
 });
 const handleChange = (currentText, currentInputVal, type) => {
   if (currentInputVal === null)
@@ -93,7 +94,7 @@ const handleClick = () => {
 					disabled={schema.readOnly || params.containerReadOnly}
 					on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 				/>
-					{#each buffersText as bufferText, idx}
+					{#each buffersText as bufferText, idx (idx)}
 						<label for={`${id}-${idx}`} class="flex items-center space-x-2">
 							<input
 								class="radio"
@@ -152,7 +153,7 @@ const handleClick = () => {
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 3}
 					<div>
-						{#if Object.entries(givenVariablesObj).length > 0}
+						{#if givenVariablesObj.length > 0}
 							<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
 								{#each givenVariablesObj as variableObj, index (index)}
 									<option value={variableObj.value}>{variableObj.name}</option>

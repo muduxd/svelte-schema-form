@@ -732,7 +732,7 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { value } = $$props;
   let buffersText;
   let objects;
-  let givenVariablesObj;
+  let givenVariablesObj = [];
   let id = params.path.join(".");
   let tabSet = 0;
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
@@ -764,7 +764,7 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
               return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", id, 0)} ${currentBuffer === value ? "checked" : ""}> <p>${escape(bufferText || "")}</p> </label>`;
             })}</div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}`, 0)}><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> ${each(objects, (object, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}`, 0)}${add_attribute("value", object.name, 0)}${add_attribute("name", id, 0)} ${object.name === value ? "checked" : ""}> <p>${escape(object.name || "")}</p> </label>`;
-            })}</div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 2 ? `<div><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 3 ? `<div>${Object.entries(givenVariablesObj).length > 0 ? `<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;">${each(givenVariablesObj, (variableObj, index) => {
+            })}</div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 2 ? `<div><input${add_attribute("id", params.path.join("."), 0)}${add_attribute("name", params.path.join("."), 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 3 ? `<div>${givenVariablesObj.length > 0 ? `<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;">${each(givenVariablesObj, (variableObj, index) => {
               return `<option${add_attribute("value", variableObj.value, 0)}>${escape(variableObj.name)}</option>`;
             })}</select>` : `<p data-svelte-h="svelte-o1tfc4">No variables created.</p>`}</div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : ``}`}`}`} `;
           },
@@ -1491,34 +1491,7 @@ const css = {
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
     title: "Price",
-    type: "object",
-    properties: {
-      buffers: {
-        editor: "buffers",
-        buffersText: ["Ask", "Bid", "Pip", "asdasd"],
-        objects: [
-          { _id: "1234asrd2324", name: "asd" },
-          { _id: "1234asrd2374", name: "blabla" }
-        ],
-        givenVariablesObj: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ]
-      }
-    }
+    enum: ["asd", "asd2", "asd3", "asd4"]
   };
   let value = {};
   let valueJson = "";

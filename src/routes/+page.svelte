@@ -5,19 +5,7 @@
 
 	let schema: any = {
 		title: "Price",
-		type:"object",
-		properties:{
-			buffers: {
-				editor: "buffers",
-				buffersText: ["Ask", "Bid", "Pip", "asdasd"],
-				objects: [{_id: "1234asrd2324", name:"asd"}, {_id: "1234asrd2374", name:"blabla"}],
-				givenVariablesObj: [
-					{name: "asd", type:"string", value:"asdasd"},
-					{name: "dfssdfg", type:"string", value:"asdasd"},
-					{name: "3454", type:"number", value:3454}
-				]
-			},
-		}
+		enum: ["asd","asd2","asd3","asd4"],
 	}
 
 	let jsonInvalid = false;
