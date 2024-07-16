@@ -104,11 +104,11 @@
 				{#if tabSet === 0}
 				<div role="radiogroup"
 					class="flex flex-col gap-2"
-					aria-labelledby={`label-${id}`}
+					aria-labelledby={`label-${id}-${randomNumber}`}
 					style="flex-direction:{flexDirection}"
-					id={`group-${id}`}
+					id={`group-${id}-${randomNumber}`}
 				>
-				<input id={params.path.join('.')} name={params.path.join('.')}
+				<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
 					type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
 					placeholder="0"
 					disabled={schema.readOnly || params.containerReadOnly}
@@ -122,7 +122,7 @@
 								id={`${id}-${idx}-${randomNumber}`}
 								on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
 								value={bufferText}
-								name={id}
+								name={`${id}-${randomNumber}`}
 								bind:group={currentBuffer}
 							/>
 	
@@ -134,11 +134,11 @@
 				{:else if tabSet === 1}
 					<div role="radiogroup" 
 						class="space-y-2"
-						aria-labelledby={`label-${id}`}
+						aria-labelledby={`label-${id}-${randomNumber}`}
 						style="flex-direction:{flexDirection}" 
-						id={`group-${id}`}
+						id={`group-${id}-${randomNumber}`}
 					>
-					<input id={params.path.join('.')} name={params.path.join('.')}
+					<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
 						type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
 						placeholder="0"
 						disabled={schema.readOnly || params.containerReadOnly}
@@ -152,7 +152,7 @@
 									id={`${id}-${idx}-${randomNumber}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
 									value={object.name}
-									name={id}
+									name={`${id}-${randomNumber}`}
 									bind:group={object.name}
 								/>
 	
@@ -163,7 +163,7 @@
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
 					<div>
-						<input id={params.path.join('.')} name={params.path.join('.')}
+						<input id={`${params.path.join('.')}-${randomNumber}`} name={`${params.path.join('.')}-${randomNumber}`}
 							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
 							placeholder="0"
 							disabled={schema.readOnly || params.containerReadOnly}
@@ -174,7 +174,7 @@
 				{:else if tabSet === 3}
 					<div>
 						{#if givenVariablesObj.length > 0}
-							<select name="vals" id="vals" class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
+							<select name="vals" id={`vals-${randomNumber}`} class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
 								{#each givenVariablesObj as variableObj, index (index)}
 									<option value={variableObj.value}>{variableObj.name}</option>
 								{/each}
