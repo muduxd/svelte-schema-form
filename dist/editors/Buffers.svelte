@@ -142,6 +142,7 @@ const handleClick = () => {
 										name={`${id}-${uniqueId}`}
 										bind:group={object.name}
 									/>
+		
 									<p>{(object.name || "")}</p>
 								</label>
 							{/each}
