@@ -752,14 +752,34 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
-    internalVariables = [...schema.internalVariables];
-    contextVariables = [...schema.contextVariables];
-    runtimeVariables = [...schema.runtimeVariables];
-    givenVariablesObj = [
-      ...schema.internalVariables,
-      ...schema.contextVariables,
-      ...schema.runtimeVariables
-    ];
+    {
+      {
+        if (Array.isArray(schema.internalVariables)) {
+          internalVariables = [...schema.internalVariables];
+        } else {
+          internalVariables = [];
+        }
+      }
+    }
+    {
+      {
+        if (Array.isArray(schema.contextVariables)) {
+          contextVariables = [...schema.contextVariables];
+        } else {
+          contextVariables = [];
+        }
+      }
+    }
+    {
+      {
+        if (Array.isArray(schema.runtimeVariables)) {
+          runtimeVariables = [...schema.runtimeVariables];
+        } else {
+          runtimeVariables = [];
+        }
+      }
+    }
+    givenVariablesObj = [...internalVariables, ...contextVariables, ...runtimeVariables];
     schema.buffersText.map((_2, index) => index) || schema.enum;
     buffersText = schema.buffersText;
     objects = schema.objects;
@@ -1516,60 +1536,13 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           { name: "asd", value: "asd" },
           { name: "asdgfdsfag", value: "324234" },
           { name: "w342534", value: "wer234" }
-        ],
-        internalVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ],
-        contextVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ],
-        runtimeVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asdasd"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
         ]
       }
+      // internalVariables: [
+      // 	{name: "asd", type:"string", value:"asdasd"},
     }
+    // 	{name: "dfssdfg", type:"string", value:"asdasd"},
+    // 	{name: "3454", type:"number", value:3454}
   };
   let schemaa = {
     type: "object",
@@ -1583,23 +1556,11 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           { name: "asdgfdsfag", value: "324234" },
           { name: "w342534", value: "wer234" }
         ],
-        internalVariables: [
-          {
-            name: "asd1",
-            type: "string",
-            value: "asd1"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "dfssdfg1"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ],
+        // internalVariables: [
+        // 	{name: "asd1", type:"string", value:"asd1"},
+        // 	{name: "dfssdfg", type:"string", value:"dfssdfg1"},
+        // 	{name: "3454", type:"number", value:3454}
+        // ],
         contextVariables: [
           {
             name: "asd2",
@@ -1616,26 +1577,13 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
             type: "number",
             value: 3454
           }
-        ],
-        runtimeVariables: [
-          {
-            name: "asd3",
-            type: "string",
-            value: "asd3"
-          },
-          {
-            name: "dfssdfg3",
-            type: "string",
-            value: "dfssdfg3"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
         ]
       }
+      // runtimeVariables: [
+      // 	{name: "asd3", type:"string", value:"asd3"},
     }
+    // 	{name: "dfssdfg3", type:"string", value:"dfssdfg3"},
+    // 	{name: "3454", type:"number", value:3454}
   };
   let value = {};
   let valueJson = "";

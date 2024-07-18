@@ -24,10 +24,29 @@
 	let internalVariables: any[] = [];
 	let contextVariables: any[] = [];
 	let runtimeVariables: any[] = [];
-	$: internalVariables = [...schema.internalVariables];
-	$: contextVariables = [...schema.contextVariables];
-	$: runtimeVariables = [...schema.runtimeVariables];
-	$: givenVariablesObj = [...schema.internalVariables, ...schema.contextVariables, ...schema.runtimeVariables];
+	$: {
+		if (Array.isArray(schema.internalVariables)) {
+			internalVariables = [...schema.internalVariables];
+		} else {
+			internalVariables = [];
+		}
+	}
+	$: {
+		if (Array.isArray(schema.contextVariables)) {
+			contextVariables = [...schema.contextVariables];
+		} else {
+			contextVariables = [];
+		}
+	}
+	$: {
+		if (Array.isArray(schema.runtimeVariables)) {
+			runtimeVariables = [...schema.runtimeVariables];
+		} else {
+			runtimeVariables = [];
+		}
+	}
+	
+	$: givenVariablesObj = [...internalVariables, ...contextVariables, ...runtimeVariables];
 	let id = params.path.join('.');
 	let tabSet: number = 0
 	$: buffersVals = schema.buffersText.map((_:any, index:number) => index) || schema.enum;
