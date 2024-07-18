@@ -90,12 +90,13 @@
 					style="flex-direction:{flexDirection}"
 					id={`group-${id}-${uniqueId}`}
 				>
-				<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
-					type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
-					placeholder="0"
-					disabled={schema.readOnly || params.containerReadOnly}
-					on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
-				/>
+					<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
+						type="number" bind:value={currentBufferInputVal} class="input px-4 py-2"
+						placeholder="0"
+						disabled={schema.readOnly || params.containerReadOnly}
+						on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
+					/>
+					<div class="overflow-y-auto max-h-96">
 					{#each buffersText as bufferText, idx (idx)}
 						<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
 							<input
@@ -111,6 +112,7 @@
 							<p>{(bufferText || "")}</p>
 						</label>
 					{/each}
+					</div>
 				</div>
 				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 1}
@@ -120,27 +122,28 @@
 						style="flex-direction:{flexDirection}" 
 						id={`group-${id}-${uniqueId}`}
 					>
-					<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
-						type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
-						placeholder="0"
-						disabled={schema.readOnly || params.containerReadOnly}
-						on:input={handleChange(currentObject, currentObjectInputVal, "o")}
-					/>
-						{#each objects as object, idx}
-							<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2"> 
-								<input
-									class="radio"
-									type="radio"
-									id={`${id}-${idx}-${uniqueId}`}
-									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
-									value={object.name}
-									name={`${id}-${uniqueId}`}
-									bind:group={object.name}
-								/>
-	
-								<p>{(object.name || "")}</p>
-							</label>
-						{/each}
+						<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
+							type="number" bind:value={currentObjectInputVal} class="input px-4 py-2"
+							placeholder="0"
+							disabled={schema.readOnly || params.containerReadOnly}
+							on:input={handleChange(currentObject, currentObjectInputVal, "o")}
+						/>
+						<div class="overflow-y-auto max-h-96">
+							{#each objects as object, idx}
+								<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2"> 
+									<input
+										class="radio"
+										type="radio"
+										id={`${id}-${idx}-${uniqueId}`}
+										on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
+										value={object.name}
+										name={`${id}-${uniqueId}`}
+										bind:group={object.name}
+									/>
+									<p>{(object.name || "")}</p>
+								</label>
+							{/each}
+						</div>
 					</div>
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
