@@ -774,8 +774,8 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           panel: () => {
             return `${tabSet === 0 ? `<div role="radiogroup" class="flex flex-col gap-2 z-40"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> <div class="overflow-y-auto max-h-48">${each(buffersText, (bufferText, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}-${uniqueId}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}-${uniqueId}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", `${id}-${uniqueId}`, 0)}${bufferText === currentBuffer ? add_attribute("checked", true, 1) : ""}> <p>${escape(bufferText || "")}</p> </label>`;
-            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2 z-40"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> <div class="overflow-y-auto max-h-96">${each(objects, (object, idx) => {
-              return `<label${add_attribute("for", `${id}-${idx}-${uniqueId}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}-${uniqueId}`, 0)}${add_attribute("value", object.name, 0)}${add_attribute("name", `${id}-${uniqueId}`, 0)}${object.name === object.name ? add_attribute("checked", true, 1) : ""}> <p>${escape(object.name || "")}</p> </label>`;
+            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="flex flex-col gap-2 z-40"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> <div class="overflow-y-auto max-h-48">${each(objects, (object, idx) => {
+              return `<label${add_attribute("for", `${id}-${idx}-${uniqueId}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}-${uniqueId}`, 0)}${add_attribute("value", object.value, 0)}${add_attribute("name", `${object.name}-${id}-${uniqueId}`, 0)}${object.value === currentBuffer ? add_attribute("checked", true, 1) : ""}> <p>${escape(object.name || "")}</p> </label>`;
             })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 2 ? `<div class="z-40"><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 3 ? `<div class="z-40">${givenVariablesObj.length > 0 ? `<select name="vals"${add_attribute("id", `vals-${uniqueId}`, 0)} class="input mt-1" style="background-color: #2E395A;">${internalVariables && internalVariables.length > 0 ? `<optgroup label="Internal Variables">${each(internalVariables, (variableObj, index) => {
               return `<option${add_attribute("value", variableObj.value, 0)}>${escape(variableObj.name)}</option>`;
             })}</optgroup>` : ``}${contextVariables && contextVariables.length > 0 ? `<optgroup label="Context Variables">${each(contextVariables, (variableObj, index) => {
@@ -1512,7 +1512,11 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         title: "",
         editor: "buffers",
         buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
-        objects: [{ name: "asd", value: "asd" }],
+        objects: [
+          { name: "asd", value: "asd" },
+          { name: "asdgfdsfag", value: "324234" },
+          { name: "w342534", value: "wer234" }
+        ],
         internalVariables: [
           {
             name: "asd",
@@ -1574,17 +1578,21 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         title: "",
         editor: "buffers",
         buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
-        objects: [{ name: "asd", value: "asd" }],
+        objects: [
+          { name: "asd", value: "asd" },
+          { name: "asdgfdsfag", value: "324234" },
+          { name: "w342534", value: "wer234" }
+        ],
         internalVariables: [
           {
-            name: "asd",
+            name: "asd1",
             type: "string",
-            value: "asdasd"
+            value: "asd1"
           },
           {
             name: "dfssdfg",
             type: "string",
-            value: "asdasd"
+            value: "dfssdfg1"
           },
           {
             name: "3454",
@@ -1594,14 +1602,14 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         ],
         contextVariables: [
           {
-            name: "asd",
+            name: "asd2",
             type: "string",
-            value: "asdasd"
+            value: "asd2"
           },
           {
-            name: "dfssdfg",
+            name: "dfssdfg2",
             type: "string",
-            value: "asdasd"
+            value: "dfssdfg2"
           },
           {
             name: "3454",
@@ -1611,14 +1619,14 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         ],
         runtimeVariables: [
           {
-            name: "asd",
+            name: "asd3",
             type: "string",
-            value: "asdasd"
+            value: "asd3"
           },
           {
-            name: "dfssdfg",
+            name: "dfssdfg3",
             type: "string",
-            value: "asdasd"
+            value: "dfssdfg3"
           },
           {
             name: "3454",
