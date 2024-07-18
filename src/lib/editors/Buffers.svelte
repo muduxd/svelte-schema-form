@@ -161,7 +161,7 @@
 									type="radio"
 									id={`${id}-${idx}-${uniqueId}`}
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
-									value={object.value}
+									value={object.name}
 									name={`${object.name}-${id}-${uniqueId}`}
 									bind:group={currentBuffer}
 								/>
@@ -211,7 +211,6 @@
 						{:else}
 							<p>No variables created.</p>
 						{/if}
-						
 					</div>
 					<button disabled={!(givenVariablesObj.length > 0)} class={`listbox-item btn variant-filled-primary mt-2 w-full ${!(givenVariablesObj.length > 0) ? "not-dirty":""}`} on:click={handleClick} type="button">Done</button>
 				{/if}
