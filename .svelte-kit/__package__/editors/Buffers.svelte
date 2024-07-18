@@ -13,8 +13,17 @@ let buffersVals;
 let buffersText;
 let objects;
 let givenVariablesObj = [];
+let internalVariables = [];
+let contextVariables = [];
+let runtimeVariables = [];
 $:
-  givenVariablesObj = [...schema.givenVariablesObj];
+  internalVariables = [...schema.internalVariables];
+$:
+  contextVariables = [...schema.contextVariables];
+$:
+  runtimeVariables = [...schema.runtimeVariables];
+$:
+  givenVariablesObj = [...schema.internalVariables, ...schema.contextVariables, ...schema.runtimeVariables];
 let id = params.path.join(".");
 let tabSet = 0;
 $:
@@ -78,7 +87,7 @@ const handleClick = () => {
 			<svelte:fragment slot="panel">
 				{#if tabSet === 0}
 				<div role="radiogroup"
-					class="flex flex-col gap-2"
+					class="flex flex-col gap-2 z-40"
 					aria-labelledby={`label-${id}-${uniqueId}`}
 					style="flex-direction:{flexDirection}"
 					id={`group-${id}-${uniqueId}`}
@@ -89,7 +98,7 @@ const handleClick = () => {
 						disabled={schema.readOnly || params.containerReadOnly}
 						on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 					/>
-					<div class="overflow-y-auto max-h-96">
+					<div class="overflow-y-auto max-h-48">
 					{#each buffersText as bufferText, idx (idx)}
 						<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
 							<input
@@ -110,7 +119,7 @@ const handleClick = () => {
 				<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 1}
 					<div role="radiogroup" 
-						class="space-y-2"
+						class="space-y-2 z-40"
 						aria-labelledby={`label-${id}-${uniqueId}`}
 						style="flex-direction:{flexDirection}" 
 						id={`group-${id}-${uniqueId}`}
@@ -140,7 +149,7 @@ const handleClick = () => {
 					</div>
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 2}
-					<div>
+					<div class="z-40">
 						<input id={`${params.path.join('.')}-${uniqueId}`} name={`${params.path.join('.')}-${uniqueId}`}
 							type="number" bind:value={currentConstantInputVal} class="input px-4 py-2"
 							placeholder="0"
@@ -150,12 +159,30 @@ const handleClick = () => {
 					</div>
 					<button class="listbox-item btn variant-filled-primary mt-2 w-full" on:click={handleClick} type="button">Done</button>
 				{:else if tabSet === 3}
-					<div>
+					<div class="z-40">
 						{#if givenVariablesObj.length > 0}
 							<select name="vals" id={`vals-${uniqueId}`} class="input mt-1" style="background-color: #2E395A;" bind:value={currentValVar} on:change={handleChange("", currentValVar, "v")}>
-								{#each givenVariablesObj as variableObj, index (index)}
-									<option value={variableObj.value}>{variableObj.name}</option>
-								{/each}
+								{#if internalVariables && internalVariables.length > 0}
+									<optgroup label="Internal Variables">
+										{#each internalVariables as variableObj, index (index)}
+											<option value={variableObj.value}>{variableObj.name}</option>
+										{/each}
+									</optgroup>
+								{/if}
+								{#if contextVariables && contextVariables.length > 0}
+									<optgroup label="Context Variables">
+										{#each contextVariables as variableObj, index (index)}
+											<option value={variableObj.value}>{variableObj.name}</option>
+										{/each}
+									</optgroup>
+								{/if}
+								{#if runtimeVariables && runtimeVariables.length > 0}
+									<optgroup label="Runtime Variables">
+										{#each runtimeVariables as variableObj, index (index)}
+											<option value={variableObj.value}>{variableObj.name}</option>
+										{/each}
+									</optgroup>
+								{/if}
 							</select>
 						{:else}
 							<p>No variables created.</p>

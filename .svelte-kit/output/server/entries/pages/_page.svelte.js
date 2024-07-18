@@ -734,6 +734,9 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let buffersText;
   let objects;
   let givenVariablesObj = [];
+  let internalVariables = [];
+  let contextVariables = [];
+  let runtimeVariables = [];
   let id = params.path.join(".");
   let tabSet = 0;
   let uniqueId = v4();
@@ -749,7 +752,14 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
-    givenVariablesObj = [...schema.givenVariablesObj];
+    internalVariables = [...schema.internalVariables];
+    contextVariables = [...schema.contextVariables];
+    runtimeVariables = [...schema.runtimeVariables];
+    givenVariablesObj = [
+      ...schema.internalVariables,
+      ...schema.contextVariables,
+      ...schema.runtimeVariables
+    ];
     schema.buffersText.map((_2, index) => index) || schema.enum;
     buffersText = schema.buffersText;
     objects = schema.objects;
@@ -762,13 +772,17 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       default: () => {
         return `<button class="btn flex items-center variant-filled w-48 justify-between"><span class="capitalize">${escape("Choose buffer")}</span> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></button> <div class="p-4 w-48 card shadow-xl"${add_attribute("data-popup", `popupCombobox-${uniqueId}`, 0)}>${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
-            return `${tabSet === 0 ? `<div role="radiogroup" class="flex flex-col gap-2"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> <div class="overflow-y-auto max-h-96">${each(buffersText, (bufferText, idx) => {
+            return `${tabSet === 0 ? `<div role="radiogroup" class="flex flex-col gap-2 z-40"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> <div class="overflow-y-auto max-h-48">${each(buffersText, (bufferText, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}-${uniqueId}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}-${uniqueId}`, 0)}${add_attribute("value", bufferText, 0)}${add_attribute("name", `${id}-${uniqueId}`, 0)}${bufferText === currentBuffer ? add_attribute("checked", true, 1) : ""}> <p>${escape(bufferText || "")}</p> </label>`;
-            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> <div class="overflow-y-auto max-h-96">${each(objects, (object, idx) => {
+            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="space-y-2 z-40"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> <div class="overflow-y-auto max-h-96">${each(objects, (object, idx) => {
               return `<label${add_attribute("for", `${id}-${idx}-${uniqueId}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx}-${uniqueId}`, 0)}${add_attribute("value", object.name, 0)}${add_attribute("name", `${id}-${uniqueId}`, 0)}${object.name === object.name ? add_attribute("checked", true, 1) : ""}> <p>${escape(object.name || "")}</p> </label>`;
-            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 2 ? `<div><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 3 ? `<div>${givenVariablesObj.length > 0 ? `<select name="vals"${add_attribute("id", `vals-${uniqueId}`, 0)} class="input mt-1" style="background-color: #2E395A;">${each(givenVariablesObj, (variableObj, index) => {
+            })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 2 ? `<div class="z-40"><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentConstantInputVal, 0)}></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 3 ? `<div class="z-40">${givenVariablesObj.length > 0 ? `<select name="vals"${add_attribute("id", `vals-${uniqueId}`, 0)} class="input mt-1" style="background-color: #2E395A;">${internalVariables && internalVariables.length > 0 ? `<optgroup label="Internal Variables">${each(internalVariables, (variableObj, index) => {
               return `<option${add_attribute("value", variableObj.value, 0)}>${escape(variableObj.name)}</option>`;
-            })}</select>` : `<p data-svelte-h="svelte-o1tfc4">No variables created.</p>`}</div> <button ${!(givenVariablesObj.length > 0) ? "disabled" : ""}${add_attribute("class", `listbox-item btn variant-filled-primary mt-2 w-full ${!(givenVariablesObj.length > 0) ? "not-dirty" : ""}`, 0)} type="button">Done</button>` : ``}`}`}`} `;
+            })}</optgroup>` : ``}${contextVariables && contextVariables.length > 0 ? `<optgroup label="Context Variables">${each(contextVariables, (variableObj, index) => {
+              return `<option${add_attribute("value", variableObj.value, 0)}>${escape(variableObj.name)}</option>`;
+            })}</optgroup>` : ``}${runtimeVariables && runtimeVariables.length > 0 ? `<optgroup label="Runtime Variables">${each(runtimeVariables, (variableObj, index) => {
+              return `<option${add_attribute("value", variableObj.value, 0)}>${escape(variableObj.name)}</option>`;
+            })}</optgroup>` : ``}</select>` : `<p data-svelte-h="svelte-o1tfc4">No variables created.</p>`}</div> <button ${!(givenVariablesObj.length > 0) ? "disabled" : ""}${add_attribute("class", `listbox-item btn variant-filled-primary mt-2 w-full ${!(givenVariablesObj.length > 0) ? "not-dirty" : ""}`, 0)} type="button">Done</button>` : ``}`}`}`} `;
           },
           default: () => {
             return `${validate_component(Tab, "Tab").$$render(
@@ -1499,7 +1513,41 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         editor: "buffers",
         buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
         objects: [{ name: "asd", value: "asd" }],
-        givenVariablesObj: [
+        internalVariables: [
+          {
+            name: "asd",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "dfssdfg",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "3454",
+            type: "number",
+            value: 3454
+          }
+        ],
+        contextVariables: [
+          {
+            name: "asd",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "dfssdfg",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "3454",
+            type: "number",
+            value: 3454
+          }
+        ],
+        runtimeVariables: [
           {
             name: "asd",
             type: "string",
@@ -1527,7 +1575,41 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         editor: "buffers",
         buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
         objects: [{ name: "asd", value: "asd" }],
-        givenVariablesObj: [
+        internalVariables: [
+          {
+            name: "asd",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "dfssdfg",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "3454",
+            type: "number",
+            value: 3454
+          }
+        ],
+        contextVariables: [
+          {
+            name: "asd",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "dfssdfg",
+            type: "string",
+            value: "asdasd"
+          },
+          {
+            name: "3454",
+            type: "number",
+            value: 3454
+          }
+        ],
+        runtimeVariables: [
           {
             name: "asd",
             type: "string",

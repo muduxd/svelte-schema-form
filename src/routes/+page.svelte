@@ -11,7 +11,17 @@
 				editor: "buffers",
 				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
 				objects: [{name: "asd", value:"asd"}],
-                givenVariablesObj: [
+                internalVariables: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				],
+				contextVariables: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				],
+				runtimeVariables: [
 					{name: "asd", type:"string", value:"asdasd"},
 					{name: "dfssdfg", type:"string", value:"asdasd"},
 					{name: "3454", type:"number", value:3454}
@@ -28,7 +38,17 @@
 				editor: "buffers",
 				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
 				objects: [{name: "asd", value:"asd"}],
-                givenVariablesObj: [
+                internalVariables: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				],
+				contextVariables: [
+					{name: "asd", type:"string", value:"asdasd"},
+					{name: "dfssdfg", type:"string", value:"asdasd"},
+					{name: "3454", type:"number", value:3454}
+				],
+				runtimeVariables: [
 					{name: "asd", type:"string", value:"asdasd"},
 					{name: "dfssdfg", type:"string", value:"asdasd"},
 					{name: "3454", type:"number", value:3454}
