@@ -69,10 +69,10 @@ const popupCombobox = {
   closeQuery: ".listbox-item"
 };
 let finalOutput = "";
-onMount(() => {
-  if (givenVariablesObj.length > 0)
+$:
+  if (givenVariablesObj.length > 0 && currentValVar == null) {
     currentValVar = givenVariablesObj[0].value;
-});
+  }
 const handleChange = (currentText, currentInputVal, type) => {
   if (currentInputVal === null)
     currentInputVal = 0;
