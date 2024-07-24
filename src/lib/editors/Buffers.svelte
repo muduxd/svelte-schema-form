@@ -17,8 +17,7 @@
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
-	let buffersVals: string[];
-	let buffersText: string[];
+	let buffers: any[];
 	let objects: any[];
 	let givenVariablesObj: any[] = [];
 	let internalVariables: any[] = [];
@@ -49,8 +48,7 @@
 	$: givenVariablesObj = [...internalVariables, ...contextVariables, ...runtimeVariables];
 	let id = params.path.join('.');
 	let tabSet: number = 0
-	$: buffersVals = schema.buffersText.map((_:any, index:number) => index) || schema.enum;
-	$: buffersText = schema.buffersText;
+	$: buffers = schema.buffers;
 	$: objects = schema.objects;
 	$: flexDirection = schema.direction || 'column';
 
@@ -60,6 +58,13 @@
 	$: currentObjectInputVal = null as number | null
 	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
+
+	let uniqueCategories:any[] = []
+
+	$: if(Array.isArray(buffers))
+	{
+		uniqueCategories = [...new Set(buffers.map(buffer => buffer.category))];
+	}
 
 	let uniqueId = uuidv4();
 
@@ -91,6 +96,11 @@
 	const handleClick = () => {
 		comboboxValue = finalOutput;
 	}
+
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
 </script>
 
 <!-- event which calls pathChanged should be after all bindings so 'value' will have been updated -->
@@ -121,20 +131,23 @@
 							on:input={handleChange(currentBuffer, currentBufferInputVal, "b")}
 						/>
 						<div class="overflow-y-auto max-h-48">
-						{#each buffersText as bufferText, idx (idx)}
-							<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
-								<input
-									class="radio"
-									type="radio"
-									id={`${id}-${idx}-${uniqueId}`}
-									on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
-									value={bufferText}
-									name={`${id}-${uniqueId}`}
-									bind:group={currentBuffer}
-								/>
-		
-								<p>{(bufferText || "")}</p>
-							</label>
+						{#each uniqueCategories as categ, idx (idx)}
+							<p>{capitalizeFirstLetter(categ)+"s"}</p>
+							{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (idx)}
+								<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
+									<input
+										class="radio"
+										type="radio"
+										id={`${id}-${idx}-${uniqueId}`}
+										on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
+										value={buffer.text}
+										name={`${id}-${uniqueId}`}
+										bind:group={currentBuffer}
+									/>
+			
+									<p>{(buffer.text || "")}</p>
+								</label>
+							{/each}
 						{/each}
 						</div>
 					</div>

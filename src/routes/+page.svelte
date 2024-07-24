@@ -6,7 +6,137 @@
 	let schema: any = {
 		type:"object",
 		properties:{
-			buffers: {
+			buffers1: {
+                title:"",
+				editor: "buffers",
+				buffers: [
+					{
+						"text": "ma:main",
+						"category": "indicator"
+					},
+					{
+						"text": "TrendSR1:main:1",
+						"category": "indicator"
+					},
+					{
+						"text": "TrendSR1:main:2",
+						"category": "indicator"
+					},
+					{
+						"text": "TrendSR1:main:3",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA40",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA120",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA240",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA480",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA1920",
+						"category": "indicator"
+					},
+					{
+						"text": "mma:MA5760",
+						"category": "indicator"
+					},
+					{
+						"text": "trade:price",
+						"category": "trade"
+					},
+					{
+						"text": "trade:priceBuys",
+						"category": "trade"
+					},
+					{
+						"text": "trade:priceSells",
+						"category": "trade"
+					},
+					{
+						"text": "trade:tp",
+						"category": "trade"
+					},
+					{
+						"text": "trade:tpBuys",
+						"category": "trade"
+					},
+					{
+						"text": "trade:tpSells",
+						"category": "trade"
+					},
+					{
+						"text": "trade:sl",
+						"category": "trade"
+					},
+					{
+						"text": "trade:slBuys",
+						"category": "trade"
+					},
+					{
+						"text": "trade:slSells",
+						"category": "trade"
+					},
+					{
+						"text": "trade:nrOfOpenTrades",
+						"category": "trade"
+					},
+					{
+						"text": "trade:nrOfOpenBuys",
+						"category": "trade"
+					},
+					{
+						"text": "trade:nrOfOpenSells",
+						"category": "trade"
+					},
+					{
+						"text": "candle:open",
+						"category": "candle"
+					},
+					{
+						"text": "candle:high",
+						"category": "candle"
+					},
+					{
+						"text": "candle:low",
+						"category": "candle"
+					},
+					{
+						"text": "candle:close",
+						"category": "candle"
+					}
+				],
+				objects: [{name: "asd", value:"asd"},{name: "asdgfdsfag", value:"324234"},{name: "w342534", value:"wer234"}],
+                internalVariables: [
+					{name: "asd", type:"string", value:"asd1"},
+					{name: "dfssdfg", type:"string", value:"asd2"},
+					{name: "3454", type:"number", value:3454}
+				],
+				contextVariables: [
+					{name: "asd", type:"string", value:"asd4"},
+					{name: "dfssdfg", type:"string", value:"asd5"},
+					{name: "3454", type:"number", value:3454}
+				],
+				runtimeVariables: [
+					{name: "asd", type:"string", value:"asd7"},
+					{name: "dfssdfg", type:"string", value:"asd78567"},
+					{name: "3454", type:"number", value:3454}
+				]
+			},
+			operation: {
+				enum: ["0", "1", "2", "3", "4"], 
+        		enumText: ["Add", "Substract", "Idk", "Blabla", "Yes"], 
+			},
+			buffers2: {
                 title:"",
 				editor: "buffers",
 				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
@@ -87,7 +217,6 @@
 	</div>
 	<div class="form">
 		<SubmitForm {schema} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
-		<SubmitForm schema={schemaa} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
 	</div>
 	<div class="output">
 		<pre>
