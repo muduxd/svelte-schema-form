@@ -131,7 +131,7 @@ function capitalizeFirstLetter(string) {
 						<div class="overflow-y-auto max-h-48">
 						{#each uniqueCategories as categ, idx (idx)}
 							<div class="mb-4">
-								<p>{capitalizeFirstLetter(categ)+"s"}</p>
+								<p class="mb-2 font-bold">{capitalizeFirstLetter(categ)+"s"}</p>
 								{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (categ + idx)}
 									<label for={`${id}-${idx}-${uniqueId}-${categ}`} class="flex items-center space-x-2">
 										<input
