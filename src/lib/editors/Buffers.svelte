@@ -123,10 +123,10 @@
 	</button>
 	<div class="p-4 w-48 card shadow-xl z-10" data-popup={`popupCombobox-${uniqueId}`}>
 		<TabGroup>
-			<Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
-			<Tab bind:group={tabSet} name="tab2" value={1}>Objects</Tab>
-			<Tab bind:group={tabSet} name="tab3" value={2}>Constants</Tab>
-			<Tab bind:group={tabSet} name="tab4" value={3}>Variables</Tab>
+			<Tab bind:group={tabSet} class="font-bold" name="tab1" value={0}>Buffers</Tab>
+			<Tab bind:group={tabSet} class="font-bold" name="tab2" value={1}>Objects</Tab>
+			<Tab bind:group={tabSet} class="font-bold" name="tab3" value={2}>Constants</Tab>
+			<Tab bind:group={tabSet} class="font-bold" name="tab4" value={3}>Variables</Tab>
 	
 			<svelte:fragment slot="panel">
 				{#if tabSet === 0}
@@ -144,22 +144,24 @@
 						/>
 						<div class="overflow-y-auto max-h-48">
 						{#each uniqueCategories as categ, idx (idx)}
-							<p>{capitalizeFirstLetter(categ)+"s"}</p>
-							{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (categ + idx)}
-								<label for={`${id}-${idx}-${uniqueId}-${categ}`} class="flex items-center space-x-2">
-									<input
-										class="radio"
-										type="radio"
-										id={`${id}-${idx}-${uniqueId}-${categ}`}
-										on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
-										value={buffer.text}
-										name={`${id}-${uniqueId}-${categ}`}
-										bind:group={currentBuffer}
-									/>
-			
-									<p>{(buffer.text || "")}</p>
-								</label>
-							{/each}
+							<div class="mb-4">
+								<p>{capitalizeFirstLetter(categ)+"s"}</p>
+								{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (categ + idx)}
+									<label for={`${id}-${idx}-${uniqueId}-${categ}`} class="flex items-center space-x-2">
+										<input
+											class="radio"
+											type="radio"
+											id={`${id}-${idx}-${uniqueId}-${categ}`}
+											on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
+											value={buffer.text}
+											name={`${id}-${uniqueId}-${categ}`}
+											bind:group={currentBuffer}
+										/>
+				
+										<p>{(buffer.text || "")}</p>
+									</label>
+								{/each}
+							</div>
 						{/each}
 						</div>
 					</div>
