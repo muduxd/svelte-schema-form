@@ -40,10 +40,20 @@ $:
   givenVariablesObj = [...internalVariables, ...contextVariables, ...runtimeVariables];
 let id = params.path.join(".");
 let tabSet = 0;
-$:
-  buffers = schema.buffers;
-$:
-  objects = schema.objects;
+$: {
+  if (Array.isArray(schema.buffers)) {
+    buffers = [...schema.buffers];
+  } else {
+    buffers = [];
+  }
+}
+$: {
+  if (Array.isArray(schema.objects)) {
+    objects = [...schema.objects];
+  } else {
+    objects = [];
+  }
+}
 $:
   flexDirection = schema.direction || "column";
 $:
@@ -163,7 +173,7 @@ function capitalizeFirstLetter(string) {
 									on:change={ev => {currentObject = ev.currentTarget.value; handleChange(currentObject, currentObjectInputVal, "o")}}
 									value={object.name}
 									name={`${object.name}-${id}-${uniqueId}`}
-									bind:group={currentBuffer}
+									bind:group={currentObject}
 								/>
 
 								<p>{(object.name || "")}</p>

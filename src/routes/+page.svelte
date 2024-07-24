@@ -6,7 +6,7 @@
 	let schema: any = {
 		type:"object",
 		properties:{
-			buffers1: {
+			buffers: {
                 title:"",
 				editor: "buffers",
 				buffers: [
