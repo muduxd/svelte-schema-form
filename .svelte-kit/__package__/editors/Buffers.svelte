@@ -121,15 +121,15 @@ function capitalizeFirstLetter(string) {
 						<div class="overflow-y-auto max-h-48">
 						{#each uniqueCategories as categ, idx (idx)}
 							<p>{capitalizeFirstLetter(categ)+"s"}</p>
-							{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (idx)}
-								<label for={`${id}-${idx}-${uniqueId}`} class="flex items-center space-x-2">
+							{#each buffers.filter((buffer)=>buffer.category === categ) as buffer, idx (categ + idx)}
+								<label for={`${id}-${idx}-${uniqueId}-${categ}`} class="flex items-center space-x-2">
 									<input
 										class="radio"
 										type="radio"
-										id={`${id}-${idx}-${uniqueId}`}
+										id={`${id}-${idx}-${uniqueId}-${categ}`}
 										on:change={ev => {currentBuffer = ev.currentTarget.value; handleChange(currentBuffer, currentBufferInputVal, "b")}}
 										value={buffer.text}
-										name={`${id}-${uniqueId}`}
+										name={`${id}-${uniqueId}-${categ}`}
 										bind:group={currentBuffer}
 									/>
 			
