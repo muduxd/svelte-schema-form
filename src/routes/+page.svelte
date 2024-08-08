@@ -132,31 +132,6 @@
 					{name: "3454", type:"number", value:3454}
 				]
 			},
-			operation: {
-				enum: ["0", "1", "2", "3", "4"], 
-        		enumText: ["Add", "Substract", "Idk", "Blabla", "Yes"], 
-			},
-			buffers2: {
-                title:"",
-				editor: "buffers",
-				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
-				objects: [{name: "asd", value:"asd"},{name: "asdgfdsfag", value:"324234"},{name: "w342534", value:"wer234"}],
-                internalVariables: [
-					{name: "asd", type:"string", value:"asd1"},
-					{name: "dfssdfg", type:"string", value:"asd2"},
-					{name: "3454", type:"number", value:3454}
-				],
-				contextVariables: [
-					{name: "asd", type:"string", value:"asd4"},
-					{name: "dfssdfg", type:"string", value:"asd5"},
-					{name: "3454", type:"number", value:3454}
-				],
-				runtimeVariables: [
-					{name: "asd", type:"string", value:"asd7"},
-					{name: "dfssdfg", type:"string", value:"asd78567"},
-					{name: "3454", type:"number", value:3454}
-				]
-			},
 		}
 	}
 
