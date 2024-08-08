@@ -7,8 +7,6 @@ declare const __propDef: {
         value: any;
     };
     events: {
-        sortChange: any;
-    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {};

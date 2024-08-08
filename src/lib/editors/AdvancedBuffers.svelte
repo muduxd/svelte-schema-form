@@ -365,7 +365,7 @@
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <SortableList class="flex align-center gap-[10px] flex-wrap" on:sortChange>
+            <div class="flex align-center gap-[10px] flex-wrap">
                 {#each expressionElements as element, index (index)}
                     <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
                         {#if element.type === "buffer" && element.position !== null}
@@ -380,7 +380,7 @@
                         </button>
                     </span>
                 {/each}
-            </SortableList>
+            </div>
 
 
             <div class="flex align-center gap-[10px]">

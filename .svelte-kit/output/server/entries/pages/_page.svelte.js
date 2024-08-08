@@ -1176,29 +1176,18 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     }
     $$rendered = ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
-        return `${` <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col">${validate_component(SortableList, "SortableList").$$render(
-          $$result,
-          {
-            class: "flex align-center gap-[10px] flex-wrap"
-          },
-          {},
-          {
-            default: () => {
-              return `${each(expressionElements, (element, index) => {
-                return `<span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]" style="${"background-color: " + escape(element.color, true)}">${element.type === "buffer" && element.position !== null ? `${escape(element.value)} <span class="text-surface-100 flex align-center justify-center">[${escape(element.position)}]</span>` : `${escape(element.value)}`} <button class="hover:cursor-pointer">${validate_component(Fa, "Fa").$$render(
-                  $$result,
-                  {
-                    icon: faClose,
-                    size: "1.4px",
-                    primaryColor: "white"
-                  },
-                  {},
-                  {}
-                )}</button> </span>`;
-              })}`;
-            }
-          }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
+        return `${` <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col"><div class="flex align-center gap-[10px] flex-wrap">${each(expressionElements, (element, index) => {
+          return `<span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]" style="${"background-color: " + escape(element.color, true)}">${element.type === "buffer" && element.position !== null ? `${escape(element.value)} <span class="text-surface-100 flex align-center justify-center">[${escape(element.position)}]</span>` : `${escape(element.value)}`} <button class="hover:cursor-pointer">${validate_component(Fa, "Fa").$$render(
+            $$result,
+            {
+              icon: faClose,
+              size: "1.4px",
+              primaryColor: "white"
+            },
+            {},
+            {}
+          )}</button> </span>`;
+        })}</div> <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
               return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter(element.category))} </h1>` : ``} <button class="${[
@@ -1908,168 +1897,7 @@ const css = {
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let schema = {
     type: "object",
-    properties: {
-      buffers: {
-        title: "",
-        editor: "buffers",
-        buffers: [
-          {
-            "text": "ma:main",
-            "category": "indicator"
-          },
-          {
-            "text": "TrendSR1:main:1",
-            "category": "indicator"
-          },
-          {
-            "text": "TrendSR1:main:2",
-            "category": "indicator"
-          },
-          {
-            "text": "TrendSR1:main:3",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA40",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA120",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA240",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA480",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA1920",
-            "category": "indicator"
-          },
-          {
-            "text": "mma:MA5760",
-            "category": "indicator"
-          },
-          {
-            "text": "trade:price",
-            "category": "trade"
-          },
-          {
-            "text": "trade:priceBuys",
-            "category": "trade"
-          },
-          {
-            "text": "trade:priceSells",
-            "category": "trade"
-          },
-          { "text": "trade:tp", "category": "trade" },
-          {
-            "text": "trade:tpBuys",
-            "category": "trade"
-          },
-          {
-            "text": "trade:tpSells",
-            "category": "trade"
-          },
-          { "text": "trade:sl", "category": "trade" },
-          {
-            "text": "trade:slBuys",
-            "category": "trade"
-          },
-          {
-            "text": "trade:slSells",
-            "category": "trade"
-          },
-          {
-            "text": "trade:nrOfOpenTrades",
-            "category": "trade"
-          },
-          {
-            "text": "trade:nrOfOpenBuys",
-            "category": "trade"
-          },
-          {
-            "text": "trade:nrOfOpenSells",
-            "category": "trade"
-          },
-          {
-            "text": "candle:open",
-            "category": "candle"
-          },
-          {
-            "text": "candle:high",
-            "category": "candle"
-          },
-          {
-            "text": "candle:low",
-            "category": "candle"
-          },
-          {
-            "text": "candle:close",
-            "category": "candle"
-          }
-        ],
-        objects: [
-          { name: "asd", value: "asd" },
-          { name: "asdgfdsfag", value: "324234" },
-          { name: "w342534", value: "wer234" }
-        ],
-        internalVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asd1"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asd2"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ],
-        contextVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asd4"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asd5"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ],
-        runtimeVariables: [
-          {
-            name: "asd",
-            type: "string",
-            value: "asd7"
-          },
-          {
-            name: "dfssdfg",
-            type: "string",
-            value: "asd78567"
-          },
-          {
-            name: "3454",
-            type: "number",
-            value: 3454
-          }
-        ]
-      }
-    }
+    properties: { "x": { "type": "advancedBuffers" } }
   };
   let value = {};
   let valueJson = "";
