@@ -3,6 +3,7 @@
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+    import { SortableList } from '@jhubbardsf/svelte-sortablejs'
 
     import { afterUpdate, onMount } from "svelte"
 	import { v4 as uuidv4 } from 'uuid';
@@ -365,7 +366,7 @@
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <div class="flex align-center gap-[10px] flex-wrap">
+            <di class="flex align-center gap-[10px] flex-wrap" on:sortChange>
                 {#each expressionElements as element, index (index)}
                     <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
                         {#if element.type === "buffer" && element.position !== null}
@@ -380,7 +381,7 @@
                         </button>
                     </span>
                 {/each}
-            </div>
+            </di>
 
 
             <div class="flex align-center gap-[10px]">
