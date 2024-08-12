@@ -1,17 +1,14 @@
 <script lang="ts">
-  	import { ListBox, ListBoxItem, Tab, TabGroup } from "@skeletonlabs/skeleton";
+  	import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters.ts";
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-    import { SortableList } from '@jhubbardsf/svelte-sortablejs'
 
-    import { afterUpdate, onMount } from "svelte"
-	import { v4 as uuidv4 } from 'uuid';
+    import { afterUpdate } from "svelte"
 	import Fa from 'svelte-fa'
 	import { faClose } from '@fortawesome/free-solid-svg-icons'
 
-
-
+    import { SortableList } from "@sonderbase/svelte-sortablejs"
 
 
 
@@ -146,12 +143,6 @@
 	}
 
 
-	$: flexDirection = schema.direction || 'column';
-	$: currentBuffer = ""
-	$: currentObject = ""
-	$: currentBufferInputVal = null as number | null //ev => {let val = parseFloat(ev.currentTarget.value); params.pathChanged(params.path, isNaN(val) ? undefined : val); }
-	$: currentObjectInputVal = null as number | null
-	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
 
 	let uniqueCategories:any[] = []
@@ -161,7 +152,6 @@
 		uniqueCategories = [...new Set(buffers.map(buffer => buffer.category))];
 	}
 
-	let uniqueId = uuidv4();
 
 
 
@@ -366,7 +356,7 @@
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <di class="flex align-center gap-[10px] flex-wrap" on:sortChange>
+            <SortableList class="flex align-center gap-[10px] flex-wrap">
                 {#each expressionElements as element, index (index)}
                     <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
                         {#if element.type === "buffer" && element.position !== null}
@@ -381,7 +371,7 @@
                         </button>
                     </span>
                 {/each}
-            </di>
+            </SortableList>
 
 
             <div class="flex align-center gap-[10px]">

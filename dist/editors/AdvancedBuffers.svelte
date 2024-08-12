@@ -1,10 +1,10 @@
-<script>import { ListBox, ListBoxItem, Tab, TabGroup } from "@skeletonlabs/skeleton";
+<script>import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { storePopup } from "@skeletonlabs/skeleton";
-import { afterUpdate, onMount } from "svelte";
-import { v4 as uuidv4 } from "uuid";
+import { afterUpdate } from "svelte";
 import Fa from "svelte-fa";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { SortableList } from "@sonderbase/svelte-sortablejs";
 const operators = [
   { type: "operator", color: "#ffcc00", value: "(" },
   { type: "operator", color: "#ffcc00", value: ")" },
@@ -68,25 +68,12 @@ $: {
   }
 }
 $:
-  flexDirection = schema.direction || "column";
-$:
-  currentBuffer = "";
-$:
-  currentObject = "";
-$:
-  currentBufferInputVal = null;
-$:
-  currentObjectInputVal = null;
-$:
-  currentConstantInputVal = null;
-$:
   currentValVar = null;
 let uniqueCategories = [];
 $:
   if (Array.isArray(buffers)) {
     uniqueCategories = [...new Set(buffers.map((buffer) => buffer.category))];
   }
-let uniqueId = uuidv4();
 let finalOutput = "";
 $:
   if (givenVariablesObj.length > 0 && currentValVar == null) {
@@ -218,7 +205,7 @@ $: {
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <div class="flex align-center gap-[10px] flex-wrap">
+            <SortableList class="flex align-center gap-[10px] flex-wrap">
                 {#each expressionElements as element, index (index)}
                     <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
                         {#if element.type === "buffer" && element.position !== null}
@@ -233,7 +220,7 @@ $: {
                         </button>
                     </span>
                 {/each}
-            </div>
+            </SortableList>
 
 
             <div class="flex align-center gap-[10px]">

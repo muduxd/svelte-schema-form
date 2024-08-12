@@ -1,4 +1,4 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, k as compute_rest_props, l as createEventDispatcher, n as compute_slots, s as setContext, g as getContext, a as subscribe, o as add_classes, p as add_styles, q as null_to_empty, r as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, k as compute_rest_props, l as createEventDispatcher, n as compute_slots, s as setContext, g as getContext, o as onDestroy, a as subscribe, p as add_classes, q as add_styles, r as null_to_empty, t as set_store_value } from "../../chunks/ssr.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
@@ -12,6 +12,7 @@ import { w as writable, r as readable } from "../../chunks/index.js";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { v4 } from "uuid";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import "sortablejs";
 import "@exodus/schemasafe/src/pointer.js";
 const upTo = (str, match, start) => {
   const pos = str.indexOf(match, start);
@@ -1030,6 +1031,147 @@ const Fa = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     (pulse ? "pulse" : "") + " " + (size === "lg" ? "svelte-fa-size-lg" : "") + " " + (size === "sm" ? "svelte-fa-size-sm" : "") + " " + (size === "xs" ? "svelte-fa-size-xs" : "") + " " + (fw ? "svelte-fa-fw" : "") + " " + (pull === "left" ? "svelte-fa-pull-left" : "") + " " + (pull === "right" ? "svelte-fa-pull-right" : "") + " " + (spin ? "spin" : "")
   ].join(" ").trim()}"${add_attribute("style", style, 0)} viewBox="${"0 0 " + escape(i[0], true) + " " + escape(i[1], true)}" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"${add_attribute("this", svgElement, 0)}><g transform="${"translate(" + escape(i[0] / 2, true) + " " + escape(i[1] / 2, true) + ")"}" transform-origin="${escape(i[0] / 4, true) + " 0"}"><g${add_attribute("transform", transform, 0)}>${typeof i[4] == "string" ? `<path${add_attribute("d", i[4], 0)}${add_attribute("fill", color || primaryColor || "currentColor", 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>` : ` <path${add_attribute("d", i[4][0], 0)}${add_attribute("fill", secondaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? primaryOpacity : secondaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path> <path${add_attribute("d", i[4][1], 0)}${add_attribute("fill", primaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? secondaryOpacity : primaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>`}</g></g></svg>` : ``}`;
 });
+const SortableList = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let list;
+  let { class: className } = $$props;
+  let { multiDragClass = null } = $$props;
+  let { swapClass = null } = $$props;
+  let { group = void 0 } = $$props;
+  let { sort = true } = $$props;
+  let { disabled = false } = $$props;
+  let { store = void 0 } = $$props;
+  let { handle = void 0 } = $$props;
+  let { swapThreshold = 1 } = $$props;
+  let { invertSwap = false } = $$props;
+  let { invertedSwapThreshold = void 0 } = $$props;
+  let { removeCloneOnHide = true } = $$props;
+  let { ghostClass = "sortable-ghost" } = $$props;
+  let { chosenClass = "sortable-chosen" } = $$props;
+  let { dragClass = "sortable-drag" } = $$props;
+  let { ignore = "a; img" } = $$props;
+  let { filter = void 0 } = $$props;
+  let { preventOnFilter = true } = $$props;
+  let { animation = 0 } = $$props;
+  let { easing = void 0 } = $$props;
+  let { dataIdAttr = "data-id" } = $$props;
+  let { delay = 0 } = $$props;
+  let { delayOnTouchOnly = false } = $$props;
+  let { forceFallback = false } = $$props;
+  let { fallbackClass = "sortable-fallback" } = $$props;
+  let { fallbackOnBody = false } = $$props;
+  let { fallbackTolerance = 0 } = $$props;
+  let { fallbackOffset = { x: 0, y: 0 } } = $$props;
+  let { emptyInsertThreshold = 5 } = $$props;
+  let { direction = void 0 } = $$props;
+  let { touchStartThreshold = void 0 } = $$props;
+  let { setData = void 0 } = $$props;
+  let { draggable = null } = $$props;
+  let { onChoose = void 0 } = $$props;
+  let { onUnchoose = void 0 } = $$props;
+  let { onStart = void 0 } = $$props;
+  let { onEnd = void 0 } = $$props;
+  let { onAdd = void 0 } = $$props;
+  let { onUpdate = void 0 } = $$props;
+  let { onRemove = void 0 } = $$props;
+  let { onFilter = void 0 } = $$props;
+  let { onSort = void 0 } = $$props;
+  let { onClone = void 0 } = $$props;
+  let { onMove = void 0 } = $$props;
+  let { onChange = void 0 } = $$props;
+  onDestroy(() => {
+  });
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0)
+    $$bindings.class(className);
+  if ($$props.multiDragClass === void 0 && $$bindings.multiDragClass && multiDragClass !== void 0)
+    $$bindings.multiDragClass(multiDragClass);
+  if ($$props.swapClass === void 0 && $$bindings.swapClass && swapClass !== void 0)
+    $$bindings.swapClass(swapClass);
+  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
+    $$bindings.group(group);
+  if ($$props.sort === void 0 && $$bindings.sort && sort !== void 0)
+    $$bindings.sort(sort);
+  if ($$props.disabled === void 0 && $$bindings.disabled && disabled !== void 0)
+    $$bindings.disabled(disabled);
+  if ($$props.store === void 0 && $$bindings.store && store !== void 0)
+    $$bindings.store(store);
+  if ($$props.handle === void 0 && $$bindings.handle && handle !== void 0)
+    $$bindings.handle(handle);
+  if ($$props.swapThreshold === void 0 && $$bindings.swapThreshold && swapThreshold !== void 0)
+    $$bindings.swapThreshold(swapThreshold);
+  if ($$props.invertSwap === void 0 && $$bindings.invertSwap && invertSwap !== void 0)
+    $$bindings.invertSwap(invertSwap);
+  if ($$props.invertedSwapThreshold === void 0 && $$bindings.invertedSwapThreshold && invertedSwapThreshold !== void 0)
+    $$bindings.invertedSwapThreshold(invertedSwapThreshold);
+  if ($$props.removeCloneOnHide === void 0 && $$bindings.removeCloneOnHide && removeCloneOnHide !== void 0)
+    $$bindings.removeCloneOnHide(removeCloneOnHide);
+  if ($$props.ghostClass === void 0 && $$bindings.ghostClass && ghostClass !== void 0)
+    $$bindings.ghostClass(ghostClass);
+  if ($$props.chosenClass === void 0 && $$bindings.chosenClass && chosenClass !== void 0)
+    $$bindings.chosenClass(chosenClass);
+  if ($$props.dragClass === void 0 && $$bindings.dragClass && dragClass !== void 0)
+    $$bindings.dragClass(dragClass);
+  if ($$props.ignore === void 0 && $$bindings.ignore && ignore !== void 0)
+    $$bindings.ignore(ignore);
+  if ($$props.filter === void 0 && $$bindings.filter && filter !== void 0)
+    $$bindings.filter(filter);
+  if ($$props.preventOnFilter === void 0 && $$bindings.preventOnFilter && preventOnFilter !== void 0)
+    $$bindings.preventOnFilter(preventOnFilter);
+  if ($$props.animation === void 0 && $$bindings.animation && animation !== void 0)
+    $$bindings.animation(animation);
+  if ($$props.easing === void 0 && $$bindings.easing && easing !== void 0)
+    $$bindings.easing(easing);
+  if ($$props.dataIdAttr === void 0 && $$bindings.dataIdAttr && dataIdAttr !== void 0)
+    $$bindings.dataIdAttr(dataIdAttr);
+  if ($$props.delay === void 0 && $$bindings.delay && delay !== void 0)
+    $$bindings.delay(delay);
+  if ($$props.delayOnTouchOnly === void 0 && $$bindings.delayOnTouchOnly && delayOnTouchOnly !== void 0)
+    $$bindings.delayOnTouchOnly(delayOnTouchOnly);
+  if ($$props.forceFallback === void 0 && $$bindings.forceFallback && forceFallback !== void 0)
+    $$bindings.forceFallback(forceFallback);
+  if ($$props.fallbackClass === void 0 && $$bindings.fallbackClass && fallbackClass !== void 0)
+    $$bindings.fallbackClass(fallbackClass);
+  if ($$props.fallbackOnBody === void 0 && $$bindings.fallbackOnBody && fallbackOnBody !== void 0)
+    $$bindings.fallbackOnBody(fallbackOnBody);
+  if ($$props.fallbackTolerance === void 0 && $$bindings.fallbackTolerance && fallbackTolerance !== void 0)
+    $$bindings.fallbackTolerance(fallbackTolerance);
+  if ($$props.fallbackOffset === void 0 && $$bindings.fallbackOffset && fallbackOffset !== void 0)
+    $$bindings.fallbackOffset(fallbackOffset);
+  if ($$props.emptyInsertThreshold === void 0 && $$bindings.emptyInsertThreshold && emptyInsertThreshold !== void 0)
+    $$bindings.emptyInsertThreshold(emptyInsertThreshold);
+  if ($$props.direction === void 0 && $$bindings.direction && direction !== void 0)
+    $$bindings.direction(direction);
+  if ($$props.touchStartThreshold === void 0 && $$bindings.touchStartThreshold && touchStartThreshold !== void 0)
+    $$bindings.touchStartThreshold(touchStartThreshold);
+  if ($$props.setData === void 0 && $$bindings.setData && setData !== void 0)
+    $$bindings.setData(setData);
+  if ($$props.draggable === void 0 && $$bindings.draggable && draggable !== void 0)
+    $$bindings.draggable(draggable);
+  if ($$props.onChoose === void 0 && $$bindings.onChoose && onChoose !== void 0)
+    $$bindings.onChoose(onChoose);
+  if ($$props.onUnchoose === void 0 && $$bindings.onUnchoose && onUnchoose !== void 0)
+    $$bindings.onUnchoose(onUnchoose);
+  if ($$props.onStart === void 0 && $$bindings.onStart && onStart !== void 0)
+    $$bindings.onStart(onStart);
+  if ($$props.onEnd === void 0 && $$bindings.onEnd && onEnd !== void 0)
+    $$bindings.onEnd(onEnd);
+  if ($$props.onAdd === void 0 && $$bindings.onAdd && onAdd !== void 0)
+    $$bindings.onAdd(onAdd);
+  if ($$props.onUpdate === void 0 && $$bindings.onUpdate && onUpdate !== void 0)
+    $$bindings.onUpdate(onUpdate);
+  if ($$props.onRemove === void 0 && $$bindings.onRemove && onRemove !== void 0)
+    $$bindings.onRemove(onRemove);
+  if ($$props.onFilter === void 0 && $$bindings.onFilter && onFilter !== void 0)
+    $$bindings.onFilter(onFilter);
+  if ($$props.onSort === void 0 && $$bindings.onSort && onSort !== void 0)
+    $$bindings.onSort(onSort);
+  if ($$props.onClone === void 0 && $$bindings.onClone && onClone !== void 0)
+    $$bindings.onClone(onClone);
+  if ($$props.onMove === void 0 && $$bindings.onMove && onMove !== void 0)
+    $$bindings.onMove(onMove);
+  if ($$props.onChange === void 0 && $$bindings.onChange && onChange !== void 0)
+    $$bindings.onChange(onChange);
+  return ` <div${add_attribute("class", className, 0)}${add_attribute("this", list, 0)}>${slots.default ? slots.default({}) : ``}</div>`;
+});
 let error = "";
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -1088,7 +1230,6 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let contextVariables = [];
   let runtimeVariables = [];
   params.path.join(".");
-  v4();
   let tabSet = 0;
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
@@ -1146,7 +1287,6 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
         }
       }
     }
-    schema.direction || "column";
     currentValVar = null;
     {
       if (Array.isArray(buffers)) {
@@ -1176,18 +1316,29 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     }
     $$rendered = ` ${validate_component(params.components["fieldWrapper"] || missing_component, "svelte:component").$$render($$result, { params, schema }, {}, {
       default: () => {
-        return `${` <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col"><div class="flex align-center gap-[10px] flex-wrap">${each(expressionElements, (element, index) => {
-          return `<span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]" style="${"background-color: " + escape(element.color, true)}">${element.type === "buffer" && element.position !== null ? `${escape(element.value)} <span class="text-surface-100 flex align-center justify-center">[${escape(element.position)}]</span>` : `${escape(element.value)}`} <button class="hover:cursor-pointer">${validate_component(Fa, "Fa").$$render(
-            $$result,
-            {
-              icon: faClose,
-              size: "1.4px",
-              primaryColor: "white"
-            },
-            {},
-            {}
-          )}</button> </span>`;
-        })}</div> <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
+        return `${` <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col">${validate_component(SortableList, "SortableList").$$render(
+          $$result,
+          {
+            class: "flex align-center gap-[10px] flex-wrap"
+          },
+          {},
+          {
+            default: () => {
+              return `${each(expressionElements, (element, index) => {
+                return `<span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]" style="${"background-color: " + escape(element.color, true)}">${element.type === "buffer" && element.position !== null ? `${escape(element.value)} <span class="text-surface-100 flex align-center justify-center">[${escape(element.position)}]</span>` : `${escape(element.value)}`} <button class="hover:cursor-pointer">${validate_component(Fa, "Fa").$$render(
+                  $$result,
+                  {
+                    icon: faClose,
+                    size: "1.4px",
+                    primaryColor: "white"
+                  },
+                  {},
+                  {}
+                )}</button> </span>`;
+              })}`;
+            }
+          }
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
               return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter(element.category))} </h1>` : ``} <button class="${[
