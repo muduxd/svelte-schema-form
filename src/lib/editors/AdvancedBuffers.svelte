@@ -12,15 +12,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
     interface Buffer {
         type: "buffer",
         value: string,
@@ -40,11 +31,6 @@
         value: string,
         color: "#ffcc00"
     }
-
-
-
-
-
 
 
 

@@ -5,9 +5,7 @@
 
 	let schema: any = {
 		type:"object",
-
 		properties:{
-<<<<<<< HEAD
 			buffers: {
                 title:"",
 				editor: "buffers",
@@ -160,9 +158,6 @@
 					{name: "3454", type:"number", value:3454}
 				]
 			},
-=======
-            "x": { "type": "advancedBuffers" },
->>>>>>> 6f7af6b244931b2b6f0a8bce59cca401381e463a
 		}
 	}
 
