@@ -16,6 +16,7 @@
 	import Boolean from './editors/Boolean.svelte';
 	import Color from './editors/Color.svelte';
 	import Buffers from "./editors/Buffers.svelte";
+	import AdvancedBuffers from "./editors/AdvancedBuffers.svelte";
 	import Number from './editors/Number.svelte';
 	import { errorMapper } from "./errorMapper";
 	import Upload from "./editors/Upload.svelte";
@@ -56,6 +57,7 @@
 			number: Number,
 			color: Color,
 			buffers: Buffers,
+			advancedBuffers: AdvancedBuffers,
 			integer: Number,
 			boolean: Boolean,
 			fieldWrapper: FieldWrapper,
