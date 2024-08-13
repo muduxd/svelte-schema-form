@@ -130,7 +130,8 @@
 					{name: "asd", type:"string", value:"asd7"},
 					{name: "dfssdfg", type:"string", value:"asd78567"},
 					{name: "3454", type:"number", value:3454}
-				]
+				],
+				finalOutput: "b:asd[234]"
 			},
 			operation: {
 				enum: ["0", "1", "2", "3", "4"], 

@@ -5,7 +5,6 @@ import { storePopup } from "@skeletonlabs/skeleton";
 import { onMount } from "svelte";
 import { v4 as uuidv4 } from "uuid";
 storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-let comboboxValue;
 export let params;
 export let schema;
 export let value;
@@ -15,6 +14,7 @@ let givenVariablesObj = [];
 let internalVariables = [];
 let contextVariables = [];
 let runtimeVariables = [];
+let finalOutput = "";
 $: {
   if (Array.isArray(schema.internalVariables)) {
     internalVariables = [...schema.internalVariables];
@@ -68,6 +68,10 @@ $:
   currentConstantInputVal = null;
 $:
   currentValVar = null;
+$:
+  finalOutput = schema.finalOutput;
+$:
+  comboboxValue = finalOutput;
 let uniqueCategories = [];
 $:
   if (Array.isArray(buffers)) {
@@ -80,7 +84,6 @@ const popupCombobox = {
   placement: "bottom",
   closeQuery: ".listbox-item"
 };
-let finalOutput = "";
 $:
   if (givenVariablesObj.length > 0 && currentValVar == null) {
     currentValVar = givenVariablesObj[0].value;
