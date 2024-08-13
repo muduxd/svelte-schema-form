@@ -716,7 +716,7 @@ const Color = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     }
   })}`;
 });
-function capitalizeFirstLetter$1(string) {
+function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -828,7 +828,7 @@ const Buffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         return `<button class="btn flex items-center variant-filled w-48 justify-between"><span class="capitalize">${escape("Choose buffer")}</span> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"></path></svg></button> <div class="p-4 w-48 card shadow-xl z-10"${add_attribute("data-popup", `popupCombobox-${uniqueId}`, 0)}>${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
             return `${tabSet === 0 ? `<div role="radiogroup" class="flex flex-col gap-2"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentBufferInputVal, 0)}> <div class="overflow-y-auto max-h-48">${each(uniqueCategories, (categ, idx) => {
-              return `<div class="mb-4"><p class="mb-2 font-bold">${escape(capitalizeFirstLetter$1(categ) + "s")}</p> ${each(buffers.filter((buffer) => buffer.category === categ), (buffer, idx2) => {
+              return `<div class="mb-4"><p class="mb-2 font-bold">${escape(capitalizeFirstLetter(categ) + "s")}</p> ${each(buffers.filter((buffer) => buffer.category === categ), (buffer, idx2) => {
                 return `<label${add_attribute("for", `${id}-${idx2}-${uniqueId}-${categ}`, 0)} class="flex items-center space-x-2"><input class="radio" type="radio"${add_attribute("id", `${id}-${idx2}-${uniqueId}-${categ}`, 0)}${add_attribute("value", buffer.text, 0)}${add_attribute("name", `${id}-${uniqueId}-${categ}`, 0)}${buffer.text === currentBuffer ? add_attribute("checked", true, 1) : ""}> <p>${escape(buffer.text || "")}</p> </label>`;
               })} </div>`;
             })}</div></div> <button class="listbox-item btn variant-filled-primary mt-2 w-full" type="button" data-svelte-h="svelte-13im8od">Done</button>` : `${tabSet === 1 ? `<div role="radiogroup" class="flex flex-col gap-2"${add_attribute("aria-labelledby", `label-${id}-${uniqueId}`, 0)} style="${"flex-direction:" + escape(flexDirection, true)}"${add_attribute("id", `group-${id}-${uniqueId}`, 0)}><input${add_attribute("id", `${params.path.join(".")}-${uniqueId}`, 0)}${add_attribute("name", `${params.path.join(".")}-${uniqueId}`, 0)} type="number" class="input px-4 py-2" placeholder="0" ${schema.readOnly || params.containerReadOnly ? "disabled" : ""}${add_attribute("value", currentObjectInputVal, 0)}> <div class="overflow-y-auto max-h-48">${each(objects, (object, idx) => {
@@ -1173,8 +1173,14 @@ const Fa = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   ].join(" ").trim()}"${add_attribute("style", style, 0)} viewBox="${"0 0 " + escape(i[0], true) + " " + escape(i[1], true)}" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"${add_attribute("this", svgElement, 0)}><g transform="${"translate(" + escape(i[0] / 2, true) + " " + escape(i[1] / 2, true) + ")"}" transform-origin="${escape(i[0] / 4, true) + " 0"}"><g${add_attribute("transform", transform, 0)}>${typeof i[4] == "string" ? `<path${add_attribute("d", i[4], 0)}${add_attribute("fill", color || primaryColor || "currentColor", 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>` : ` <path${add_attribute("d", i[4][0], 0)}${add_attribute("fill", secondaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? primaryOpacity : secondaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path> <path${add_attribute("d", i[4][1], 0)}${add_attribute("fill", primaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? secondaryOpacity : primaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>`}</g></g></svg>` : ``}`;
 });
 let error = "";
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function moveItem(array, fromIndex, toIndex) {
+  if (fromIndex >= 0 && fromIndex < array.length && toIndex >= 0 && toIndex < array.length) {
+    const [item] = array.splice(fromIndex, 1);
+    array.splice(toIndex, 0, item);
+  } else {
+    console.error("Invalid indices");
+  }
+  return array;
 }
 const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const operators = [
@@ -1216,7 +1222,21 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
+  const capitalizeFirstLetter2 = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
+  const convertExpressionToValue = () => {
+    let result = "";
+    for (let i = 0; i < expressionElements.length; i++) {
+      result += expressionElements[i].value;
+    }
+    return result;
+  };
   let tabSet = 0;
+  const changeOrder = (event) => {
+    const { newIndex, oldIndex } = event;
+    expressionElements = moveItem(expressionElements, oldIndex, newIndex);
+    value = convertExpressionToValue();
+    params.pathChanged(params.path, value || void 0);
+  };
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -1250,7 +1270,8 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
         return `${` <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col">${validate_component(SortableList, "SortableList").$$render(
           $$result,
           {
-            class: "flex align-center gap-[10px] flex-wrap"
+            class: "flex align-center gap-[10px] flex-wrap",
+            onSort: changeOrder
           },
           {},
           {
@@ -1269,10 +1290,10 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
+        )} <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, {}, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
-              return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter(element.category))} </h1>` : ``} <button class="${[
+              return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter2(element.category))} </h1>` : ``} <button class="${[
                 "text-left btn hover:bg-surface-800 !text-white h-[35px]",
                 index === selectedElement ? "bg-primary-500" : ""
               ].join(" ").trim()}">${escape(element.value)} </button>`;

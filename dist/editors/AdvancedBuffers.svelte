@@ -20,12 +20,10 @@ let error = "";
 export let params;
 export let schema;
 export let value = "";
-const isDigit = (char) => {
-  return char >= "0" && char <= "9";
-};
-const isValidChar = (char) => {
-  return char.toLowerCase() != char.toUpperCase() || char === ":";
-};
+const isDigit = (char) => char >= "0" && char <= "9";
+const isNumeric = (value2) => /^-?\d+$/.test(value2);
+const isValidChar = (char) => char.toLowerCase() != char.toUpperCase() || char === ":";
+const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
   for (let i = 0; i < formValue.length; i++) {
     if ("+-*/()".includes(formValue[i])) {
@@ -47,15 +45,12 @@ const convertValueToExpression = (formValue) => {
     }
   }
 };
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-const validateExpression = () => {
+const convertExpressionToValue = () => {
   let result = "";
   for (let i = 0; i < expressionElements.length; i++) {
     result += expressionElements[i].value;
   }
-  console.log(result);
+  return result;
 };
 const addExpression = (element) => {
   if (element.type === "buffer") {
@@ -67,9 +62,6 @@ const addExpression = (element) => {
 const removeExpression = (index) => {
   expressionElements.splice(index, 1);
   expressionElements = expressionElements;
-};
-const isNumeric = (value2) => {
-  return /^-?\d+$/.test(value2);
 };
 function submit(event) {
   if (event.key === "Enter") {
@@ -85,6 +77,21 @@ function submit(event) {
 let tabSet = 0;
 let showPosition = false;
 let inputRef = null;
+function moveItem(array, fromIndex, toIndex) {
+  if (fromIndex >= 0 && fromIndex < array.length && toIndex >= 0 && toIndex < array.length) {
+    const [item] = array.splice(fromIndex, 1);
+    array.splice(toIndex, 0, item);
+  } else {
+    console.error("Invalid indices");
+  }
+  return array;
+}
+const changeOrder = (event) => {
+  const { newIndex, oldIndex } = event;
+  expressionElements = moveItem(expressionElements, oldIndex, newIndex);
+  value = convertExpressionToValue();
+  params.pathChanged(params.path, value || void 0);
+};
 function positionSubmit(event) {
   if (event.key === "Enter") {
     showPosition = false;
@@ -165,28 +172,29 @@ $: {
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <SortableList class="flex align-center gap-[10px] flex-wrap" on:sortChange>
-                {#each expressionElements as element, index (index)}
-                    <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
-                        {#if element.type === "buffer" && element.position !== null}
-                            {element.value} 
-                            <span class="text-surface-100 flex align-center justify-center">[{element.position}]</span>
-                        {:else}
-                            {element.value} 
-                        {/if}
 
-                        <button class="hover:cursor-pointer" on:click={() => removeExpression(index)}>
-                            <Fa icon={faClose} size="1.4px" primaryColor="white" />
-                        </button>
-                    </span>
-                {/each}
-            </SortableList>
+            {#key expressionElements}
+                <SortableList class="flex align-center gap-[10px] flex-wrap" onSort={changeOrder}>
+                    {#each expressionElements as element, index (index)}
+                        <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
+                            {#if element.type === "buffer" && element.position !== null}
+                                {element.value} 
+                                <span class="text-surface-100 flex align-center justify-center">[{element.position}]</span>
+                            {:else}
+                                {element.value} 
+                            {/if}
+
+                            <button class="hover:cursor-pointer" on:click={() => removeExpression(index)}>
+                                <Fa icon={faClose} size="1.4px" primaryColor="white" />
+                            </button>
+                        </span>
+                    {/each}
+                </SortableList>
+            {/key}
 
 
-            <div class="flex align-center gap-[10px]">
-                <input class="input" type="search" name="search" bind:value={inputValue} placeholder="Search..." on:keydown={submit} autocomplete="off" />
-                <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Done</button>
-            </div>
+
+            <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" on:keydown={submit} bind:value={inputValue} />
 
             <span class="text-rose-600 text-center font-bold h-[30px]">{error}</span>
 
