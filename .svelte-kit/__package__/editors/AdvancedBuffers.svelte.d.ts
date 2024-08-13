@@ -4,9 +4,11 @@ declare const __propDef: {
     props: {
         params: CommonComponentParameters;
         schema: any;
-        value: any;
+        value?: string | undefined;
     };
     events: {
+        sortChange: CustomEvent<any>;
+    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {};

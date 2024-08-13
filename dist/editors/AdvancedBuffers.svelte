@@ -1,10 +1,8 @@
 <script>import { Tab, TabGroup } from "@skeletonlabs/skeleton";
-import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
-import { storePopup } from "@skeletonlabs/skeleton";
-import { afterUpdate } from "svelte";
-import Fa from "svelte-fa";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { SortableList } from "@sonderbase/svelte-sortablejs";
+import { afterUpdate, onMount } from "svelte";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import Fa from "svelte-fa";
 const operators = [
   { type: "operator", color: "#ffcc00", value: "(" },
   { type: "operator", color: "#ffcc00", value: ")" },
@@ -19,76 +17,35 @@ let expressionElements = [];
 let inputValue = "";
 let selectedElement = 0;
 let error = "";
-storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-let comboboxValue;
 export let params;
 export let schema;
-export let value;
-let objects;
-let givenVariablesObj = [];
-let internalVariables = [];
-let contextVariables = [];
-let runtimeVariables = [];
-$: {
-  if (Array.isArray(schema.internalVariables)) {
-    internalVariables = [...schema.internalVariables];
-  } else {
-    internalVariables = [];
-  }
-}
-$: {
-  if (Array.isArray(schema.contextVariables)) {
-    contextVariables = [...schema.contextVariables];
-  } else {
-    contextVariables = [];
-  }
-}
-$: {
-  if (Array.isArray(schema.runtimeVariables)) {
-    runtimeVariables = [...schema.runtimeVariables];
-  } else {
-    runtimeVariables = [];
-  }
-}
-$:
-  givenVariablesObj = [...internalVariables, ...contextVariables, ...runtimeVariables];
-let id = params.path.join(".");
-$: {
-  if (Array.isArray(schema.buffers)) {
-    buffers = [...schema.buffers];
-  } else {
-    buffers = [];
-  }
-}
-$: {
-  if (Array.isArray(schema.objects)) {
-    objects = [...schema.objects];
-  } else {
-    objects = [];
-  }
-}
-$:
-  currentValVar = null;
-let uniqueCategories = [];
-$:
-  if (Array.isArray(buffers)) {
-    uniqueCategories = [...new Set(buffers.map((buffer) => buffer.category))];
-  }
-let finalOutput = "";
-$:
-  if (givenVariablesObj.length > 0 && currentValVar == null) {
-    currentValVar = givenVariablesObj[0].value;
-  }
-const handleChange = (currentText, currentInputVal, type) => {
-  if (currentInputVal === null)
-    currentInputVal = 0;
-  finalOutput = `${type}:${currentText}[${currentInputVal}]`;
-  if (currentText == "")
-    finalOutput = `${type}:${currentInputVal}`;
-  params.pathChanged(params.path, finalOutput || void 0);
+export let value = "";
+const isDigit = (char) => {
+  return char >= "0" && char <= "9";
 };
-const handleClick = () => {
-  comboboxValue = finalOutput;
+const isValidChar = (char) => {
+  return char.toLowerCase() != char.toUpperCase() || char === ":";
+};
+const convertValueToExpression = (formValue) => {
+  for (let i = 0; i < formValue.length; i++) {
+    if ("+-*/()".includes(formValue[i])) {
+      expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
+    } else if (isDigit(formValue[i])) {
+      let numberValue = formValue[i++];
+      while (isDigit(formValue[i])) {
+        numberValue += formValue[i++];
+      }
+      i--;
+      expressionElements = [...expressionElements, { type: "value", value: +numberValue, color: "blue" }];
+    } else if (isValidChar(formValue[i])) {
+      let stringValue = formValue[i++];
+      while (isValidChar(formValue[i])) {
+        stringValue += formValue[i++];
+      }
+      i--;
+      expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: null, category: "indicator" }];
+    }
+  }
 };
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -174,6 +131,9 @@ afterUpdate(() => {
     inputRef.focus();
   }
 });
+onMount(() => {
+  convertValueToExpression(value);
+});
 $: {
   if (tabSet === 0) {
     const buffersLength = buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
@@ -205,7 +165,7 @@ $: {
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
-            <SortableList class="flex align-center gap-[10px] flex-wrap">
+            <SortableList class="flex align-center gap-[10px] flex-wrap" on:sortChange>
                 {#each expressionElements as element, index (index)}
                     <span class="bg-primary-500 px-2 rounded-md flex align-center justify-center gap-[7px]"  style="background-color: {element.color}">
                         {#if element.type === "buffer" && element.position !== null}
