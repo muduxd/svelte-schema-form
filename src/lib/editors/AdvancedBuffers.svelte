@@ -62,7 +62,7 @@
 
 
 
-
+    // - AUXILIARY FUNCTIONS -
 
 
     const isDigit = (char: string) => char >= "0" && char <= "9"
@@ -75,6 +75,7 @@
 
 
 
+    // - CONVERSION FUNCTIONS -
 
     const convertValueToExpression = (formValue: string): void => {
         for (let i = 0; i < formValue.length; i++) {
@@ -127,6 +128,9 @@
 
 
 
+    let tabSet: number = 0
+    let showPosition: boolean = false
+    let inputRef: HTMLInputElement | null = null
 
 
 
@@ -143,6 +147,9 @@
 
         expressionElements = [...expressionElements, element]
         inputValue = ""
+
+        value = convertExpressionToValue()
+        params.pathChanged(params.path, value || undefined)
     }
 
 
@@ -151,6 +158,9 @@
     const removeExpression = (index: number): void => {
 		expressionElements.splice(index, 1)
 		expressionElements = expressionElements
+
+        value = convertExpressionToValue()
+        params.pathChanged(params.path, value || undefined)
     }
 
     
@@ -172,9 +182,6 @@
 
 
 
-    let tabSet: number = 0
-    let showPosition: boolean = false
-    let inputRef: HTMLInputElement | null = null
 
 
 

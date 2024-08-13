@@ -52,16 +52,23 @@ const convertExpressionToValue = () => {
   }
   return result;
 };
+let tabSet = 0;
+let showPosition = false;
+let inputRef = null;
 const addExpression = (element) => {
   if (element.type === "buffer") {
     showPosition = true;
   }
   expressionElements = [...expressionElements, element];
   inputValue = "";
+  value = convertExpressionToValue();
+  params.pathChanged(params.path, value || void 0);
 };
 const removeExpression = (index) => {
   expressionElements.splice(index, 1);
   expressionElements = expressionElements;
+  value = convertExpressionToValue();
+  params.pathChanged(params.path, value || void 0);
 };
 function submit(event) {
   if (event.key === "Enter") {
@@ -74,9 +81,6 @@ function submit(event) {
     }
   }
 }
-let tabSet = 0;
-let showPosition = false;
-let inputRef = null;
 function moveItem(array, fromIndex, toIndex) {
   if (fromIndex >= 0 && fromIndex < array.length && toIndex >= 0 && toIndex < array.length) {
     const [item] = array.splice(fromIndex, 1);
