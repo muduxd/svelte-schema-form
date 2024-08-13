@@ -190,7 +190,9 @@
 
 	let jsonInvalid = false;
 
-	let value = { };
+	let value = {
+		buffers: "asd asdfasdf"
+	};
 	let valueJson = '';
 	let collapsible = false;
 
