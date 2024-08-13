@@ -10,8 +10,6 @@
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
-	let comboboxValue: string;
-
 	
 
 	export let params: CommonComponentParameters;
@@ -23,6 +21,8 @@
 	let internalVariables: any[] = [];
 	let contextVariables: any[] = [];
 	let runtimeVariables: any[] = [];
+	let finalOutput = ""
+
 	$: {
 		if (Array.isArray(schema.internalVariables)) {
 			internalVariables = [...schema.internalVariables];
@@ -70,6 +70,9 @@
 	$: currentObjectInputVal = null as number | null
 	$: currentConstantInputVal = null as number | string | boolean | null
 	$: currentValVar = null as number | string | boolean | null
+	$: finalOutput = schema.finalOutput;
+
+	$: comboboxValue = finalOutput as string;
 
 	let uniqueCategories:any[] = []
 
@@ -87,7 +90,6 @@
 		closeQuery: '.listbox-item'
 	};
 
-	let finalOutput = ""
 
 	$: if(givenVariablesObj.length > 0 && currentValVar == null){
 		currentValVar = givenVariablesObj[0].value
