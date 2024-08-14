@@ -1252,7 +1252,21 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     {
       {
         if (Array.isArray(schema.buffers)) {
-          buffers = [...schema.buffers];
+          const results = [...schema.buffers];
+          for (let i = 0; i < results.length; i++) {
+            buffers = [
+              ...buffers,
+              {
+                type: "buffer",
+                color: "red",
+                position: null,
+                value: results[i].text,
+                category: results[i].category
+              }
+            ];
+          }
+          buffers = buffers.sort((a, b) => a.category.localeCompare(b.category));
+          [...new Set(buffers.map((e) => e.category))].sort();
         } else {
           buffers = [];
         }
@@ -1264,7 +1278,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     {
       {
         if (tabSet === 0) {
-          const buffersLength = buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
+          const buffersLength = buffers.map((e) => e.text).filter((e) => e.includes(inputValue)).length;
           if (selectedElement >= buffersLength) {
             selectedElement = buffersLength - 1;
           }
