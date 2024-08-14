@@ -150,6 +150,13 @@ onMount(() => {
   convertValueToExpression(value);
 });
 $: {
+  if (Array.isArray(schema.buffers)) {
+    buffers = [...schema.buffers];
+  } else {
+    buffers = [];
+  }
+}
+$: {
   if (tabSet === 0) {
     const buffersLength = buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
     if (selectedElement >= buffersLength) {

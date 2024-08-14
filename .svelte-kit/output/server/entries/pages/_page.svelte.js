@@ -1250,6 +1250,15 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     $$settled = true;
     $$result.head = previous_head;
     {
+      {
+        if (Array.isArray(schema.buffers)) {
+          buffers = [...schema.buffers];
+        } else {
+          buffers = [];
+        }
+      }
+    }
+    {
       console.log("BUFFERS", buffers);
     }
     {

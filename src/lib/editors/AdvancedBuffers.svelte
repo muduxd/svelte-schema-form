@@ -291,6 +291,14 @@
 
 
 
+	$: {
+		if (Array.isArray(schema.buffers)) {
+			buffers = [...schema.buffers]
+		} else {
+			buffers = []
+		}
+	}
+
 
 
 
