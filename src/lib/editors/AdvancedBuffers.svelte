@@ -58,7 +58,7 @@
     export let value: string = ""
 
 
-
+    $: console.log("BUFFERS", buffers)
 
 
 
@@ -102,7 +102,7 @@
                 }
 
                 i--
-                expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: null, category: "indicator" }]
+                expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: 0, category: "indicator" }]
             }
         }
     }
@@ -271,6 +271,11 @@
     }
 
 
+    const validateExpression = (): void => {
+
+    }
+
+
 
     afterUpdate(() => {
         if (showPosition && inputRef) {
@@ -347,12 +352,15 @@
 
 
 
-            <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" on:keydown={submit} bind:value={inputValue} />
+            <div class="flex align-center gap-[10px]">
+                <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" bind:value={inputValue} on:keydown={submit} />
+                <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Done</button>
+            </div>
 
             <span class="text-rose-600 text-center font-bold h-[30px]">{error}</span>
 
 
-            <TabGroup>
+            <TabGroup class="max-h-[500px] overflow-auto">
                 <Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
                 <Tab bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
 
