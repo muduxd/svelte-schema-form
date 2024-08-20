@@ -1,4 +1,5 @@
-import { c as create_ssr_component, v as validate_component, m as missing_component, b as add_attribute, e as escape, d as each, f as spread, h as escape_attribute_value, i as escape_object, j as get_store_value, k as compute_rest_props, l as createEventDispatcher, n as compute_slots, s as setContext, g as getContext, o as onDestroy, a as subscribe, p as add_classes, q as add_styles, r as null_to_empty, t as set_store_value } from "../../chunks/ssr.js";
+import { c as create_ssr_component, h as compute_rest_props, d as compute_slots, i as createEventDispatcher, a as add_attribute, e as escape, j as spread, k as escape_attribute_value, l as escape_object, s as setContext, g as getContext, v as validate_component, m as missing_component, n as each, o as onDestroy, f as subscribe, p as add_classes, b as add_styles, q as null_to_empty, r as set_store_value } from "../../chunks/ssr.js";
+import "../../chunks/ProgressBar.svelte_svelte_type_style_lang.js";
 import _, { get } from "lodash-es";
 import set from "lodash-es/set.js";
 import get$1 from "lodash-es/get.js";
@@ -8,12 +9,228 @@ import FaSolidArrowUp from "svelte-icons-pack/fa/FaSolidArrowUp.js";
 import FaSolidArrowDown from "svelte-icons-pack/fa/FaSolidArrowDown.js";
 import FaSolidTrash from "svelte-icons-pack/fa/FaSolidTrash.js";
 import FaCopy from "svelte-icons-pack/fa/FaCopy.js";
-import { w as writable, r as readable } from "../../chunks/index.js";
+import { w as writable } from "../../chunks/index.js";
 import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
 import { v4 } from "uuid";
 import "sortablejs";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import "@exodus/schemasafe/src/pointer.js";
+const storePopup = writable(void 0);
+const cBase$2 = "inline-block";
+const cLabel = "unstyled flex items-center";
+const cTrack = "flex transition-all duration-[200ms] cursor-pointer";
+const cThumb = "w-[50%] h-full scale-[0.8] transition-all duration-[200ms] shadow";
+const SlideToggle = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let cTrackActive;
+  let cThumbBackground;
+  let cThumbPos;
+  let classesDisabled;
+  let classesBase;
+  let classesLabel;
+  let classesTrack;
+  let classesThumb;
+  let $$restProps = compute_rest_props($$props, ["name", "checked", "size", "background", "active", "border", "rounded", "label"]);
+  let $$slots = compute_slots(slots);
+  createEventDispatcher();
+  let { name } = $$props;
+  let { checked = false } = $$props;
+  let { size = "md" } = $$props;
+  let { background = "bg-surface-400 dark:bg-surface-700" } = $$props;
+  let { active = "bg-surface-900 dark:bg-surface-300" } = $$props;
+  let { border = "" } = $$props;
+  let { rounded = "rounded-full" } = $$props;
+  let { label = "" } = $$props;
+  let trackSize;
+  switch (size) {
+    case "sm":
+      trackSize = "w-12 h-6";
+      break;
+    case "lg":
+      trackSize = "w-20 h-10";
+      break;
+    default:
+      trackSize = "w-16 h-8";
+  }
+  function prunedRestProps() {
+    delete $$restProps.class;
+    return $$restProps;
+  }
+  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
+    $$bindings.name(name);
+  if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0)
+    $$bindings.checked(checked);
+  if ($$props.size === void 0 && $$bindings.size && size !== void 0)
+    $$bindings.size(size);
+  if ($$props.background === void 0 && $$bindings.background && background !== void 0)
+    $$bindings.background(background);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.border === void 0 && $$bindings.border && border !== void 0)
+    $$bindings.border(border);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.label === void 0 && $$bindings.label && label !== void 0)
+    $$bindings.label(label);
+  cTrackActive = checked ? active : `${background} cursor-pointer`;
+  cThumbBackground = checked ? "bg-white/75" : "bg-white";
+  cThumbPos = checked ? "translate-x-full" : "";
+  classesDisabled = $$props.disabled === true ? "opacity-50" : "hover:brightness-[105%] dark:hover:brightness-110 cursor-pointer";
+  classesBase = `${cBase$2} ${rounded} ${classesDisabled} ${$$props.class ?? ""}`;
+  classesLabel = `${cLabel}`;
+  classesTrack = `${cTrack} ${border} ${rounded} ${trackSize} ${cTrackActive}`;
+  classesThumb = `${cThumb} ${rounded} ${cThumbBackground} ${cThumbPos}`;
+  return `<div${add_attribute("id", label, 0)} class="${"slide-toggle " + escape(classesBase, true)}" data-testid="slide-toggle" role="switch"${add_attribute("aria-label", label, 0)}${add_attribute("aria-checked", checked, 0)} tabindex="0"><label class="${"slide-toggle-label " + escape(classesLabel, true)}"> <input${spread(
+    [
+      { type: "checkbox" },
+      { class: "slide-toggle-input hidden" },
+      { name: escape_attribute_value(name) },
+      escape_object(prunedRestProps()),
+      { disabled: $$props.disabled || null }
+    ],
+    {}
+  )}${add_attribute("checked", checked, 1)}>  <div class="${[
+    "slide-toggle-track " + escape(classesTrack, true),
+    $$props.disabled ? "cursor-not-allowed" : ""
+  ].join(" ").trim()}"><div class="${[
+    "slide-toggle-thumb " + escape(classesThumb, true),
+    $$props.disabled ? "cursor-not-allowed" : ""
+  ].join(" ").trim()}"></div></div>  ${$$slots.default ? `<div class="slide-toggle-text ml-3">${slots.default ? slots.default({}) : ``}</div>` : ``}</label></div>`;
+});
+const cBase$1 = "space-y-4";
+const cList = "flex overflow-x-auto hide-scrollbar";
+const cPanel = "";
+const TabGroup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let classesBase;
+  let classesList;
+  let classesPanel;
+  let $$slots = compute_slots(slots);
+  let { justify = "justify-start" } = $$props;
+  let { border = "border-b border-surface-400-500-token" } = $$props;
+  let { active = "border-b-2 border-surface-900-50-token" } = $$props;
+  let { hover = "hover:variant-soft" } = $$props;
+  let { flex = "flex-none" } = $$props;
+  let { padding = "px-4 py-2" } = $$props;
+  let { rounded = "rounded-tl-container-token rounded-tr-container-token" } = $$props;
+  let { spacing = "space-y-1" } = $$props;
+  let { regionList = "" } = $$props;
+  let { regionPanel = "" } = $$props;
+  let { labelledby = "" } = $$props;
+  let { panel = "" } = $$props;
+  setContext("active", active);
+  setContext("hover", hover);
+  setContext("flex", flex);
+  setContext("padding", padding);
+  setContext("rounded", rounded);
+  setContext("spacing", spacing);
+  if ($$props.justify === void 0 && $$bindings.justify && justify !== void 0)
+    $$bindings.justify(justify);
+  if ($$props.border === void 0 && $$bindings.border && border !== void 0)
+    $$bindings.border(border);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
+    $$bindings.flex(flex);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
+    $$bindings.spacing(spacing);
+  if ($$props.regionList === void 0 && $$bindings.regionList && regionList !== void 0)
+    $$bindings.regionList(regionList);
+  if ($$props.regionPanel === void 0 && $$bindings.regionPanel && regionPanel !== void 0)
+    $$bindings.regionPanel(regionPanel);
+  if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
+    $$bindings.labelledby(labelledby);
+  if ($$props.panel === void 0 && $$bindings.panel && panel !== void 0)
+    $$bindings.panel(panel);
+  classesBase = `${cBase$1} ${$$props.class ?? ""}`;
+  classesList = `${cList} ${justify} ${border} ${regionList}`;
+  classesPanel = `${cPanel} ${regionPanel}`;
+  return `<div class="${"tab-group " + escape(classesBase, true)}" data-testid="tab-group"> <div class="${"tab-list " + escape(classesList, true)}" role="tablist"${add_attribute("aria-labelledby", labelledby, 0)}>${slots.default ? slots.default({}) : ``}</div>  ${$$slots.panel ? `<div class="${"tab-panel " + escape(classesPanel, true)}" role="tabpanel"${add_attribute("aria-labelledby", panel, 0)} tabindex="0">${slots.panel ? slots.panel({}) : ``}</div>` : ``}</div>`;
+});
+const cBase = "text-center cursor-pointer transition-colors duration-100";
+const cInterface = "";
+const Tab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let selected;
+  let classesActive;
+  let classesBase;
+  let classesInterface;
+  let classesTab;
+  let $$restProps = compute_rest_props($$props, [
+    "group",
+    "name",
+    "value",
+    "title",
+    "controls",
+    "regionTab",
+    "active",
+    "hover",
+    "flex",
+    "padding",
+    "rounded",
+    "spacing"
+  ]);
+  let $$slots = compute_slots(slots);
+  let { group } = $$props;
+  let { name } = $$props;
+  let { value } = $$props;
+  let { title = "" } = $$props;
+  let { controls = "" } = $$props;
+  let { regionTab = "" } = $$props;
+  let { active = getContext("active") } = $$props;
+  let { hover = getContext("hover") } = $$props;
+  let { flex = getContext("flex") } = $$props;
+  let { padding = getContext("padding") } = $$props;
+  let { rounded = getContext("rounded") } = $$props;
+  let { spacing = getContext("spacing") } = $$props;
+  let elemInput;
+  function prunedRestProps() {
+    delete $$restProps.class;
+    return $$restProps;
+  }
+  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
+    $$bindings.group(group);
+  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
+    $$bindings.name(name);
+  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
+    $$bindings.value(value);
+  if ($$props.title === void 0 && $$bindings.title && title !== void 0)
+    $$bindings.title(title);
+  if ($$props.controls === void 0 && $$bindings.controls && controls !== void 0)
+    $$bindings.controls(controls);
+  if ($$props.regionTab === void 0 && $$bindings.regionTab && regionTab !== void 0)
+    $$bindings.regionTab(regionTab);
+  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
+    $$bindings.active(active);
+  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
+    $$bindings.hover(hover);
+  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
+    $$bindings.flex(flex);
+  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
+    $$bindings.padding(padding);
+  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
+    $$bindings.rounded(rounded);
+  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
+    $$bindings.spacing(spacing);
+  selected = value === group;
+  classesActive = selected ? active : hover;
+  classesBase = `${cBase} ${flex} ${padding} ${rounded} ${classesActive} ${$$props.class ?? ""}`;
+  classesInterface = `${cInterface} ${spacing}`;
+  classesTab = `${regionTab}`;
+  return `<label${add_attribute("class", classesBase, 0)}${add_attribute("title", title, 0)}> <div class="${"tab " + escape(classesTab, true)}" data-testid="tab" role="tab"${add_attribute("aria-controls", controls, 0)}${add_attribute("aria-selected", selected, 0)}${add_attribute("tabindex", selected ? 0 : -1, 0)}> <div class="h-0 w-0 overflow-hidden"><input${spread(
+    [
+      { type: "radio" },
+      { name: escape_attribute_value(name) },
+      { value: escape_attribute_value(value) },
+      escape_object(prunedRestProps()),
+      { tabindex: "-1" }
+    ],
+    {}
+  )}${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}></div>  <div class="${"tab-interface " + escape(classesInterface, true)}">${$$slots.lead ? `<div class="tab-lead">${slots.lead ? slots.lead({}) : ``}</div>` : ``} <div class="tab-label">${slots.default ? slots.default({}) : ``}</div></div></div></label>`;
+});
 const upTo = (str, match, start) => {
   const pos = str.indexOf(match, start);
   return pos < 0 ? str.substring(start || 0) : str.substring(start || 0, pos);
@@ -168,7 +385,7 @@ const String = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   })}`;
 });
 const FieldWrapper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let error2;
+  let error;
   let { params } = $$props;
   let { schema } = $$props;
   const title = schemaLabel(schema, params.path);
@@ -177,11 +394,11 @@ const FieldWrapper = create_ssr_component(($$result, $$props, $$bindings, slots)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
     $$bindings.schema(schema);
-  error2 = params.validationErrors[params.path.join(".")];
+  error = params.validationErrors[params.path.join(".")];
   return `${params.containerParent !== "array" ? `<label${add_attribute("id", `label-${id}`, 0)}${add_attribute("for", id, 0)} class="${[
     "label mt-2",
     (params.required ? "required" : "") + " " + (schema.readOnly || params.containerReadOnly ? "readonly" : "")
-  ].join(" ").trim()}"><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error2 && params.showErrors ? `<div class="error">${escape(error2)}</div>` : ``}`;
+  ].join(" ").trim()}"><!-- HTML_TAG_START -->${stringToHtml(title)}<!-- HTML_TAG_END --> ${schema.description ? `<span class="info"${add_attribute("title", schema.description, 0)}></span>` : ``}</label>` : ``} ${slots.default ? slots.default({}) : ``} ${error && params.showErrors ? `<div class="error">${escape(error)}</div>` : ``}`;
 });
 const css$6 = {
   code: ".legend-group.svelte-hghlbv{padding:20px;padding-top:0;margin:10px 0;color:rgb(var(--color-surface-100));border:2px solid rgb(var(--color-surface-100));border-radius:10px}fieldset.subset.object.svelte-hghlbv{flex-grow:1 !important}",
@@ -415,251 +632,6 @@ const Array$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     )}</button>` : ``}` : `<div class="emptyText">${escape(emptyText)}</div>`}` : ``}</fieldset>` : ``}`;
   } while (!$$settled);
   return $$rendered;
-});
-const storePopup = writable(void 0);
-const stores = {};
-function localStorageStore(key, initialValue, options) {
-  options?.serializer ?? JSON;
-  options?.storage ?? "local";
-  if (!stores[key]) {
-    const store = writable(initialValue, (set3) => {
-    });
-    const { subscribe: subscribe2, set: set2 } = store;
-    stores[key] = {
-      set(value) {
-        set2(value);
-      },
-      update(updater) {
-        const value = updater(get_store_value(store));
-        set2(value);
-      },
-      subscribe: subscribe2
-    };
-  }
-  return stores[key];
-}
-localStorageStore("modeOsPrefers", false);
-localStorageStore("modeUserPrefers", void 0);
-localStorageStore("modeCurrent", false);
-function prefersReducedMotion() {
-  return false;
-}
-readable(prefersReducedMotion(), (set2) => {
-});
-const cBase$2 = "inline-block";
-const cLabel = "unstyled flex items-center";
-const cTrack = "flex transition-all duration-[200ms] cursor-pointer";
-const cThumb = "w-[50%] h-full scale-[0.8] transition-all duration-[200ms] shadow";
-const SlideToggle = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let cTrackActive;
-  let cThumbBackground;
-  let cThumbPos;
-  let classesDisabled;
-  let classesBase;
-  let classesLabel;
-  let classesTrack;
-  let classesThumb;
-  let $$restProps = compute_rest_props($$props, ["name", "checked", "size", "background", "active", "border", "rounded", "label"]);
-  let $$slots = compute_slots(slots);
-  createEventDispatcher();
-  let { name } = $$props;
-  let { checked = false } = $$props;
-  let { size = "md" } = $$props;
-  let { background = "bg-surface-400 dark:bg-surface-700" } = $$props;
-  let { active = "bg-surface-900 dark:bg-surface-300" } = $$props;
-  let { border = "" } = $$props;
-  let { rounded = "rounded-full" } = $$props;
-  let { label = "" } = $$props;
-  let trackSize;
-  switch (size) {
-    case "sm":
-      trackSize = "w-12 h-6";
-      break;
-    case "lg":
-      trackSize = "w-20 h-10";
-      break;
-    default:
-      trackSize = "w-16 h-8";
-  }
-  function prunedRestProps() {
-    delete $$restProps.class;
-    return $$restProps;
-  }
-  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
-    $$bindings.name(name);
-  if ($$props.checked === void 0 && $$bindings.checked && checked !== void 0)
-    $$bindings.checked(checked);
-  if ($$props.size === void 0 && $$bindings.size && size !== void 0)
-    $$bindings.size(size);
-  if ($$props.background === void 0 && $$bindings.background && background !== void 0)
-    $$bindings.background(background);
-  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
-    $$bindings.active(active);
-  if ($$props.border === void 0 && $$bindings.border && border !== void 0)
-    $$bindings.border(border);
-  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
-    $$bindings.rounded(rounded);
-  if ($$props.label === void 0 && $$bindings.label && label !== void 0)
-    $$bindings.label(label);
-  cTrackActive = checked ? active : `${background} cursor-pointer`;
-  cThumbBackground = checked ? "bg-white/75" : "bg-white";
-  cThumbPos = checked ? "translate-x-full" : "";
-  classesDisabled = $$props.disabled === true ? "opacity-50" : "hover:brightness-[105%] dark:hover:brightness-110 cursor-pointer";
-  classesBase = `${cBase$2} ${rounded} ${classesDisabled} ${$$props.class ?? ""}`;
-  classesLabel = `${cLabel}`;
-  classesTrack = `${cTrack} ${border} ${rounded} ${trackSize} ${cTrackActive}`;
-  classesThumb = `${cThumb} ${rounded} ${cThumbBackground} ${cThumbPos}`;
-  return `<div${add_attribute("id", label, 0)} class="${"slide-toggle " + escape(classesBase, true)}" data-testid="slide-toggle" role="switch"${add_attribute("aria-label", label, 0)}${add_attribute("aria-checked", checked, 0)} tabindex="0"><label class="${"slide-toggle-label " + escape(classesLabel, true)}"> <input${spread(
-    [
-      { type: "checkbox" },
-      { class: "slide-toggle-input hidden" },
-      { name: escape_attribute_value(name) },
-      escape_object(prunedRestProps()),
-      { disabled: $$props.disabled || null }
-    ],
-    {}
-  )}${add_attribute("checked", checked, 1)}>  <div class="${[
-    "slide-toggle-track " + escape(classesTrack, true),
-    $$props.disabled ? "cursor-not-allowed" : ""
-  ].join(" ").trim()}"><div class="${[
-    "slide-toggle-thumb " + escape(classesThumb, true),
-    $$props.disabled ? "cursor-not-allowed" : ""
-  ].join(" ").trim()}"></div></div>  ${$$slots.default ? `<div class="slide-toggle-text ml-3">${slots.default ? slots.default({}) : ``}</div>` : ``}</label></div>`;
-});
-const cBase$1 = "space-y-4";
-const cList = "flex overflow-x-auto hide-scrollbar";
-const cPanel = "";
-const TabGroup = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let classesBase;
-  let classesList;
-  let classesPanel;
-  let $$slots = compute_slots(slots);
-  let { justify = "justify-start" } = $$props;
-  let { border = "border-b border-surface-400-500-token" } = $$props;
-  let { active = "border-b-2 border-surface-900-50-token" } = $$props;
-  let { hover = "hover:variant-soft" } = $$props;
-  let { flex = "flex-none" } = $$props;
-  let { padding = "px-4 py-2" } = $$props;
-  let { rounded = "rounded-tl-container-token rounded-tr-container-token" } = $$props;
-  let { spacing = "space-y-1" } = $$props;
-  let { regionList = "" } = $$props;
-  let { regionPanel = "" } = $$props;
-  let { labelledby = "" } = $$props;
-  let { panel = "" } = $$props;
-  setContext("active", active);
-  setContext("hover", hover);
-  setContext("flex", flex);
-  setContext("padding", padding);
-  setContext("rounded", rounded);
-  setContext("spacing", spacing);
-  if ($$props.justify === void 0 && $$bindings.justify && justify !== void 0)
-    $$bindings.justify(justify);
-  if ($$props.border === void 0 && $$bindings.border && border !== void 0)
-    $$bindings.border(border);
-  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
-    $$bindings.active(active);
-  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
-    $$bindings.hover(hover);
-  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
-    $$bindings.flex(flex);
-  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
-    $$bindings.padding(padding);
-  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
-    $$bindings.rounded(rounded);
-  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
-    $$bindings.spacing(spacing);
-  if ($$props.regionList === void 0 && $$bindings.regionList && regionList !== void 0)
-    $$bindings.regionList(regionList);
-  if ($$props.regionPanel === void 0 && $$bindings.regionPanel && regionPanel !== void 0)
-    $$bindings.regionPanel(regionPanel);
-  if ($$props.labelledby === void 0 && $$bindings.labelledby && labelledby !== void 0)
-    $$bindings.labelledby(labelledby);
-  if ($$props.panel === void 0 && $$bindings.panel && panel !== void 0)
-    $$bindings.panel(panel);
-  classesBase = `${cBase$1} ${$$props.class ?? ""}`;
-  classesList = `${cList} ${justify} ${border} ${regionList}`;
-  classesPanel = `${cPanel} ${regionPanel}`;
-  return `  <div class="${"tab-group " + escape(classesBase, true)}" data-testid="tab-group"> <div class="${"tab-list " + escape(classesList, true)}" role="tablist"${add_attribute("aria-labelledby", labelledby, 0)}>${slots.default ? slots.default({}) : ``}</div>  ${$$slots.panel ? `<div class="${"tab-panel " + escape(classesPanel, true)}" role="tabpanel"${add_attribute("aria-labelledby", panel, 0)} tabindex="0">${slots.panel ? slots.panel({}) : ``}</div>` : ``}</div>`;
-});
-const cBase = "text-center cursor-pointer transition-colors duration-100";
-const cInterface = "";
-const Tab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let selected;
-  let classesActive;
-  let classesBase;
-  let classesInterface;
-  let classesTab;
-  let $$restProps = compute_rest_props($$props, [
-    "group",
-    "name",
-    "value",
-    "title",
-    "controls",
-    "regionTab",
-    "active",
-    "hover",
-    "flex",
-    "padding",
-    "rounded",
-    "spacing"
-  ]);
-  let $$slots = compute_slots(slots);
-  let { group } = $$props;
-  let { name } = $$props;
-  let { value } = $$props;
-  let { title = "" } = $$props;
-  let { controls = "" } = $$props;
-  let { regionTab = "" } = $$props;
-  let { active = getContext("active") } = $$props;
-  let { hover = getContext("hover") } = $$props;
-  let { flex = getContext("flex") } = $$props;
-  let { padding = getContext("padding") } = $$props;
-  let { rounded = getContext("rounded") } = $$props;
-  let { spacing = getContext("spacing") } = $$props;
-  let elemInput;
-  function prunedRestProps() {
-    delete $$restProps.class;
-    return $$restProps;
-  }
-  if ($$props.group === void 0 && $$bindings.group && group !== void 0)
-    $$bindings.group(group);
-  if ($$props.name === void 0 && $$bindings.name && name !== void 0)
-    $$bindings.name(name);
-  if ($$props.value === void 0 && $$bindings.value && value !== void 0)
-    $$bindings.value(value);
-  if ($$props.title === void 0 && $$bindings.title && title !== void 0)
-    $$bindings.title(title);
-  if ($$props.controls === void 0 && $$bindings.controls && controls !== void 0)
-    $$bindings.controls(controls);
-  if ($$props.regionTab === void 0 && $$bindings.regionTab && regionTab !== void 0)
-    $$bindings.regionTab(regionTab);
-  if ($$props.active === void 0 && $$bindings.active && active !== void 0)
-    $$bindings.active(active);
-  if ($$props.hover === void 0 && $$bindings.hover && hover !== void 0)
-    $$bindings.hover(hover);
-  if ($$props.flex === void 0 && $$bindings.flex && flex !== void 0)
-    $$bindings.flex(flex);
-  if ($$props.padding === void 0 && $$bindings.padding && padding !== void 0)
-    $$bindings.padding(padding);
-  if ($$props.rounded === void 0 && $$bindings.rounded && rounded !== void 0)
-    $$bindings.rounded(rounded);
-  if ($$props.spacing === void 0 && $$bindings.spacing && spacing !== void 0)
-    $$bindings.spacing(spacing);
-  selected = value === group;
-  classesActive = selected ? active : hover;
-  classesBase = `${cBase} ${flex} ${padding} ${rounded} ${classesActive} ${$$props.class ?? ""}`;
-  classesInterface = `${cInterface} ${spacing}`;
-  classesTab = `${regionTab}`;
-  return `<label${add_attribute("class", classesBase, 0)}${add_attribute("title", title, 0)}> <div class="${"tab " + escape(classesTab, true)}" data-testid="tab" role="tab"${add_attribute("aria-controls", controls, 0)}${add_attribute("aria-selected", selected, 0)}${add_attribute("tabindex", selected ? 0 : -1, 0)}> <div class="h-0 w-0 overflow-hidden"><input${spread(
-    [
-      { type: "radio" },
-      { name: escape_attribute_value(name) },
-      { value: escape_attribute_value(value) },
-      escape_object(prunedRestProps()),
-      { tabindex: "-1" }
-    ],
-    {}
-  )}${add_attribute("this", elemInput, 0)}${value === group ? add_attribute("checked", true, 1) : ""}></div>  <div class="${"tab-interface " + escape(classesInterface, true)}">${$$slots.lead ? `<div class="tab-lead">${slots.lead ? slots.lead({}) : ``}</div>` : ``} <div class="tab-label">${slots.default ? slots.default({}) : ``}</div></div></div></label>`;
 });
 const Boolean = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { params } = $$props;
@@ -1172,7 +1144,6 @@ const Fa = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     (pulse ? "pulse" : "") + " " + (size === "lg" ? "svelte-fa-size-lg" : "") + " " + (size === "sm" ? "svelte-fa-size-sm" : "") + " " + (size === "xs" ? "svelte-fa-size-xs" : "") + " " + (fw ? "svelte-fa-fw" : "") + " " + (pull === "left" ? "svelte-fa-pull-left" : "") + " " + (pull === "right" ? "svelte-fa-pull-right" : "") + " " + (spin ? "spin" : "")
   ].join(" ").trim()}"${add_attribute("style", style, 0)} viewBox="${"0 0 " + escape(i[0], true) + " " + escape(i[1], true)}" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"${add_attribute("this", svgElement, 0)}><g transform="${"translate(" + escape(i[0] / 2, true) + " " + escape(i[1] / 2, true) + ")"}" transform-origin="${escape(i[0] / 4, true) + " 0"}"><g${add_attribute("transform", transform, 0)}>${typeof i[4] == "string" ? `<path${add_attribute("d", i[4], 0)}${add_attribute("fill", color || primaryColor || "currentColor", 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>` : ` <path${add_attribute("d", i[4][0], 0)}${add_attribute("fill", secondaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? primaryOpacity : secondaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path> <path${add_attribute("d", i[4][1], 0)}${add_attribute("fill", primaryColor || color || "currentColor", 0)}${add_attribute("fill-opacity", swapOpacity != false ? secondaryOpacity : primaryOpacity, 0)} transform="${"translate(" + escape(i[0] / -2, true) + " " + escape(i[1] / -2, true) + ")"}"></path>`}</g></g></svg>` : ``}`;
 });
-let error = "";
 function moveItem(array, fromIndex, toIndex) {
   if (fromIndex >= 0 && fromIndex < array.length && toIndex >= 0 && toIndex < array.length) {
     const [item] = array.splice(fromIndex, 1);
@@ -1219,6 +1190,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let expressionElements = [];
   let inputValue = "";
   let selectedElement = 0;
+  let error = "";
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
@@ -2260,7 +2232,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let collapsible = false;
   const componentContext = { currencySymbol: "£" };
   $$result.css.add(css);
-  return `<div class="container svelte-1shpih0"><div class="${["schema svelte-1shpih0", ""].join(" ").trim()}"><div class="control svelte-1shpih0"><input type="checkbox" id="collapsible" class="svelte-1shpih0"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1shpih0" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1shpih0">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1shpih0">${validate_component(SubmitForm, "SubmitForm").$$render(
+  return `<div class="h-full w-full flex flex-col justify-start svelte-1shpih0"><h1 class="text-2xl font-bold text-center m-3 svelte-1shpih0" data-svelte-h="svelte-fjpgye">Cylex Trading</h1> <div class="container svelte-1shpih0"><div class="${["schema svelte-1shpih0", ""].join(" ").trim()}"><div class="control svelte-1shpih0"><input type="checkbox" id="collapsible" class="svelte-1shpih0"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1shpih0" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1shpih0">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1shpih0">${validate_component(SubmitForm, "SubmitForm").$$render(
     $$result,
     {
       schema,
@@ -2272,7 +2244,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {},
     {}
   )}</div> <div class="output svelte-1shpih0"><pre class="svelte-1shpih0">			${escape(valueJson)}
-		</pre></div> </div>`;
+		</pre></div></div> </div>`;
 });
 export {
   Page as default

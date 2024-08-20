@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { AppBar } from '@skeletonlabs/skeleton'
 	import SubmitForm from "$lib/SubmitForm.svelte";
 	import "$lib/css/layout.scss";
 	import "$lib/css/basic-skin.scss";
@@ -210,7 +211,16 @@
 	const componentContext = { currencySymbol: '£' };
 </script>
 
-<div class="container">
+
+
+
+
+
+<div class="h-full w-full flex flex-col justify-start">
+	<h1 class="text-2xl font-bold text-center m-3">Cylex Trading</h1>
+
+
+	<div class="container">
 	<div class="schema" class:jsonInvalid>
 		<div class="control">
 			<input type="checkbox" id="collapsible" bind:checked={collapsible} />
@@ -227,6 +237,9 @@
 		</pre>
 	</div>
 </div>
+</div>
+
+
 
 <style>
 	* {

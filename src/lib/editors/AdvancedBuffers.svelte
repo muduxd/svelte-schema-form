@@ -272,7 +272,22 @@
 
 
     const validateExpression = (): void => {
+        if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
+            error = "An expression cannot start with an operator!"
+            return
+        }
 
+        if (expressionElements[expressionElements.length - 1].type === "operator" && expressionElements[expressionElements.length - 1].value !== ")") {
+            error = "An expression cannot finish with an operator!"
+            return
+        }
+
+
+        if (expressionElements[0].type === "operator") {
+            error = "An expression cannot start with an operator!"
+        }
+
+        error = ""
     }
 
 
