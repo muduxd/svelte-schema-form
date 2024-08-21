@@ -139,6 +139,15 @@ function moveArrows(event) {
     tabSet = 1;
   }
 }
+function countString(str, letter) {
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == letter) {
+      count += 1;
+    }
+  }
+  return count;
+}
 const validateExpression = () => {
   if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
     error = "An expression cannot start with an operator!";
@@ -148,8 +157,9 @@ const validateExpression = () => {
     error = "An expression cannot finish with an operator!";
     return;
   }
-  if (expressionElements[0].type === "operator") {
-    error = "An expression cannot start with an operator!";
+  const operators2 = expressionElements.filter((e) => e.type === "operator").map((e) => e.value);
+  if (countString(operators2, ")") === countString(operators2, "(")) {
+    error = "Not enough paranthesis are closed as they are opened!";
   }
   error = "";
 };
