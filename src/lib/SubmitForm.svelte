@@ -8,7 +8,7 @@
 	import { writable } from "svelte/store";
 	import set from "lodash-es/set";
 
-	
+
 	export let schema: any;
 	export let value: any;
 	export let cancelButton = (): void => {}
@@ -24,6 +24,8 @@
 	export let componentContext = {} as Record<string, unknown>;
 
 
+
+	
 
 	const dispatch = createEventDispatcher();
 	let pathProgress = writable({} as Record<string, Record<string, number>>);
