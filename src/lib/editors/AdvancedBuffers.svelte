@@ -5,6 +5,7 @@
     import { afterUpdate, onMount } from "svelte"
 	import { faClose } from '@fortawesome/free-solid-svg-icons'
 	import Fa from 'svelte-fa'
+    import exp from "constants"
 
 
 
@@ -271,19 +272,6 @@
     }
 
 
-    function countString(str: string[], letter: string): number {
-        let count = 0;
-
-        // looping through the items
-        for (let i = 0; i < str.length; i++) {
-
-            // check if the character is at that position
-            if (str[i] == letter) {
-                count += 1;
-            }
-        }
-        return count;
-    }
 
 
     const validateExpression = (): void => {
@@ -298,10 +286,61 @@
         }
 
 
-        const operators: string[] = expressionElements.filter(e => e.type === "operator").map(e => e.value)
 
-        if (countString(operators, ")") === countString(operators, "(")) {
+
+        let opened: number = 0
+        for (let i = 0 ; i < expressionElements.length; i++) {
+            if (expressionElements[i].value === "(") opened++
+            if (expressionElements[i].value === ")") opened--
+
+            if (opened < 0) {
+                error = "Paranthesis closed more then opened!"
+                return
+            }
+        }
+
+        if (opened !== 0) {
             error = "Not enough paranthesis are closed as they are opened!"
+            return
+        }
+
+
+
+        for (let i = 1; i < expressionElements.length; i++) {
+            if (expressionElements[i - 1].type === "buffer" || expressionElements[i - 1].type === "value") {
+                if (expressionElements[i].value === "(" && expressionElements[i].type === "operator") {
+                    error = "Invalid expression!"
+                    return
+                }
+
+                if (expressionElements[i].type === "value" || expressionElements[i].type === "buffer") {
+                    error = "Invalid expression!"
+                    return
+                }
+            }
+
+
+            if (expressionElements[i - 1].type === "operator") {
+                if (expressionElements[i].type === "operator") {
+                    if ((expressionElements[i - 1].value === "(" && expressionElements[i].value === ")") ||
+                        (expressionElements[i - 1].value === "(" && expressionElements[i].value === "(") || 
+                        (expressionElements[i - 1].value === ")" && expressionElements[i].value === ")") ||
+                        ((expressionElements[i - 1].value !== ")" && expressionElements[i - 1].value !== "(") && expressionElements[i].value === "(") ||
+                        ((expressionElements[i].value !== ")" && expressionElements[i].value !== "(") && expressionElements[i - 1].value === ")")
+                    ) {
+                        continue
+                    }
+                    else {
+                        error = "Invalid expression!"
+                        return
+                    }
+                }
+
+                if (expressionElements[i - 1].value === ")" && (expressionElements[i].type === "value" || expressionElements[i].type === "buffer")) {
+                    error = "Invalid expression!"
+                    return 
+                }
+            }
         }
 
         error = ""
@@ -402,7 +441,7 @@
 
             <div class="flex align-center gap-[10px]">
                 <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" bind:value={inputValue} on:keydown={submit} />
-                <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Done</button>
+                <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Validate</button>
             </div>
 
             <span class="text-rose-600 text-center font-bold h-[30px]">{error}</span>

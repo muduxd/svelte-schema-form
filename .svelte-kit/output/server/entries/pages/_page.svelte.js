@@ -14,6 +14,7 @@ import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floati
 import { v4 } from "uuid";
 import "sortablejs";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import "constants";
 import "@exodus/schemasafe/src/pointer.js";
 const storePopup = writable(void 0);
 const cBase$2 = "inline-block";
@@ -1288,7 +1289,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1mphhf2">Done</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[500px] overflow-auto" }, {}, {
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> <span class="text-rose-600 text-center font-bold h-[30px]">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[500px] overflow-auto" }, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
               return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter2(element.category))} </h1>` : ``} <button class="${[
