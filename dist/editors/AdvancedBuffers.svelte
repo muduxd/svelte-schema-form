@@ -3,7 +3,6 @@ import { SortableList } from "@sonderbase/svelte-sortablejs";
 import { afterUpdate, onMount } from "svelte";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Fa from "svelte-fa";
-import exp from "constants";
 const operators = [
   { type: "operator", color: "#ffcc00", value: "(" },
   { type: "operator", color: "#ffcc00", value: ")" },
@@ -60,10 +59,13 @@ let tabSet = 0;
 let showPosition = false;
 let inputRef = null;
 const addExpression = (element) => {
+  if (!element)
+    return;
   if (element.type === "buffer") {
     showPosition = true;
   }
-  expressionElements = [...expressionElements, element];
+  expressionElements.push(element);
+  expressionElements = expressionElements;
   inputValue = "";
   value = convertExpressionToValue();
   params.pathChanged(params.path, value || void 0);

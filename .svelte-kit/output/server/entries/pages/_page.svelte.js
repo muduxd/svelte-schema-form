@@ -14,7 +14,6 @@ import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floati
 import { v4 } from "uuid";
 import "sortablejs";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import "constants";
 import "@exodus/schemasafe/src/pointer.js";
 const storePopup = writable(void 0);
 const cBase$2 = "inline-block";

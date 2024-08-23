@@ -5,7 +5,6 @@
     import { afterUpdate, onMount } from "svelte"
 	import { faClose } from '@fortawesome/free-solid-svg-icons'
 	import Fa from 'svelte-fa'
-    import exp from "constants"
 
 
 
@@ -139,16 +138,20 @@
 
 
 
+    const addExpression = (element: Operator | Buffer | Value | undefined): void => {
+        if (!element) return
 
-
-
-    const addExpression = (element: Operator | Buffer | Value): void => {
         if (element.type === "buffer") {
             showPosition = true
         }
 
-        expressionElements = [...expressionElements, element]
+
+        expressionElements.push(element)
+        expressionElements = expressionElements
+
         inputValue = ""
+
+
 
         value = convertExpressionToValue()
         params.pathChanged(params.path, value || undefined)
@@ -224,7 +227,6 @@
 
     function moveArrows(event) {
         if (event.key === 'Enter') {
-            
             if (tabSet === 0) {
                 addExpression(buffers[selectedElement])
             }
