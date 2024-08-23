@@ -454,7 +454,7 @@
                 <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Validate</button>
             </div>
 
-            <span class="text-rose-600 text-center font-bold h-[30px]" class:!text-lime-500={!isError}>{error}</span>
+            <span class="{isError ? "text-rose-600" : "text-lime-500"} text-center font-bold h-[30px]">{error}</span>
 
 
             <TabGroup class="max-h-[500px] overflow-auto">
