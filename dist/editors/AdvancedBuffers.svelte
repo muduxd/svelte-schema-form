@@ -18,6 +18,7 @@ let expressionElements = [];
 let inputValue = "";
 let selectedElement = 0;
 let error = "";
+let isError = true;
 export let params;
 export let schema;
 export let value = "";
@@ -143,10 +144,12 @@ function moveArrows(event) {
 const validateExpression = () => {
   if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
     error = "An expression cannot start with an operator!";
+    isError = true;
     return;
   }
   if (expressionElements[expressionElements.length - 1].type === "operator" && expressionElements[expressionElements.length - 1].value !== ")") {
     error = "An expression cannot finish with an operator!";
+    isError = true;
     return;
   }
   let opened = 0;
@@ -157,21 +160,25 @@ const validateExpression = () => {
       opened--;
     if (opened < 0) {
       error = "Paranthesis closed more then opened!";
+      isError = true;
       return;
     }
   }
   if (opened !== 0) {
     error = "Not enough paranthesis are closed as they are opened!";
+    isError = true;
     return;
   }
   for (let i = 1; i < expressionElements.length; i++) {
     if (expressionElements[i - 1].type === "buffer" || expressionElements[i - 1].type === "value") {
       if (expressionElements[i].value === "(" && expressionElements[i].type === "operator") {
         error = "Invalid expression!";
+        isError = true;
         return;
       }
       if (expressionElements[i].type === "value" || expressionElements[i].type === "buffer") {
         error = "Invalid expression!";
+        isError = true;
         return;
       }
     }
@@ -181,16 +188,19 @@ const validateExpression = () => {
           continue;
         } else {
           error = "Invalid expression!";
+          isError = true;
           return;
         }
       }
       if (expressionElements[i - 1].value === ")" && (expressionElements[i].type === "value" || expressionElements[i].type === "buffer")) {
         error = "Invalid expression!";
+        isError = true;
         return;
       }
     }
   }
-  error = "";
+  error = "Expression is valid!";
+  isError = false;
 };
 afterUpdate(() => {
   if (showPosition && inputRef) {
@@ -270,7 +280,7 @@ $: {
                 <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Validate</button>
             </div>
 
-            <span class="text-rose-600 text-center font-bold h-[30px]">{error}</span>
+            <span class="text-rose-600 text-center font-bold h-[30px]" class:!text-lime-500={!isError}>{error}</span>
 
 
             <TabGroup class="max-h-[500px] overflow-auto">
