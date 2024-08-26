@@ -8,8 +8,6 @@
 
 
 
-
-
     interface Buffer {
         type: "buffer",
         value: string,
