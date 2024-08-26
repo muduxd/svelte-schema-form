@@ -24,5 +24,4 @@ export default {
 			},
 		}),
 	],
-	important: '#tailwind-scope',
 } satisfies Config;

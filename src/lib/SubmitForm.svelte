@@ -129,7 +129,7 @@
 	</form>
 </div>
 
-<style lang="postcss">
+<style>
 	.not-dirty {
 		background-color: rgb(var(--color-surface-300)) !important;
 		color: rgb(var(--color-surface-500)) !important;

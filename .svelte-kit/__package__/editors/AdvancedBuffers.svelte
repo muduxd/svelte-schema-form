@@ -21,8 +21,6 @@ let isError = true;
 export let params;
 export let schema;
 export let value = "";
-$:
-  console.log("BUFFERS", buffers);
 const isDigit = (char) => char >= "0" && char <= "9";
 const isNumeric = (value2) => /^-?\d+$/.test(value2);
 const isValidChar = (char) => char.toLowerCase() != char.toUpperCase() || char === ":";
@@ -64,15 +62,13 @@ const addExpression = (element) => {
   if (element.type === "buffer") {
     showPosition = true;
   }
-  expressionElements.push(element);
-  expressionElements = expressionElements;
+  expressionElements = [...expressionElements, element];
   inputValue = "";
   value = convertExpressionToValue();
   params.pathChanged(params.path, value || void 0);
 };
 const removeExpression = (index) => {
-  expressionElements.splice(index, 1);
-  expressionElements = expressionElements;
+  expressionElements = expressionElements.filter((_, i) => i !== index);
   value = convertExpressionToValue();
   params.pathChanged(params.path, value || void 0);
 };
@@ -85,6 +81,7 @@ function submit(event) {
         value: +inputValue
       });
     }
+    event.preventDefault();
   }
 }
 function moveItem(array, fromIndex, toIndex) {

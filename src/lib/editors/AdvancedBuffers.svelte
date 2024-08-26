@@ -57,10 +57,6 @@
     export let value: string = ""
 
 
-    $: console.log("BUFFERS", buffers)
-
-
-
     // - AUXILIARY FUNCTIONS -
 
 
@@ -135,7 +131,6 @@
 
 
 
-
     const addExpression = (element: Operator | Buffer | Value | undefined): void => {
         if (!element) return
 
@@ -144,8 +139,8 @@
         }
 
 
-        expressionElements.push(element)
-        expressionElements = expressionElements
+        expressionElements = [...expressionElements, element];
+
 
         inputValue = ""
 
@@ -159,8 +154,7 @@
 
 
     const removeExpression = (index: number): void => {
-		expressionElements.splice(index, 1)
-		expressionElements = expressionElements
+        expressionElements = expressionElements.filter((_, i) => i !== index);
 
         value = convertExpressionToValue()
         params.pathChanged(params.path, value || undefined)
@@ -180,6 +174,8 @@
                     value: +inputValue
                 })
             }
+
+            event.preventDefault();
         }
     }
 
