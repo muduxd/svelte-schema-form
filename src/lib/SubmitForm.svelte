@@ -118,21 +118,18 @@
 	componentContext.doUploads = doUploads;
 </script>
 
-<form class='svelte-schema-form' {action} class:dirty>
-	<SchemaForm bind:schema bind:value on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
+<div id="tailwind-scope">
+	<form class='svelte-schema-form' {action} class:dirty>
+		<SchemaForm bind:schema bind:value on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
 
-	<div class="button-container flex justify-between space-x-4">
-		<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
-		<button type={action ? "submit" : "button"} class="btn variant-filled-primary background-submit !text-white mt-5" on:click={submit} class:not-dirty={!dirty && submitRequiresDirty}>{submitText}</button>
-	</div>
-</form>
+		<div class="button-container flex justify-between space-x-4">
+			<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
+			<button type={action ? "submit" : "button"} class="btn variant-filled-primary background-submit !text-white mt-5" on:click={submit} class:not-dirty={!dirty && submitRequiresDirty}>{submitText}</button>
+		</div>
+	</form>
+</div>
 
 <style lang="postcss">
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
-	@tailwind variants;
-
 	.not-dirty {
 		background-color: rgb(var(--color-surface-300)) !important;
 		color: rgb(var(--color-surface-500)) !important;
