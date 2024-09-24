@@ -14,6 +14,6 @@ $: {
 	<input id={params.path.join('.')} name={params.path.join('.')} placeholder={params.path.join('.')} class="input px-4 py-2"
 		type={type} value={value || ''}
 		disabled={schema.readOnly || params.containerReadOnly}
-		on:input={ev => params.pathChanged(params.path, undefined)} 
+		on:input={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)} 
 	/>
 </svelte:component>
