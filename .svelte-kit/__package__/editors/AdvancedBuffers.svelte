@@ -302,6 +302,8 @@ $: {
                                     </button>
                                 {/each}
                             </div>
+                        {:else if buffers.length === 0}
+                            <h1 class="text-center text-xl font-bold">No chart found!</h1>
                         {:else}
                             <h1 class="text-center text-xl font-bold">No buffers found!</h1>
                         {/if}

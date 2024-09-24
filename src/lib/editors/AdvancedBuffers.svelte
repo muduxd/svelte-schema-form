@@ -52,6 +52,7 @@
     let isError: boolean = true
 
 
+
     export let params: CommonComponentParameters;
 	export let schema: any;
     export let value: string = ""
@@ -165,7 +166,7 @@
 
 
 
-    function submit(event) {
+    function submit(event: any) {
         if (event.key === 'Enter') {
             if (isNumeric(inputValue)) {
                 addExpression({
@@ -473,6 +474,8 @@
                                     </button>
                                 {/each}
                             </div>
+                        {:else if buffers.length === 0}
+                            <h1 class="text-center text-xl font-bold">No chart found!</h1>
                         {:else}
                             <h1 class="text-center text-xl font-bold">No buffers found!</h1>
                         {/if}

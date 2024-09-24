@@ -1292,7 +1292,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
                 "text-left btn hover:bg-surface-800 !text-white h-[35px]",
                 index === selectedElement ? "bg-primary-500" : ""
               ].join(" ").trim()}">${escape(element.value)} </button>`;
-            })}</div>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-d4g7c6">No buffers found!</h1>`}` : `${tabSet === 1 ? `${operators.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(operators, (element, index) => {
+            })}</div>` : `${buffers.length === 0 ? `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-2acx19">No chart found!</h1>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-d4g7c6">No buffers found!</h1>`}`}` : `${tabSet === 1 ? `${operators.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(operators, (element, index) => {
               return `${element.value.includes(inputValue) ? `<button class="${[
                 "text-left btn hover:bg-surface-800 !text-white h-[35px]",
                 index === selectedElement ? "bg-primary-500" : ""
