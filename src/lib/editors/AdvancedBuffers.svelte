@@ -54,6 +54,7 @@
     
 
 
+
     export let params: CommonComponentParameters;
 	export let schema: any;
     export let value: string = ""
@@ -167,7 +168,7 @@
 
 
 
-    function submit(event) {
+    function submit(event: any) {
         if (event.key === 'Enter') {
             if (isNumeric(inputValue)) {
                 addExpression({
@@ -221,6 +222,16 @@
     }
 
 
+    let buttonRefs: any = []
+    function scrollToButton(index) {
+        const element = buttonRefs[index]
+
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+
     function moveArrows(event) {
         if (event.key === 'Enter') {
             if (tabSet === 0) {
@@ -235,6 +246,7 @@
 
         if (event.code === 'ArrowDown') {
             selectedElement++
+            
 
             if (tabSet === 0) {
                 const buffersLength = buffers.map(e => e.value).filter(e => e.includes(inputValue)).length
@@ -251,12 +263,15 @@
                     selectedElement--
                 }
             }
+
+            scrollToButton(selectedElement)
         }
 
         if (event.code === 'ArrowUp') {
             selectedElement--
 
             if (selectedElement < 0) selectedElement = 0
+            scrollToButton(selectedElement)
         }
 
 
@@ -267,7 +282,6 @@
         if (event.code === 'ArrowRight') {
             tabSet = 1
         }
-
     }
 
 
@@ -463,27 +477,29 @@
                     {#if tabSet === 0}
                         {#if buffers.map(e => e.value).filter(e => e.includes(inputValue)).length > 0}
                             <div class="flex flex-col gap-[10px]">
-                                {#each buffers.filter(e => e.value.includes(inputValue)) as element, index}
+                                {#each buffers.filter(e => e.value.includes(inputValue)) as element, index (index)}
                                         {#if index === 0 || (index > 0 && buffers[index].category !== buffers[index - 1].category)}
                                             <h1 class="font-bold text-xl">
                                                 {capitalizeFirstLetter(element.category)}
                                             </h1>
                                         {/if}
 
-                                    <button on:click={() => addExpression(element)} class="text-left btn hover:bg-surface-800 !text-white h-[35px]" class:bg-primary-500={index === selectedElement}>
+                                    <button bind:this={buttonRefs[index]} on:click={() => addExpression(element)} class="text-left btn hover:bg-surface-800 !text-white h-[35px]" class:bg-primary-500={index === selectedElement}>
                                         {element.value}
                                     </button>
                                 {/each}
                             </div>
+                        {:else if buffers.length === 0}
+                            <h1 class="text-center text-xl font-bold">No chart found!</h1>
                         {:else}
                             <h1 class="text-center text-xl font-bold">No buffers found!</h1>
                         {/if}
                     {:else if tabSet === 1}
                             {#if operators.map(e => e.value).filter(e => e.includes(inputValue)).length > 0}
                                 <div class="flex flex-col gap-[10px]">
-                                    {#each operators as element, index}
+                                    {#each operators as element, index (index)}
                                         {#if element.value.includes(inputValue)}
-                                            <button on:click={() => addExpression(element)} class="text-left btn hover:bg-surface-800 !text-white h-[35px]" class:bg-primary-500={index === selectedElement}>
+                                            <button bind:this={buttonRefs[index]} on:click={() => addExpression(element)} class="text-left btn hover:bg-surface-800 !text-white h-[35px]" class:bg-primary-500={index === selectedElement}>
                                                 {element.value}
                                             </button>
                                         {/if}

@@ -1190,6 +1190,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let expressionElements = [];
   let inputValue = "";
   let selectedElement = 0;
+  let error = "";
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
@@ -1284,45 +1285,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} <div class="flex gap-2 items-center">${validate_component(Tab, "Tab").$$render(
-          $$result,
-          {
-            class: "w-full",
-            name: "tab1",
-            value: 0,
-            group: tabSet
-          },
-          {
-            group: ($$value) => {
-              tabSet = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `Buffers`;
-            }
-          }
-        )} ${validate_component(Tab, "Tab").$$render(
-          $$result,
-          {
-            class: "w-full",
-            name: "tab2",
-            value: 1,
-            group: tabSet
-          },
-          {
-            group: ($$value) => {
-              tabSet = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `Operators`;
-            }
-          }
-        )}</div> ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[200px] overflow-auto" }, {}, {
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> <span class="${escape("text-rose-600", true) + " text-center font-bold h-[30px]"}">${escape(error)}</span> ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[500px] overflow-auto" }, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
               return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter2(element.category))} </h1>` : ``} <button class="${[
@@ -1334,7 +1297,38 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
                 "text-left btn hover:bg-surface-800 !text-white h-[35px]",
                 index === selectedElement ? "bg-primary-500" : ""
               ].join(" ").trim()}">${escape(element.value)} </button>` : ``}`;
-            })}</div>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-njnvx8">No operators found!</h1>`}` : ``}`}`;
+            })}</div>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-njnvx8">No operators found!</h1>`}` : ``}`} `;
+          },
+          default: () => {
+            return `${validate_component(Tab, "Tab").$$render(
+              $$result,
+              { name: "tab1", value: 0, group: tabSet },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Buffers`;
+                }
+              }
+            )} ${validate_component(Tab, "Tab").$$render(
+              $$result,
+              { name: "tab2", value: 1, group: tabSet },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Operators`;
+                }
+              }
+            )}`;
           }
         })}</div>`}`;
       }

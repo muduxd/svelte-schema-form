@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { AppBar } from '@skeletonlabs/skeleton'
-	import SubmitForm from "$lib/SubmitForm.svelte";
+	import SubmitForm from "../lib/SubmitForm.svelte";
 	import "$lib/css/layout.scss";
 	import "$lib/css/basic-skin.scss";
 
@@ -108,33 +108,7 @@
         }
 	}
 
-	let schemaa: any = {
-		type:"object",
-		properties:{
-			buffers: {
-                title:"",
-				editor: "buffers",
-				buffersText: ["Buffer1", "Oasddsfgagadf", "gfrew342t", "sdfgdsfg", "sdafasdf"],
-				objects: [{name: "asd", value:"asd"},{name: "asdgfdsfag", value:"324234"},{name: "w342534", value:"wer234"}],
-                // internalVariables: [
-				// 	{name: "asd1", type:"string", value:"asd1"},
-				// 	{name: "dfssdfg", type:"string", value:"dfssdfg1"},
-				// 	{name: "3454", type:"number", value:3454}
-				// ],
-				contextVariables: [
-					{name: "asd2", type:"string", value:"asd2"},
-					{name: "dfssdfg2", type:"string", value:"dfssdfg2"},
-					{name: "3454", type:"number", value:3454}
-				],
-				// runtimeVariables: [
-				// 	{name: "asd3", type:"string", value:"asd3"},
-				// 	{name: "dfssdfg3", type:"string", value:"dfssdfg3"},
-				// 	{name: "3454", type:"number", value:3454}
-				// ]
-			},
-		}
-	}
-
+	
 	let jsonInvalid = false;
 
 	let value = {
