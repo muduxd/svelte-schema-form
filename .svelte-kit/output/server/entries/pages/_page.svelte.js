@@ -1285,45 +1285,49 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} <div class="flex gap-2 items-center">${validate_component(Tab, "Tab").$$render(
-          $$result,
-          {
-            class: "w-full",
-            name: "tab1",
-            value: 0,
-            group: tabSet
-          },
-          {
-            group: ($$value) => {
-              tabSet = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `Buffers`;
-            }
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "w-full" }, {}, {
+          default: () => {
+            return `${validate_component(Tab, "Tab").$$render(
+              $$result,
+              {
+                class: "w-1/2",
+                name: "tab1",
+                value: 0,
+                group: tabSet
+              },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Buffers`;
+                }
+              }
+            )} ${validate_component(Tab, "Tab").$$render(
+              $$result,
+              {
+                class: "w-1/2",
+                name: "tab2",
+                value: 1,
+                group: tabSet
+              },
+              {
+                group: ($$value) => {
+                  tabSet = $$value;
+                  $$settled = false;
+                }
+              },
+              {
+                default: () => {
+                  return `Operators`;
+                }
+              }
+            )}`;
           }
-        )} ${validate_component(Tab, "Tab").$$render(
-          $$result,
-          {
-            class: "w-full",
-            name: "tab2",
-            value: 1,
-            group: tabSet
-          },
-          {
-            group: ($$value) => {
-              tabSet = $$value;
-              $$settled = false;
-            }
-          },
-          {
-            default: () => {
-              return `Operators`;
-            }
-          }
-        )}</div> ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[200px] overflow-auto" }, {}, {
+        })} ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[200px] overflow-auto" }, {}, {
           panel: () => {
             return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
               return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter2(element.category))} </h1>` : ``} <button class="${[

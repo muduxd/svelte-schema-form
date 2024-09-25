@@ -290,10 +290,10 @@ $: {
             {#if error != ""}
                 <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
             {/if}
-            <div class="flex gap-2 items-center">
-                <Tab class="w-full" bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
-                <Tab class="w-full" bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
-            </div>
+            <TabGroup class="w-full">
+                <Tab class="w-1/2" bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
+                <Tab class="w-1/2" bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
+            </TabGroup>
             <TabGroup class="max-h-[200px] overflow-auto">
                 <svelte:fragment slot="panel">
                     {#if tabSet === 0}
