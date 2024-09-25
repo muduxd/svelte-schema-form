@@ -4,11 +4,107 @@
 	import "$lib/css/layout.scss";
 	import "$lib/css/basic-skin.scss";
 
+	let buffersText:any = [
+    {
+        text: "TrendSR1:main:1",
+        category: "TrendSR1"
+    },
+    {
+        text: "TrendSR1:main:2",
+        category: "TrendSR1"
+    },
+    {
+        text: "TrendSR1:main:3",
+        category: "TrendSR1"
+    },
+    {
+        text: "mma:MA16",
+        category: "mma"
+    },
+    {
+        text: "ma:main",
+        category: "ma"
+    },
+    {
+        text: "trade:price",
+        category: "trade"
+    },
+    {
+        text: "trade:tp",
+        category: "trade"
+    },
+    {
+        text: "trade:sl",
+        category: "trade"
+    },
+    {
+        text: "trade:vsl",
+        category: "trade"
+    },
+    {
+        text: "trade:vtp",
+        category: "trade"
+    },
+    {
+        text: "trade:priceBuys",
+        category: "trade"
+    },
+    {
+        text: "trade:priceSells",
+        category: "trade"
+    },
+    {
+        text: "trade:tpBuys",
+        category: "trade"
+    },
+    {
+        text: "trade:tpSells",
+        category: "trade"
+    },
+    {
+        text: "trade:slBuys",
+        category: "trade"
+    },
+    {
+        text: "trade:slSells",
+        category: "trade"
+    },
+    {
+        text: "trade:nrOfOpenTrades",
+        category: "trade"
+    },
+    {
+        text: "trade:nrOfOpenBuys",
+        category: "trade"
+    },
+    {
+        text: "trade:nrOfOpenSells",
+        category: "trade"
+    },
+    {
+        text: "candle:open",
+        category: "candle"
+    },
+    {
+        text: "candle:high",
+        category: "candle"
+    },
+    {
+        text: "candle:low",
+        category: "candle"
+    },
+    {
+        text: "candle:close",
+        category: "candle"
+    }
+]
+
 	let schema: any = {
 		type:"object",
         properties: {
-            x: { type: "advancedBuffers", title: "Test" },
-            a: { type: "string" }
+            x: { type: "advancedBuffers", title: "Test", buffers: 
+				buffersText
+			 },
         }
 	}
 

@@ -278,14 +278,14 @@ $: {
                 <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" bind:value={inputValue} on:keydown={submit} />
                 <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Validate</button>
             </div>
-
-            <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
-
-
-            <TabGroup class="max-h-[500px] overflow-auto">
-                <Tab bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
-                <Tab bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
-
+            {#if error != ""}
+                <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
+            {/if}
+            <div class="flex gap-2 items-center">
+                <Tab class="w-full" bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
+                <Tab class="w-full" bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
+            </div>
+            <TabGroup class="max-h-[200px] overflow-auto">
                 <svelte:fragment slot="panel">
                     {#if tabSet === 0}
                         {#if buffers.map(e => e.value).filter(e => e.includes(inputValue)).length > 0}
