@@ -129,6 +129,7 @@
     let tabSet: number = 0
     let showPosition: boolean = false
     let inputRef: HTMLInputElement | null = null
+    let isFocused: boolean = false
 
 
 
@@ -286,6 +287,28 @@
 
 
 
+    
+    
+    function clickOutside(node: HTMLElement): { destroy: () => void } {
+        const handleClick = (event: MouseEvent): void => {
+            if (node && !node.contains(event.target as Node) && !event.defaultPrevented) {
+                node.dispatchEvent(
+                    new CustomEvent('click_outside', { detail: node })
+                )
+            }
+        }
+    
+        document.addEventListener('click', handleClick, true)
+        
+        return {
+            destroy() {
+                document.removeEventListener('click', handleClick, true);
+            }
+        }
+    }
+
+
+
 
     const validateExpression = (): void => {
         if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
@@ -438,7 +461,7 @@
 <svelte:component this={params.components['fieldWrapper']} {params} {schema}>
     {#if !showPosition}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows}>
+        <div class="bg-surface-600 p-5 rounded-md gap-[20px] flex flex-col" on:keydown={moveArrows} use:clickOutside on:click_outside={() => isFocused = false} on:click={() => isFocused = true}>
 
             {#key expressionElements}
                 <SortableList class="flex align-center gap-[10px] flex-wrap" onSort={changeOrder}>
@@ -468,6 +491,10 @@
             {#if error != ""}
                 <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
             {/if}
+
+
+
+            {#if isFocused}
             <TabGroup class="w-full">
                 <Tab class="w-1/2" bind:group={tabSet} name="tab1" value={0}>Buffers</Tab>
                 <Tab class="w-1/2" bind:group={tabSet} name="tab2" value={1}>Operators</Tab>
@@ -511,7 +538,7 @@
                     {/if}
                 </svelte:fragment>
             </TabGroup>
-
+            {/if}
 
 
         </div>

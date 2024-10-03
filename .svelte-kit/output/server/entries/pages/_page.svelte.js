@@ -1154,46 +1154,12 @@ function moveItem(array, fromIndex, toIndex) {
   return array;
 }
 const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  const operators = [
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: "("
-    },
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: ")"
-    },
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: "+"
-    },
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: "-"
-    },
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: "*"
-    },
-    {
-      type: "operator",
-      color: "#ffcc00",
-      value: "/"
-    }
-  ];
   let buffers = [];
   let expressionElements = [];
   let inputValue = "";
-  let selectedElement = 0;
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
-  const capitalizeFirstLetter2 = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
   const convertExpressionToValue = () => {
     let result = "";
     for (let i = 0; i < expressionElements.length; i++) {
@@ -1201,14 +1167,12 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     }
     return result;
   };
-  let tabSet = 0;
   const changeOrder = (event) => {
     const { newIndex, oldIndex } = event;
     expressionElements = moveItem(expressionElements, oldIndex, newIndex);
     value = convertExpressionToValue();
     params.pathChanged(params.path, value || void 0);
   };
-  let buttonRefs = [];
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -1246,17 +1210,8 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     }
     {
       {
-        if (tabSet === 0) {
-          const buffersLength = buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
-          if (selectedElement >= buffersLength) {
-            selectedElement = buffersLength - 1;
-          }
-        }
-        if (tabSet === 1) {
-          const operatorsLength = operators.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
-          if (selectedElement >= operatorsLength) {
-            selectedElement = operatorsLength - 1;
-          }
+        {
+          buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length;
         }
       }
     }
@@ -1285,63 +1240,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "w-full" }, {}, {
-          default: () => {
-            return `${validate_component(Tab, "Tab").$$render(
-              $$result,
-              {
-                class: "w-1/2",
-                name: "tab1",
-                value: 0,
-                group: tabSet
-              },
-              {
-                group: ($$value) => {
-                  tabSet = $$value;
-                  $$settled = false;
-                }
-              },
-              {
-                default: () => {
-                  return `Buffers`;
-                }
-              }
-            )} ${validate_component(Tab, "Tab").$$render(
-              $$result,
-              {
-                class: "w-1/2",
-                name: "tab2",
-                value: 1,
-                group: tabSet
-              },
-              {
-                group: ($$value) => {
-                  tabSet = $$value;
-                  $$settled = false;
-                }
-              },
-              {
-                default: () => {
-                  return `Operators`;
-                }
-              }
-            )}`;
-          }
-        })} ${validate_component(TabGroup, "TabGroup").$$render($$result, { class: "max-h-[200px] overflow-auto" }, {}, {
-          panel: () => {
-            return `${tabSet === 0 ? `${buffers.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(buffers.filter((e) => e.value.includes(inputValue)), (element, index) => {
-              return `${index === 0 || index > 0 && buffers[index].category !== buffers[index - 1].category ? `<h1 class="font-bold text-xl">${escape(capitalizeFirstLetter2(element.category))} </h1>` : ``} <button class="${[
-                "text-left btn hover:bg-surface-800 !text-white h-[35px]",
-                index === selectedElement ? "bg-primary-500" : ""
-              ].join(" ").trim()}"${add_attribute("this", buttonRefs[index], 0)}>${escape(element.value)} </button>`;
-            })}</div>` : `${buffers.length === 0 ? `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-2acx19">No chart found!</h1>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-d4g7c6">No buffers found!</h1>`}`}` : `${tabSet === 1 ? `${operators.map((e) => e.value).filter((e) => e.includes(inputValue)).length > 0 ? `<div class="flex flex-col gap-[10px]">${each(operators, (element, index) => {
-              return `${element.value.includes(inputValue) ? `<button class="${[
-                "text-left btn hover:bg-surface-800 !text-white h-[35px]",
-                index === selectedElement ? "bg-primary-500" : ""
-              ].join(" ").trim()}"${add_attribute("this", buttonRefs[index], 0)}>${escape(element.value)} </button>` : ``}`;
-            })}</div>` : `<h1 class="text-center text-xl font-bold" data-svelte-h="svelte-njnvx8">No operators found!</h1>`}` : ``}`}`;
-          }
-        })}</div>`}`;
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} ${``}</div>`}`;
       }
     })}`;
   } while (!$$settled);
