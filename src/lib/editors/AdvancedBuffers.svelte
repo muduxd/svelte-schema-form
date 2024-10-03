@@ -129,7 +129,7 @@
     let tabSet: number = 0
     let showPosition: boolean = false
     let inputRef: HTMLInputElement | null = null
-    let isFocused: boolean = false
+    let isFocused: boolean = true
 
 
 
