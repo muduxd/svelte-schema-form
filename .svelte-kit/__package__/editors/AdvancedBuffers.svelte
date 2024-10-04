@@ -56,7 +56,7 @@ const convertExpressionToValue = () => {
 let tabSet = 0;
 let showPosition = false;
 let inputRef = null;
-let isFocused = true;
+let isFocused = false;
 const addExpression = (element) => {
   if (!element)
     return;
