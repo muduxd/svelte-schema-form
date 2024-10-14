@@ -68,7 +68,7 @@
 
     const isDigit = (char: string) => char >= "0" && char <= "9"
     const isNumeric = (value: string): boolean => /^-?\d+$/.test(value)
-    const isValidChar = (char: string) => char.toLowerCase() != char.toUpperCase() || char === ":"
+    const isValidChar = (char: string) => { console.log(char); return char.toLowerCase() != char.toUpperCase() || char === ":"}
 	const capitalizeFirstLetter = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
 
 

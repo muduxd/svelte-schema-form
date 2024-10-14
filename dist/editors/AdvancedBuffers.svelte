@@ -24,7 +24,10 @@ export let value = "";
 console.log("INCOMING VALUE: -", value, "-");
 const isDigit = (char) => char >= "0" && char <= "9";
 const isNumeric = (value2) => /^-?\d+$/.test(value2);
-const isValidChar = (char) => char.toLowerCase() != char.toUpperCase() || char === ":";
+const isValidChar = (char) => {
+  console.log(char);
+  return char.toLowerCase() != char.toUpperCase() || char === ":";
+};
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
   for (let i = 0; i < formValue.length; i++) {
