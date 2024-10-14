@@ -1219,7 +1219,6 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     value = convertExpressionToValue();
     params.pathChanged(params.path, value || void 0);
   };
-  convertValueToExpression(value);
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -1235,6 +1234,9 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     value = value;
     {
       console.log("INCOMING VALUE: -", value, "-");
+    }
+    {
+      convertValueToExpression(value);
     }
     {
       {
