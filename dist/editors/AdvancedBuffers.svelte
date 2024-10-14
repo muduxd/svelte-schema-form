@@ -31,6 +31,7 @@ const isValidChar = (char) => {
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
   for (let i = 0; i < formValue.length; i++) {
+    console.log("current form value: ", formValue[i]);
     if ("+-*/()".includes(formValue[i])) {
       expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
     } else if (isDigit(formValue[i])) {

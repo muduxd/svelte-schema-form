@@ -80,6 +80,9 @@
 
     const convertValueToExpression = (formValue: string): void => {
         for (let i = 0; i < formValue.length; i++) {
+            console.log("current form value: ", formValue[i])
+
+
             if ("+-*/()".includes(formValue[i])) {
                 expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }]
             }
