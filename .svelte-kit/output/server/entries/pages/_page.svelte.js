@@ -1163,6 +1163,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   const isDigit = (char) => char >= "0" && char <= "9";
   const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
   const convertValueToExpression = (formValue) => {
+    expressionElements = [];
     for (let i = 0; i < formValue.length; i++) {
       if ("+-*/()".includes(formValue[i])) {
         expressionElements = [
@@ -1231,12 +1232,11 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   do {
     $$settled = true;
     $$result.head = previous_head;
-    value = value;
     {
-      console.log("INCOMING VALUE: -", value, "-");
-    }
-    {
-      convertValueToExpression(value);
+      {
+        value = value;
+        convertValueToExpression(value);
+      }
     }
     {
       {

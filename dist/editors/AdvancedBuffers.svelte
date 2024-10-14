@@ -21,15 +21,16 @@ let isError = true;
 export let params;
 export let schema;
 export let value = "";
-$:
+$: {
   value = value;
-$:
-  console.log("INCOMING VALUE: -", value, "-");
+  convertValueToExpression(value);
+}
 const isDigit = (char) => char >= "0" && char <= "9";
 const isNumeric = (value2) => /^-?\d+$/.test(value2);
 const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
+  expressionElements = [];
   for (let i = 0; i < formValue.length; i++) {
     if ("+-*/()".includes(formValue[i])) {
       expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
@@ -235,8 +236,6 @@ afterUpdate(() => {
     inputRef.focus();
   }
 });
-$:
-  convertValueToExpression(value);
 $: {
   if (Array.isArray(schema.buffers)) {
     const results = [...schema.buffers];

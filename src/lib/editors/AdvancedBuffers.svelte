@@ -58,9 +58,12 @@
     export let params: CommonComponentParameters;
 	export let schema: any;
     export let value: string = ""
-    $: value = value
+    $: { 
+        value = value
+        convertValueToExpression(value)
+    }
 
-    $: console.log("INCOMING VALUE: -", value, "-")
+    
 
 
     // - AUXILIARY FUNCTIONS -
@@ -79,6 +82,8 @@
     // - CONVERSION FUNCTIONS -
 
     const convertValueToExpression = (formValue: string): void => {
+        expressionElements = []
+
         for (let i = 0; i < formValue.length; i++) {
             if ("+-*/()".includes(formValue[i])) {
                 expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }]
@@ -404,7 +409,6 @@
 
 
 
-    $: convertValueToExpression(value)
 
 
 
