@@ -1160,6 +1160,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
+  console.log("INCOMING VALUE: -", value, "-");
   const convertExpressionToValue = () => {
     let result = "";
     for (let i = 0; i < expressionElements.length; i++) {
