@@ -54,7 +54,7 @@
     
 
 
-
+    let runOneTime: boolean = true
     export let params: CommonComponentParameters;
 	export let schema: any;
     export let value: string = ""
@@ -82,7 +82,15 @@
     // - CONVERSION FUNCTIONS -
 
     const convertValueToExpression = (formValue: string): void => {
-        expressionElements = []
+        if (formValue.length === 0) return
+
+        if (runOneTime) {
+            runOneTime = false
+        }
+        else {
+            return
+        }
+        
 
         for (let i = 0; i < formValue.length; i++) {
             if ("+-*/()".includes(formValue[i])) {

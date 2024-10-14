@@ -1157,13 +1157,20 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let buffers = [];
   let expressionElements = [];
   let inputValue = "";
+  let runOneTime = true;
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
   const isDigit = (char) => char >= "0" && char <= "9";
   const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
   const convertValueToExpression = (formValue) => {
-    expressionElements = [];
+    if (formValue.length === 0)
+      return;
+    if (runOneTime) {
+      runOneTime = false;
+    } else {
+      return;
+    }
     for (let i = 0; i < formValue.length; i++) {
       if ("+-*/()".includes(formValue[i])) {
         expressionElements = [

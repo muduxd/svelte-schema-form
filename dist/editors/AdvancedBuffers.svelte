@@ -18,6 +18,7 @@ let inputValue = "";
 let selectedElement = 0;
 let error = "";
 let isError = true;
+let runOneTime = true;
 export let params;
 export let schema;
 export let value = "";
@@ -30,7 +31,13 @@ const isNumeric = (value2) => /^-?\d+$/.test(value2);
 const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
-  expressionElements = [];
+  if (formValue.length === 0)
+    return;
+  if (runOneTime) {
+    runOneTime = false;
+  } else {
+    return;
+  }
   for (let i = 0; i < formValue.length; i++) {
     if ("+-*/()".includes(formValue[i])) {
       expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
