@@ -24,14 +24,10 @@ export let value = "";
 console.log("INCOMING VALUE: -", value, "-");
 const isDigit = (char) => char >= "0" && char <= "9";
 const isNumeric = (value2) => /^-?\d+$/.test(value2);
-const isValidChar = (char) => {
-  console.log(char);
-  return char.toLowerCase() != char.toUpperCase() || char === ":";
-};
+const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
   for (let i = 0; i < formValue.length; i++) {
-    console.log("current form value: ", formValue[i]);
     if ("+-*/()".includes(formValue[i])) {
       expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
     } else if (isDigit(formValue[i])) {
