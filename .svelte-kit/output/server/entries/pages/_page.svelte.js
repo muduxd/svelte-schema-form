@@ -1160,6 +1160,52 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
+  const isDigit = (char) => char >= "0" && char <= "9";
+  const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
+  const convertValueToExpression = (formValue) => {
+    for (let i = 0; i < formValue.length; i++) {
+      if ("+-*/()".includes(formValue[i])) {
+        expressionElements = [
+          ...expressionElements,
+          {
+            type: "operator",
+            color: "#ffcc00",
+            value: formValue[i]
+          }
+        ];
+      } else if (isDigit(formValue[i])) {
+        let numberValue = formValue[i++];
+        while (isDigit(formValue[i])) {
+          numberValue += formValue[i++];
+        }
+        i--;
+        expressionElements = [
+          ...expressionElements,
+          {
+            type: "value",
+            value: +numberValue,
+            color: "blue"
+          }
+        ];
+      } else if (isValidChar(formValue[i])) {
+        let stringValue = formValue[i++];
+        while (isValidChar(formValue[i])) {
+          stringValue += formValue[i++];
+        }
+        i--;
+        expressionElements = [
+          ...expressionElements,
+          {
+            type: "buffer",
+            value: stringValue,
+            color: "red",
+            position: 0,
+            category: "indicator"
+          }
+        ];
+      }
+    }
+  };
   const convertExpressionToValue = () => {
     let result = "";
     for (let i = 0; i < expressionElements.length; i++) {
@@ -1173,6 +1219,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     value = convertExpressionToValue();
     params.pathChanged(params.path, value || void 0);
   };
+  convertValueToExpression(value);
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)

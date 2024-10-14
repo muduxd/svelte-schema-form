@@ -404,9 +404,7 @@
 
 
 
-    onMount(() => {
-        convertValueToExpression(value)
-    })
+    convertValueToExpression(value)
 
 
 

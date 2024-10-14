@@ -235,9 +235,7 @@ afterUpdate(() => {
     inputRef.focus();
   }
 });
-onMount(() => {
-  convertValueToExpression(value);
-});
+convertValueToExpression(value);
 $: {
   if (Array.isArray(schema.buffers)) {
     const results = [...schema.buffers];
