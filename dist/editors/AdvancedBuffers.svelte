@@ -21,7 +21,10 @@ let isError = true;
 export let params;
 export let schema;
 export let value = "";
-console.log("INCOMING VALUE: -", value, "-");
+$:
+  value = value;
+$:
+  console.log("INCOMING VALUE: -", value, "-");
 const isDigit = (char) => char >= "0" && char <= "9";
 const isNumeric = (value2) => /^-?\d+$/.test(value2);
 const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");

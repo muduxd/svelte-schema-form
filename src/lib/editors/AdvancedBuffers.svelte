@@ -58,9 +58,9 @@
     export let params: CommonComponentParameters;
 	export let schema: any;
     export let value: string = ""
+    $: value = value
 
-
-    console.log("INCOMING VALUE: -", value, "-")
+    $: console.log("INCOMING VALUE: -", value, "-")
 
 
     // - AUXILIARY FUNCTIONS -
