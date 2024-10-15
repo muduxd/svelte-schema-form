@@ -1197,7 +1197,21 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
         ];
       } else if (isValidChar(formValue[i])) {
         let stringValue = formValue[i++];
-        while (isValidChar(formValue[i])) {
+        let position = "";
+        let addingPosition = false;
+        while (isValidChar(formValue[i]) || formValue[i] === "[" || formValue[i] === "]" || isDigit(formValue[i])) {
+          if (formValue[i] === "[" && addingPosition === false) {
+            addingPosition = true;
+            i++;
+            continue;
+          }
+          if (formValue[i] === "]" && addingPosition === true) {
+            break;
+          }
+          if (isDigit(formValue[i]) && addingPosition === true) {
+            position += formValue[i++];
+            continue;
+          }
           stringValue += formValue[i++];
         }
         i--;
@@ -1207,7 +1221,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
             type: "buffer",
             value: stringValue,
             color: "red",
-            position: 0,
+            position: +position,
             category: "indicator"
           }
         ];
@@ -2022,7 +2036,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       }
     }
   };
-  let value = { buffers: "asd asdfasdf" };
+  let value = { x: "asd32[129] + 32asfd:open[03209]" };
   let valueJson = "";
   let collapsible = false;
   const componentContext = { currencySymbol: "£" };

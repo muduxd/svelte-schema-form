@@ -90,7 +90,7 @@
         else {
             return
         }
-        
+
 
         for (let i = 0; i < formValue.length; i++) {
             if ("+-*/()".includes(formValue[i])) {
@@ -110,13 +110,32 @@
 
             else if (isValidChar(formValue[i])) {
                 let stringValue = formValue[i++]
+                let position = ""
+                let addingPosition = false
+
                 
-                while (isValidChar(formValue[i])) {
+                while (isValidChar(formValue[i]) || formValue[i] === "[" || formValue[i] === "]" || isDigit(formValue[i])) {
+                    if (formValue[i] === "[" && addingPosition === false) {
+                        addingPosition = true
+                        i++
+                        continue
+                    }
+                
+                    if (formValue[i] === "]" && addingPosition === true) {
+                        break
+                    }
+
+                    if (isDigit(formValue[i]) && addingPosition === true) {
+                        position += formValue[i++]
+                        continue
+                    }
+
+
                     stringValue += formValue[i++]
                 }
 
                 i--
-                expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: 0, category: "indicator" }]
+                expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: +position, category: "indicator" }]
             }
         }
     }

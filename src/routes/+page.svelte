@@ -112,7 +112,7 @@
 	let jsonInvalid = false;
 
 	let value = {
-		buffers: "asd asdfasdf"
+		x: "asd32[129] + 32asfd:open[03209]"
 	};
 	let valueJson = '';
 	let collapsible = false;
