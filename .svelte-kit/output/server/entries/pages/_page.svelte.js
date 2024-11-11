@@ -1157,6 +1157,8 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let buffers = [];
   let expressionElements = [];
   let inputValue = "";
+  let error = "";
+  let isError = true;
   let runOneTime = true;
   let { params } = $$props;
   let { schema } = $$props;
@@ -1241,6 +1243,72 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     value = convertExpressionToValue();
     params.pathChanged(params.path, value || void 0);
   };
+  const validateExpression = () => {
+    if (expressionElements.length <= 0) {
+      error = "An expression is needed!";
+      isError = true;
+      return;
+    }
+    if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
+      error = "An expression cannot start with an operator!";
+      isError = true;
+      return;
+    }
+    if (expressionElements[expressionElements.length - 1].type === "operator" && expressionElements[expressionElements.length - 1].value !== ")") {
+      error = "An expression cannot finish with an operator!";
+      isError = true;
+      return;
+    }
+    let opened = 0;
+    for (let i = 0; i < expressionElements.length; i++) {
+      if (expressionElements[i].value === "(")
+        opened++;
+      if (expressionElements[i].value === ")")
+        opened--;
+      if (opened < 0) {
+        error = "Paranthesis closed more then opened!";
+        isError = true;
+        return;
+      }
+    }
+    if (opened !== 0) {
+      error = "Not enough paranthesis are closed as they are opened!";
+      isError = true;
+      return;
+    }
+    for (let i = 1; i < expressionElements.length; i++) {
+      if (expressionElements[i - 1].type === "buffer" || expressionElements[i - 1].type === "value") {
+        if (expressionElements[i].value === "(" && expressionElements[i].type === "operator") {
+          error = "Invalid expression!";
+          isError = true;
+          return;
+        }
+        if (expressionElements[i].type === "value" || expressionElements[i].type === "buffer") {
+          error = "Invalid expression!";
+          isError = true;
+          return;
+        }
+      }
+      if (expressionElements[i - 1].type === "operator") {
+        if (expressionElements[i].type === "operator") {
+          if (expressionElements[i - 1].value === "(" && expressionElements[i].value === ")" || expressionElements[i - 1].value === "(" && expressionElements[i].value === "(" || expressionElements[i - 1].value === ")" && expressionElements[i].value === ")" || expressionElements[i - 1].value !== ")" && expressionElements[i - 1].value !== "(" && expressionElements[i].value === "(" || expressionElements[i].value !== ")" && expressionElements[i].value !== "(" && expressionElements[i - 1].value === ")") {
+            continue;
+          } else {
+            error = "Invalid expression!";
+            isError = true;
+            return;
+          }
+        }
+        if (expressionElements[i - 1].value === ")" && (expressionElements[i].type === "value" || expressionElements[i].type === "buffer")) {
+          error = "Invalid expression!";
+          isError = true;
+          return;
+        }
+      }
+    }
+    error = "Expression is valid!";
+    isError = false;
+  };
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
   if ($$props.schema === void 0 && $$bindings.schema && schema !== void 0)
@@ -1257,6 +1325,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
       {
         value = value;
         convertValueToExpression(value);
+        validateExpression();
       }
     }
     {
@@ -1314,7 +1383,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}> <button class="btn variant-filled-primary !text-white" data-svelte-h="svelte-1a4s6bo">Validate</button></div> ${``} ${``}</div>`}`;
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}></div> ${error != "" ? `<span class="${escape(isError ? "text-rose-600" : "text-green-500", true) + " text-center font-bold h-[30px]"}">${escape(error)}</span>` : ``} ${``}</div>`}`;
       }
     })}`;
   } while (!$$settled);

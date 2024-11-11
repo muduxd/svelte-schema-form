@@ -61,6 +61,7 @@
     $: { 
         value = value
         convertValueToExpression(value)
+        validateExpression();
     }
 
     
@@ -188,9 +189,6 @@
         value = convertExpressionToValue()
         params.pathChanged(params.path, value || undefined)
     }
-
-
-
 
     const removeExpression = (index: number): void => {
         expressionElements = expressionElements.filter((_, i) => i !== index);
@@ -346,7 +344,6 @@
 
 
     const validateExpression = (): void => {
-        console.log(expressionElements)
         if(expressionElements.length <= 0){
             error = "An expression is needed!"
             isError = true
@@ -524,7 +521,6 @@
 
             <div class="flex align-center gap-[10px]">
                 <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" bind:value={inputValue} on:keydown={submit} />
-                <button class="btn variant-filled-primary !text-white" on:click={validateExpression}>Validate</button>
             </div>
             {#if error != ""}
                 <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
