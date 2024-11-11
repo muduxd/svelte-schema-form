@@ -4,6 +4,7 @@ import { stringToHtml } from "../utilities.js";
 export let params;
 export let schema;
 export let value;
+export let allInputsValid;
 let propnames;
 $:
   propNames = Object.keys(schema.properties);
@@ -48,6 +49,7 @@ $:
 				}}
 				value={value?.[propName]}
 				bind:schema={schema.properties[propName]}
+				bind:allInputsValid
 			/>
 		{/each}
 	{/if}

@@ -2,6 +2,7 @@
 export let params;
 export let schema;
 export let value;
+export let allInputsValid;
 let { components } = params;
 let typeComponent;
 let component;
@@ -10,5 +11,5 @@ $:
 </script>
 
 <div>
-<svelte:component this={component} {params} {value} bind:schema class="h-[40px]" />
+<svelte:component this={component} {params} {value} bind:allInputsValid bind:schema class="h-[40px]" />
 </div>

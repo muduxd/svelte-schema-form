@@ -5,6 +5,7 @@ declare const __propDef: {
         params: CommonComponentParameters;
         schema: any;
         value?: string | undefined;
+        allInputsValid: any;
     };
     events: {
         [evt: string]: CustomEvent<any>;

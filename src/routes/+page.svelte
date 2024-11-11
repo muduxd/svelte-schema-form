@@ -105,6 +105,10 @@
             x: { type: "advancedBuffers", title: "Test", buffers: 
 				buffersText
 			 },
+			 y: { type: "advancedBuffers", title: "Test2", buffers: 
+				buffersText
+			 },
+			 z:{ type: "string", title: "Test3"}
         }
 	}
 
@@ -112,7 +116,8 @@
 	let jsonInvalid = false;
 
 	let value = {
-		x: "asd32[129] + 32asfd:open[03209]"
+		x: "asd32[129] + 32asfd:open[03209]",
+		y: "asd32[129] + 32asfd:open[23]",
 	};
 	let valueJson = '';
 	let collapsible = false;
@@ -140,7 +145,7 @@
 	<h1 class="text-2xl font-bold text-center m-3">Cylex Trading</h1>
 
 
-	<div class="container">
+	<div>
 	<div class="schema" class:jsonInvalid>
 		<div class="control">
 			<input type="checkbox" id="collapsible" bind:checked={collapsible} />

@@ -9,6 +9,7 @@ declare const __propDef: {
         collapsible?: boolean | undefined;
         components?: Record<string, new (...args: any[]) => any> | undefined;
         componentContext?: Record<string, unknown> | undefined;
+        allInputsValid: any;
     };
     events: {
         [evt: string]: CustomEvent<any>;
@@ -43,5 +44,8 @@ export default class SchemaForm extends SvelteComponent<SchemaFormProps, SchemaF
     get componentContext(): Record<string, unknown> | undefined;
     /**accessor*/
     set componentContext(_: Record<string, unknown> | undefined);
+    get allInputsValid(): any;
+    /**accessor*/
+    set allInputsValid(_: any);
 }
 export {};

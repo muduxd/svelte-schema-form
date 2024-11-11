@@ -1,9 +1,10 @@
 <script lang="ts">
-	import type { CommonComponentParameters } from "./types/CommonComponentParameters";
+import type { CommonComponentParameters } from "./types/CommonComponentParameters";
 	import { editorForSchema } from "./types/schema";
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
+	export let allInputsValid
 	let { components } = params;
 
 	let typeComponent: any;
@@ -13,5 +14,5 @@
 </script>
 
 <div>
-<svelte:component this={component} {params} {value} bind:schema class="h-[40px]" />
+<svelte:component this={component} {params} {value} bind:allInputsValid bind:schema class="h-[40px]" />
 </div>

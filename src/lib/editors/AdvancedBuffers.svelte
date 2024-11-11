@@ -63,6 +63,7 @@
         convertValueToExpression(value)
         validateExpression();
     }
+    export let allInputsValid
 
     
 
@@ -76,7 +77,7 @@
 	const capitalizeFirstLetter = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
 
 
-
+    
 
 
 
@@ -347,17 +348,20 @@
         if(expressionElements.length <= 0){
             error = "An expression is needed!"
             isError = true
+            allInputsValid[params.path[0]] = false
             return
         }
         if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
             error = "An expression cannot start with an operator!"
             isError = true
+            allInputsValid[params.path[0]] = false
             return
         }
 
         if (expressionElements[expressionElements.length - 1].type === "operator" && expressionElements[expressionElements.length - 1].value !== ")") {
             error = "An expression cannot finish with an operator!"
             isError = true
+            allInputsValid[params.path[0]] = false
             return
         }
 
@@ -372,6 +376,7 @@
             if (opened < 0) {
                 error = "Paranthesis closed more then opened!"
             isError = true
+            allInputsValid[params.path[0]] = false
                 return
             }
         }
@@ -379,6 +384,7 @@
         if (opened !== 0) {
             error = "Not enough paranthesis are closed as they are opened!"
             isError = true
+            allInputsValid[params.path[0]] = false
             return
         }
 
@@ -389,12 +395,14 @@
                 if (expressionElements[i].value === "(" && expressionElements[i].type === "operator") {
                     error = "Invalid expression!"
                     isError = true
+                    allInputsValid[params.path[0]] = false
                     return
                 }
 
                 if (expressionElements[i].type === "value" || expressionElements[i].type === "buffer") {
                     error = "Invalid expression!"
                     isError = true
+                    allInputsValid[params.path[0]] = false
                     return
                 }
             }
@@ -413,6 +421,7 @@
                     else {
                         error = "Invalid expression!"
                         isError = true
+                        allInputsValid[params.path[0]] = false
                         return
                     }
                 }
@@ -420,6 +429,7 @@
                 if (expressionElements[i - 1].value === ")" && (expressionElements[i].type === "value" || expressionElements[i].type === "buffer")) {
                     error = "Invalid expression!"
                     isError = true
+                    allInputsValid[params.path[0]] = false
                     return 
                 }
             }
@@ -427,6 +437,7 @@
 
         error = "Expression is valid!"
         isError = false
+        allInputsValid[params.path[0]] = true
     }
 
 

@@ -34,6 +34,7 @@ export let showErrors = true;
 export let collapsible = false;
 export let components = {};
 export let componentContext = {};
+export let allInputsValid;
 const dispatch = createEventDispatcher();
 let validationErrors = {};
 let params;
@@ -108,4 +109,4 @@ const pathChanged = (path, val, op) => {
 };
 </script>
 
-<SubSchemaForm {params} {value} bind:schema />
+<SubSchemaForm {params} {value} bind:allInputsValid bind:schema />

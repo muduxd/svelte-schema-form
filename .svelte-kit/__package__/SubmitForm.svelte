@@ -20,6 +20,7 @@ export let collapsible = false;
 export let submitText = "Submit";
 export let submitRequiresDirty = true;
 export let componentContext = {};
+let allInputsValid = {};
 const dispatch = createEventDispatcher();
 let pathProgress = writable({});
 setContext(ProgressContext, pathProgress);
@@ -85,7 +86,7 @@ const doUploads = async (pathPrefix = "") => {
   }
 };
 const submit = async () => {
-  if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0) {
+  if ((dirty || !submitRequiresDirty) && Object.keys(currentErrors).length === 0 && !Object.values(allInputsValid).includes(false)) {
     dispatch("submit", { value });
     dirty = false;
   }
@@ -96,11 +97,11 @@ componentContext.doUploads = doUploads;
 
 <div id="tailwind-scope">
 	<form class='svelte-schema-form' {action} class:dirty>
-		<SchemaForm bind:schema bind:value on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
+		<SchemaForm bind:allInputsValid bind:schema bind:value on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
 
 		<div class="button-container flex justify-between space-x-4">
 			<button class="btn variant-ghost-surface mt-5" on:click={cancelButton}>Close</button>
-			<button type={action ? "submit" : "button"} class="btn variant-filled-primary background-submit !text-white mt-5" on:click={submit} class:not-dirty={!dirty && submitRequiresDirty}>{submitText}</button>
+			<button type={action ? "submit" : "button"} class="btn variant-filled-primary background-submit !text-white mt-5" on:click={submit} class:not-dirty={(!dirty && submitRequiresDirty) || Object.values(allInputsValid).includes(false)}>{submitText}</button>
 		</div>
 	</form>
 </div>

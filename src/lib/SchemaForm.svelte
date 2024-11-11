@@ -36,6 +36,7 @@
 	export let collapsible: boolean = false;
 	export let components: Record<string, new (...args: any[]) => any> = {};
 	export let componentContext: Record<string, unknown> = {};
+	export let allInputsValid
 
 	const dispatch = createEventDispatcher();
 
@@ -121,4 +122,4 @@
 	};
 </script>
 
-<SubSchemaForm {params} {value} bind:schema />
+<SubSchemaForm {params} {value} bind:allInputsValid bind:schema />

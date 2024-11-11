@@ -7,6 +7,7 @@
 	export let params: CommonComponentParameters;
 	export let schema: any;
 	export let value: any;
+	export let allInputsValid
 
 	let propnames: string[];
 	$: propNames = Object.keys(schema.properties);
@@ -53,6 +54,7 @@
 				}}
 				value={value?.[propName]}
 				bind:schema={schema.properties[propName]}
+				bind:allInputsValid
 			/>
 		{/each}
 	{/if}

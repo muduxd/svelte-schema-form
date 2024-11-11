@@ -332,6 +332,7 @@ const SubSchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
+  let { allInputsValid } = $$props;
   let { components } = params;
   let component;
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
@@ -340,6 +341,8 @@ const SubSchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  if ($$props.allInputsValid === void 0 && $$bindings.allInputsValid && allInputsValid !== void 0)
+    $$bindings.allInputsValid(allInputsValid);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -349,8 +352,18 @@ const SubSchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots
     component = components[editorForSchema(schema)];
     $$rendered = `<div>${validate_component(component || missing_component, "svelte:component").$$render(
       $$result,
-      { params, value, class: "h-[40px]", schema },
       {
+        params,
+        value,
+        class: "h-[40px]",
+        allInputsValid,
+        schema
+      },
+      {
+        allInputsValid: ($$value) => {
+          allInputsValid = $$value;
+          $$settled = false;
+        },
         schema: ($$value) => {
           schema = $$value;
           $$settled = false;
@@ -412,6 +425,7 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   let { params } = $$props;
   let { schema } = $$props;
   let { value } = $$props;
+  let { allInputsValid } = $$props;
   let collapserOpenState = params.path.length === 0 || params.containerParent === "array" || !params.collapsible ? "open" : "closed";
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
@@ -419,6 +433,8 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  if ($$props.allInputsValid === void 0 && $$bindings.allInputsValid && allInputsValid !== void 0)
+    $$bindings.allInputsValid(allInputsValid);
   $$result.css.add(css$6);
   let $$settled;
   let $$rendered;
@@ -442,11 +458,16 @@ const Object_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => 
             containerReadOnly: params.containerReadOnly || schema.readOnly || false
           },
           value: value?.[propName],
-          schema: schema.properties[propName]
+          schema: schema.properties[propName],
+          allInputsValid
         },
         {
           schema: ($$value) => {
             schema.properties[propName] = $$value;
+            $$settled = false;
+          },
+          allInputsValid: ($$value) => {
+            allInputsValid = $$value;
             $$settled = false;
           }
         },
@@ -1163,6 +1184,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   let { params } = $$props;
   let { schema } = $$props;
   let { value = "" } = $$props;
+  let { allInputsValid } = $$props;
   const isDigit = (char) => char >= "0" && char <= "9";
   const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
   const convertValueToExpression = (formValue) => {
@@ -1247,16 +1269,19 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     if (expressionElements.length <= 0) {
       error = "An expression is needed!";
       isError = true;
+      allInputsValid[params.path[0]] = false;
       return;
     }
     if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
       error = "An expression cannot start with an operator!";
       isError = true;
+      allInputsValid[params.path[0]] = false;
       return;
     }
     if (expressionElements[expressionElements.length - 1].type === "operator" && expressionElements[expressionElements.length - 1].value !== ")") {
       error = "An expression cannot finish with an operator!";
       isError = true;
+      allInputsValid[params.path[0]] = false;
       return;
     }
     let opened = 0;
@@ -1268,12 +1293,14 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
       if (opened < 0) {
         error = "Paranthesis closed more then opened!";
         isError = true;
+        allInputsValid[params.path[0]] = false;
         return;
       }
     }
     if (opened !== 0) {
       error = "Not enough paranthesis are closed as they are opened!";
       isError = true;
+      allInputsValid[params.path[0]] = false;
       return;
     }
     for (let i = 1; i < expressionElements.length; i++) {
@@ -1281,11 +1308,13 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
         if (expressionElements[i].value === "(" && expressionElements[i].type === "operator") {
           error = "Invalid expression!";
           isError = true;
+          allInputsValid[params.path[0]] = false;
           return;
         }
         if (expressionElements[i].type === "value" || expressionElements[i].type === "buffer") {
           error = "Invalid expression!";
           isError = true;
+          allInputsValid[params.path[0]] = false;
           return;
         }
       }
@@ -1296,18 +1325,21 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
           } else {
             error = "Invalid expression!";
             isError = true;
+            allInputsValid[params.path[0]] = false;
             return;
           }
         }
         if (expressionElements[i - 1].value === ")" && (expressionElements[i].type === "value" || expressionElements[i].type === "buffer")) {
           error = "Invalid expression!";
           isError = true;
+          allInputsValid[params.path[0]] = false;
           return;
         }
       }
     }
     error = "Expression is valid!";
     isError = false;
+    allInputsValid[params.path[0]] = true;
   };
   if ($$props.params === void 0 && $$bindings.params && params !== void 0)
     $$bindings.params(params);
@@ -1315,6 +1347,8 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
     $$bindings.schema(schema);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
+  if ($$props.allInputsValid === void 0 && $$bindings.allInputsValid && allInputsValid !== void 0)
+    $$bindings.allInputsValid(allInputsValid);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -1778,6 +1812,7 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let { collapsible = false } = $$props;
   let { components = {} } = $$props;
   let { componentContext = {} } = $$props;
+  let { allInputsValid } = $$props;
   createEventDispatcher();
   let validationErrors = {};
   let params;
@@ -1825,6 +1860,8 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.components(components);
   if ($$props.componentContext === void 0 && $$bindings.componentContext && componentContext !== void 0)
     $$bindings.componentContext(componentContext);
+  if ($$props.allInputsValid === void 0 && $$bindings.allInputsValid && allInputsValid !== void 0)
+    $$bindings.allInputsValid(allInputsValid);
   let $$settled;
   let $$rendered;
   let previous_head = $$result.head;
@@ -1875,8 +1912,12 @@ const SchemaForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
     };
     $$rendered = `  ${validate_component(SubSchemaForm, "SubSchemaForm").$$render(
       $$result,
-      { params, value, schema },
+      { params, value, allInputsValid, schema },
       {
+        allInputsValid: ($$value) => {
+          allInputsValid = $$value;
+          $$settled = false;
+        },
         schema: ($$value) => {
           schema = $$value;
           $$settled = false;
@@ -1907,6 +1948,7 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let { submitText = "Submit" } = $$props;
   let { submitRequiresDirty = true } = $$props;
   let { componentContext = {} } = $$props;
+  let allInputsValid = {};
   createEventDispatcher();
   let pathProgress = writable({});
   $$unsubscribe_pathProgress = subscribe(pathProgress, (value2) => $pathProgress = value2);
@@ -2009,12 +2051,17 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
         components,
         collapsible,
         componentContext,
+        allInputsValid,
         schema,
         value,
         dirty,
         uploadFiles
       },
       {
+        allInputsValid: ($$value) => {
+          allInputsValid = $$value;
+          $$settled = false;
+        },
         schema: ($$value) => {
           schema = $$value;
           $$settled = false;
@@ -2035,14 +2082,14 @@ const SubmitForm = create_ssr_component(($$result, $$props, $$bindings, slots) =
       {}
     )} <div class="button-container flex justify-between space-x-4"><button class="btn variant-ghost-surface mt-5" data-svelte-h="svelte-4ht99">Close</button> <button${add_attribute("type", action ? "submit" : "button", 0)} class="${[
       "btn variant-filled-primary background-submit !text-white mt-5 svelte-1mg8fxn",
-      !dirty && submitRequiresDirty ? "not-dirty" : ""
+      !dirty && submitRequiresDirty || Object.values(allInputsValid).includes(false) ? "not-dirty" : ""
     ].join(" ").trim()}">${escape(submitText)}</button></div></form> </div>`;
   } while (!$$settled);
   $$unsubscribe_pathProgress();
   return $$rendered;
 });
 const css = {
-  code: '.svelte-1shpih0.svelte-1shpih0{box-sizing:border-box}.container.svelte-1shpih0.svelte-1shpih0{display:flex;position:relative}.schema.svelte-1shpih0.svelte-1shpih0,.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{width:32%;border:solid 1px black;height:99vh;position:relative}.schema.svelte-1shpih0.svelte-1shpih0{border:none;display:flex;flex-direction:column}.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{margin-left:1%;padding:1em}#schema.svelte-1shpih0.svelte-1shpih0{width:100%;height:100%;gap:1em}.schema.jsonInvalid.svelte-1shpih0 #schema.svelte-1shpih0{color:darkred}#collapsible.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}.control.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}form.svelte-schema-form .subset{display:grid;grid-template-rows:auto;grid-gap:1em;align-items:flex-start;padding-left:1em;box-sizing:border-box;border:none}form.svelte-schema-form .depth-0{padding-left:0}.svelte-schema-form .object{grid-template-columns:max-content 1fr;border-left:1px solid #999;grid-column:span 2}form.svelte-schema-form .array > .object{grid-column:span 1}form.svelte-schema-form .object.depth-0{border-left:none}form.svelte-schema-form .array{grid-column:span 2;grid-template-columns:1fr max-content}form.svelte-schema-form .subset > .subset-label{margin-bottom:1em}form.svelte-schema-form .subset > .subset-label .subset-label-title{display:block}form.svelte-schema-form .array > legend{margin-left:-1em}form.svelte-schema-form .array > .object{margin-left:-1em}form.svelte-schema-form .list-item{display:flex}form.svelte-schema-form input[type="checkbox"]{justify-self:start}form.svelte-schema-form .error{grid-column:1 / span 2}form.svelte-schema-form .sf-drop-area{width:100%;display:flex}form.svelte-schema-form .sf-drop-area .sf-upload-caption{position:absolute;top:0;bottom:0;left:0;right:30px;display:flex;justify-content:center;align-items:center;z-index:-1}form.svelte-schema-form .sf-drop-area .sf-upload-controls{position:absolute;right:0;display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:4px;box-sizing:border-box}form.svelte-schema-form .sf-drop-area .sf-upload-controls button{border:0;padding:0;height:20px;width:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-controls .sf-upload-deleter{width:20px;height:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-input{align-self:center;width:calc(100% - 30px);margin:0 10px}form.svelte-schema-form .sf-drop-area.link .sf-upload-thumb, form.svelte-schema-form .sf-drop-area.link .sf-upload-file{display:none}form.svelte-schema-form .sf-drop-area .sf-upload-file{font-size:1.4em;font-weight:bold;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0.4em;color:white;background-color:#ddd}form.svelte-schema-form .sf-progress-bars{grid-column:2;display:flex;flex-direction:column;gap:3px;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar{width:100%;position:relative;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar .sf-progress-done{position:absolute;left:0;top:0;bottom:0}form.svelte-schema-form .sf-autocomplete{width:100%;position:relative}form.svelte-schema-form .sf-autocomplete .sf-items{z-index:1;position:absolute;right:0;left:0;max-height:12em;overflow-y:auto;overflow-x:hidden}form.svelte-schema-form .sf-autocomplete .sf-items > div, form.svelte-schema-form .sf-autocomplete .sf-selected-item{display:flex;align-items:center}form.svelte-schema-form .list-detail{width:100%}form.svelte-schema-form .list-detail .table-container{display:grid}form.svelte-schema-form .list-detail .row-wrapper{display:contents}form.svelte-schema-form .list-detail .item{display:flex}form.svelte-schema-form .list-detail .table-container > .element{grid-column:span 3}form.svelte-schema-form .list-detail .add-button-container{grid-column:span 3}',
+  code: '.svelte-1shpih0.svelte-1shpih0{box-sizing:border-box}.schema.svelte-1shpih0.svelte-1shpih0,.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{width:32%;border:solid 1px black;height:99vh;position:relative}.schema.svelte-1shpih0.svelte-1shpih0{border:none;display:flex;flex-direction:column}.form.svelte-1shpih0.svelte-1shpih0,.output.svelte-1shpih0.svelte-1shpih0{margin-left:1%;padding:1em}#schema.svelte-1shpih0.svelte-1shpih0{width:100%;height:100%;gap:1em}.schema.jsonInvalid.svelte-1shpih0 #schema.svelte-1shpih0{color:darkred}#collapsible.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}.control.svelte-1shpih0.svelte-1shpih0{margin-bottom:6px}form.svelte-schema-form .subset{display:grid;grid-template-rows:auto;grid-gap:1em;align-items:flex-start;padding-left:1em;box-sizing:border-box;border:none}form.svelte-schema-form .depth-0{padding-left:0}.svelte-schema-form .object{grid-template-columns:max-content 1fr;border-left:1px solid #999;grid-column:span 2}form.svelte-schema-form .array > .object{grid-column:span 1}form.svelte-schema-form .object.depth-0{border-left:none}form.svelte-schema-form .array{grid-column:span 2;grid-template-columns:1fr max-content}form.svelte-schema-form .subset > .subset-label{margin-bottom:1em}form.svelte-schema-form .subset > .subset-label .subset-label-title{display:block}form.svelte-schema-form .array > legend{margin-left:-1em}form.svelte-schema-form .array > .object{margin-left:-1em}form.svelte-schema-form .list-item{display:flex}form.svelte-schema-form input[type="checkbox"]{justify-self:start}form.svelte-schema-form .error{grid-column:1 / span 2}form.svelte-schema-form .sf-drop-area{width:100%;display:flex}form.svelte-schema-form .sf-drop-area .sf-upload-caption{position:absolute;top:0;bottom:0;left:0;right:30px;display:flex;justify-content:center;align-items:center;z-index:-1}form.svelte-schema-form .sf-drop-area .sf-upload-controls{position:absolute;right:0;display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:4px;box-sizing:border-box}form.svelte-schema-form .sf-drop-area .sf-upload-controls button{border:0;padding:0;height:20px;width:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-controls .sf-upload-deleter{width:20px;height:20px;cursor:pointer}form.svelte-schema-form .sf-drop-area .sf-upload-input{align-self:center;width:calc(100% - 30px);margin:0 10px}form.svelte-schema-form .sf-drop-area.link .sf-upload-thumb, form.svelte-schema-form .sf-drop-area.link .sf-upload-file{display:none}form.svelte-schema-form .sf-drop-area .sf-upload-file{font-size:1.4em;font-weight:bold;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0.4em;color:white;background-color:#ddd}form.svelte-schema-form .sf-progress-bars{grid-column:2;display:flex;flex-direction:column;gap:3px;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar{width:100%;position:relative;box-sizing:border-box}form.svelte-schema-form .sf-progress-bars .sf-progress-bar .sf-progress-done{position:absolute;left:0;top:0;bottom:0}form.svelte-schema-form .sf-autocomplete{width:100%;position:relative}form.svelte-schema-form .sf-autocomplete .sf-items{z-index:1;position:absolute;right:0;left:0;max-height:12em;overflow-y:auto;overflow-x:hidden}form.svelte-schema-form .sf-autocomplete .sf-items > div, form.svelte-schema-form .sf-autocomplete .sf-selected-item{display:flex;align-items:center}form.svelte-schema-form .list-detail{width:100%}form.svelte-schema-form .list-detail .table-container{display:grid}form.svelte-schema-form .list-detail .row-wrapper{display:contents}form.svelte-schema-form .list-detail .item{display:flex}form.svelte-schema-form .list-detail .table-container > .element{grid-column:span 3}form.svelte-schema-form .list-detail .add-button-container{grid-column:span 3}',
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -2102,15 +2149,24 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         type: "advancedBuffers",
         title: "Test",
         buffers: buffersText
-      }
+      },
+      y: {
+        type: "advancedBuffers",
+        title: "Test2",
+        buffers: buffersText
+      },
+      z: { type: "string", title: "Test3" }
     }
   };
-  let value = { x: "asd32[129] + 32asfd:open[03209]" };
+  let value = {
+    x: "asd32[129] + 32asfd:open[03209]",
+    y: "asd32[129] + 32asfd:open[23]"
+  };
   let valueJson = "";
   let collapsible = false;
   const componentContext = { currencySymbol: "£" };
   $$result.css.add(css);
-  return `<div class="h-full w-full flex flex-col justify-start svelte-1shpih0"><h1 class="text-2xl font-bold text-center m-3 svelte-1shpih0" data-svelte-h="svelte-fjpgye">Cylex Trading</h1> <div class="container svelte-1shpih0"><div class="${["schema svelte-1shpih0", ""].join(" ").trim()}"><div class="control svelte-1shpih0"><input type="checkbox" id="collapsible" class="svelte-1shpih0"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1shpih0" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1shpih0">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1shpih0">${validate_component(SubmitForm, "SubmitForm").$$render(
+  return `<div class="h-full w-full flex flex-col justify-start svelte-1shpih0"><h1 class="text-2xl font-bold text-center m-3 svelte-1shpih0" data-svelte-h="svelte-fjpgye">Cylex Trading</h1> <div class="svelte-1shpih0"><div class="${["schema svelte-1shpih0", ""].join(" ").trim()}"><div class="control svelte-1shpih0"><input type="checkbox" id="collapsible" class="svelte-1shpih0"${add_attribute("checked", collapsible, 1)}> <label for="collapsible" class="svelte-1shpih0" data-svelte-h="svelte-gd142">Collapsible</label></div> <textarea id="schema" class="svelte-1shpih0">${"test " + escape(JSON.stringify(schema, void 0, 2), false)}</textarea></div> <div class="form svelte-1shpih0">${validate_component(SubmitForm, "SubmitForm").$$render(
     $$result,
     {
       schema,
