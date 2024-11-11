@@ -1164,7 +1164,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
   const isDigit = (char) => char >= "0" && char <= "9";
   const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
   const convertValueToExpression = (formValue) => {
-    if (formValue.length === 0)
+    if (!formValue || formValue.length <= 0)
       return;
     if (runOneTime) {
       runOneTime = false;

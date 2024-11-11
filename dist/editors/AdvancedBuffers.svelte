@@ -31,7 +31,7 @@ const isNumeric = (value2) => /^-?\d+$/.test(value2);
 const isValidChar = (char) => typeof char === "string" && (char.toLowerCase() != char.toUpperCase() || char === ":");
 const capitalizeFirstLetter = (value2) => value2.charAt(0).toUpperCase() + value2.slice(1);
 const convertValueToExpression = (formValue) => {
-  if (formValue.length === 0)
+  if (!formValue || formValue.length <= 0)
     return;
   if (runOneTime) {
     runOneTime = false;
@@ -192,6 +192,12 @@ function clickOutside(node) {
   };
 }
 const validateExpression = () => {
+  console.log(expressionElements);
+  if (expressionElements.length <= 0) {
+    error = "An expression is needed!";
+    isError = true;
+    return;
+  }
   if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
     error = "An expression cannot start with an operator!";
     isError = true;

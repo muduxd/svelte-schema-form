@@ -82,7 +82,7 @@
     // - CONVERSION FUNCTIONS -
 
     const convertValueToExpression = (formValue: string): void => {
-        if (formValue.length === 0) return
+        if (!formValue || formValue.length <= 0) return
 
         if (runOneTime) {
             runOneTime = false
@@ -346,6 +346,12 @@
 
 
     const validateExpression = (): void => {
+        console.log(expressionElements)
+        if(expressionElements.length <= 0){
+            error = "An expression is needed!"
+            isError = true
+            return
+        }
         if (expressionElements[0].type === "operator" && expressionElements[0].value !== "(") {
             error = "An expression cannot start with an operator!"
             isError = true
