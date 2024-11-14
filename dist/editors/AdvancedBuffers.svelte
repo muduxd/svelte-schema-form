@@ -265,7 +265,6 @@ const validateExpression = () => {
       }
     }
   }
-  error = "Expression is valid!";
   isError = false;
   allInputsValid[params.path[0]] = true;
 };
@@ -342,8 +341,8 @@ $: {
             <div class="flex align-center gap-[10px]">
                 <input class="input" type="search" name="search" placeholder="Search..." autocomplete="off" bind:value={inputValue} on:keydown={submit} />
             </div>
-            {#if error != ""}
-                <span class="{isError ? "text-rose-600" : "text-green-500"} text-center font-bold h-[30px]">{error}</span>
+            {#if error != "" && isError}
+                <span class="{isError ? "text-rose-600" : ""} text-center font-bold h-[30px]">{error}</span>
             {/if}
 
 

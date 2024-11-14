@@ -1337,7 +1337,6 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
         }
       }
     }
-    error = "Expression is valid!";
     isError = false;
     allInputsValid[params.path[0]] = true;
   };
@@ -1417,7 +1416,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               })}`;
             }
           }
-        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}></div> ${error != "" ? `<span class="${escape(isError ? "text-rose-600" : "text-green-500", true) + " text-center font-bold h-[30px]"}">${escape(error)}</span>` : ``} ${``}</div>`}`;
+        )} <div class="flex align-center gap-[10px]"><input class="input" type="search" name="search" placeholder="Search..." autocomplete="off"${add_attribute("value", inputValue, 0)}></div> ${error != "" && isError ? `<span class="${escape(isError ? "text-rose-600" : "", true) + " text-center font-bold h-[30px]"}">${escape(error)}</span>` : ``} ${``}</div>`}`;
       }
     })}`;
   } while (!$$settled);
