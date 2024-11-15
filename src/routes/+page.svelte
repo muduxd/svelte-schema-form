@@ -108,7 +108,7 @@
 			 y: { type: "advancedBuffers", title: "Test2", buffers: 
 				buffersText
 			 },
-			 z:{ type: "string", title: "Test3"}
+			 z:{ type: "buffers", title: "Test3", buffers:buffersText, objects:buffersText}
         }
 	}
 
