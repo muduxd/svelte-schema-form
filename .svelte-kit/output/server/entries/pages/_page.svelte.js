@@ -1201,7 +1201,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
           ...expressionElements,
           {
             type: "operator",
-            color: "#ffcc00",
+            color: "#e28743",
             value: formValue[i]
           }
         ];
@@ -1216,7 +1216,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
           {
             type: "value",
             value: +numberValue,
-            color: "blue"
+            color: "#asdasd"
           }
         ];
       } else if (isValidChar(formValue[i])) {
@@ -1244,7 +1244,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
           {
             type: "buffer",
             value: stringValue,
-            color: "red",
+            color: "#1B1F3B",
             position: +position,
             category: "indicator"
           }
@@ -1370,7 +1370,7 @@ const AdvancedBuffers = create_ssr_component(($$result, $$props, $$bindings, slo
               ...buffers,
               {
                 type: "buffer",
-                color: "red",
+                color: "#1B1F3B",
                 position: null,
                 value: results[i].text,
                 category: results[i].category

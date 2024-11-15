@@ -4,12 +4,12 @@ import { afterUpdate, onMount } from "svelte";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Fa from "svelte-fa";
 const operators = [
-  { type: "operator", color: "#ffcc00", value: "(" },
-  { type: "operator", color: "#ffcc00", value: ")" },
-  { type: "operator", color: "#ffcc00", value: "+" },
-  { type: "operator", color: "#ffcc00", value: "-" },
-  { type: "operator", color: "#ffcc00", value: "*" },
-  { type: "operator", color: "#ffcc00", value: "/" }
+  { type: "operator", color: "#e28743", value: "(" },
+  { type: "operator", color: "#e28743", value: ")" },
+  { type: "operator", color: "#e28743", value: "+" },
+  { type: "operator", color: "#e28743", value: "-" },
+  { type: "operator", color: "#e28743", value: "*" },
+  { type: "operator", color: "#e28743", value: "/" }
 ];
 let buffers = [];
 let bufferCategories = [];
@@ -42,14 +42,14 @@ const convertValueToExpression = (formValue) => {
   }
   for (let i = 0; i < formValue.length; i++) {
     if ("+-*/()".includes(formValue[i])) {
-      expressionElements = [...expressionElements, { type: "operator", color: "#ffcc00", value: formValue[i] }];
+      expressionElements = [...expressionElements, { type: "operator", color: "#e28743", value: formValue[i] }];
     } else if (isDigit(formValue[i])) {
       let numberValue = formValue[i++];
       while (isDigit(formValue[i])) {
         numberValue += formValue[i++];
       }
       i--;
-      expressionElements = [...expressionElements, { type: "value", value: +numberValue, color: "blue" }];
+      expressionElements = [...expressionElements, { type: "value", value: +numberValue, color: "#asdasd" }];
     } else if (isValidChar(formValue[i])) {
       let stringValue = formValue[i++];
       let position = "";
@@ -70,7 +70,7 @@ const convertValueToExpression = (formValue) => {
         stringValue += formValue[i++];
       }
       i--;
-      expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "red", position: +position, category: "indicator" }];
+      expressionElements = [...expressionElements, { type: "buffer", value: stringValue, color: "#1B1F3B", position: +position, category: "indicator" }];
     }
   }
 };
@@ -106,7 +106,7 @@ function submit(event) {
     if (isNumeric(inputValue)) {
       addExpression({
         type: "value",
-        color: "blue",
+        color: "#asdasd",
         value: +inputValue
       });
     }
@@ -277,7 +277,7 @@ $: {
   if (Array.isArray(schema.buffers)) {
     const results = [...schema.buffers];
     for (let i = 0; i < results.length; i++) {
-      buffers = [...buffers, { type: "buffer", color: "red", position: null, value: results[i].text, category: results[i].category }];
+      buffers = [...buffers, { type: "buffer", color: "#1B1F3B", position: null, value: results[i].text, category: results[i].category }];
     }
     buffers = buffers.sort((a, b) => a.category.localeCompare(b.category));
     bufferCategories = [...new Set(buffers.map((e) => e.category))].sort();
